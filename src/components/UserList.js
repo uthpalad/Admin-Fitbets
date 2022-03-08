@@ -106,6 +106,7 @@ export default class UserList extends Component {
                         href={`/employee/${emp._id}`}
                         style={{ textDecoration: "none", color: "black" }}
                       >
+                     
                         {emp.fname}
                       </a>
                     </td>

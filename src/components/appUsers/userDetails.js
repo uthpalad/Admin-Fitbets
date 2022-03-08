@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import "./userProfile.css";
-import Sidebar from "./Sidebar/Sidebar";
-
-export default class userProfile extends Component {
+import "./user.css"
+export default class userDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,28 +9,27 @@ export default class userProfile extends Component {
     };
   }
 
-  componentDidMount() {
-    this.retrieveEmployees();
-  }
+  // componentDidMount() {
+  //   this.retrieveEmployees();
+  // }
 
-  retrieveEmployees() {
-    const id = this.props.match.params.id;
-    axios
-      .get(`http://localhost:9000/employee/getEmployee/${id}`)
-      .then((res) => {
-        if (res.data.success) {
-          this.setState({
-            emp: res.data.emp,
-          });
-        }
-      });
-  }
+  // retrieveEmployees() {
+  //   const id = this.props.match.params.id;
+  //   axios
+  //     .get(`http://localhost:9000/employee/getEmployee/${id}`)
+  //     .then((res) => {
+  //       if (res.data.success) {
+  //         this.setState({
+  //           emp: res.data.emp,
+  //         });
+  //       }
+  //     });
+  // }
 
   render() {
-    const { fname, lname, address, email, contactNumber, image } =
-      this.state.emp;
+    // const { username, email,image} =
+    //   this.state.emp;
     return (
-
       <div className="page-content page-container" id="page-content">
         <div className="padding">
           <div className="row container d-flex justify-content-center">
@@ -45,15 +41,15 @@ export default class userProfile extends Component {
                       <div className="m-b-25">
                         {" "}
                         <img
-                          src={image}
+                          // src={image}
                           className="img-radius"
                           alt="User-Profile-Image"
                         />{" "}
                       </div>
                       <h6 className="f-w-600">
-                        {fname} {""} {lname}
+                        {/* {username} */}
                       </h6>
-                      <p>{contactNumber}</p>{" "}
+                 
                       <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                     </div>
                   </div>
@@ -65,13 +61,20 @@ export default class userProfile extends Component {
                       <div className="row">
                         <div className="col-sm-6">
                           <p className="m-b-10 f-w-500">Email</p>
-                          <h6 className="text-muted f-w-400">{email}</h6>
+                          <h6 className="text-muted f-w-400">
+                            {/* {email} */}
+                          </h6>
                         </div>
                         <div className="col-sm-6">
-                          <p className="m-b-10 f-w-500">Address</p>
-                          <h6 className="text-muted f-w-400">{address}</h6>
+                          <p className="m-b-10 f-w-500"> idols list</p>
+                          <h6 className="text-muted f-w-400"></h6>
+                        </div>
+                        <div className="col-sm-6">
+                          <p className="m-b-10 f-w-500">friends list</p>
+                          <h6 className="text-muted f-w-400"></h6>
                         </div>
                       </div>
+
                       <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-500"></h6>
                     </div>
                   </div>
@@ -81,7 +84,6 @@ export default class userProfile extends Component {
           </div>
         </div>
       </div>
-
     );
   }
 }
