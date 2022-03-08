@@ -1,19 +1,22 @@
-import React from 'react';
+import React from "react";
 import * as IoIcons from "react-icons/io";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "../Subcategory/SubCategoryList.css";
+import Sidebar from "../Sidebar/Sidebar";
 
 function SubCategoryList() {
   return (
-    <div className="SubCategoryList">
+    <div>
+      <Sidebar />
+      <div className="SubCategoryList">
         <div className="PlusButton">
-            <Link to = "/subcategory">
-        <IoIcons.IoIosAdd />
-        </Link>
-            </div>
-
+          <Link to="/subcategory">
+            <IoIcons.IoIosAdd />
+          </Link>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
 export default SubCategoryList;

@@ -66,46 +66,48 @@ const Category = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.signup_container}>
-        <div className={styles.signup_form_container}>
-          
-          <div className={styles.right}>
-            <form className={styles.form_container} onSubmit={changeOnClick}>
-              <h3>Create Sub-Category</h3>
+    <div>
+      <Sidebar />
+      <div className={styles.container}>
+        <div className={styles.signup_container}>
+          <div className={styles.signup_form_container}>
+            <div className={styles.right}>
+              <form className={styles.form_container} onSubmit={changeOnClick}>
+                <h3>Create Sub-Category</h3>
 
-              <input
-                type="file"
-                placeholder="Upload your image"
-                filename="subimage"
-                onChange={onChangeFile}
-                required
-                className={styles.input}
-              />
-              <input
-                type="text"
-                placeholder="Sub Category Name"
-                id="subname"
-                value={subCategoryName}
-                onChange={(e) => setSubCategoryName(e.target.value)}
-                required
-                className={styles.input}
-              />
-              <input
-                type="text"
-                placeholder="Challenges"
-                id="challenges"
-                value={challenges}
-                onChange={(e) => setChallenges(e.target.value)}
-                required
-                className={styles.input}
-              />
-              
-              {error && <div className={styles.error_msg}>{error}</div>}
-              <button type="submit" className={styles.green_btn}>
-                Create
-              </button>
-            </form>
+                <input
+                  type="file"
+                  placeholder="Upload your image"
+                  filename="subimage"
+                  onChange={onChangeFile}
+                  required
+                  className={styles.input}
+                />
+                <input
+                  type="text"
+                  placeholder="Sub Category Name"
+                  id="subname"
+                  value={subCategoryName}
+                  onChange={(e) => setSubCategoryName(e.target.value)}
+                  required
+                  className={styles.input}
+                />
+                <input
+                  type="text"
+                  placeholder="Challenges"
+                  id="challenges"
+                  value={challenges}
+                  onChange={(e) => setChallenges(e.target.value)}
+                  required
+                  className={styles.input}
+                />
+
+                {error && <div className={styles.error_msg}>{error}</div>}
+                <button type="submit" className={styles.green_btn}>
+                  Create
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ import Category from "./components/Category/Category";
 import Subcategory from "./components/Subcategory/Subcategory";
 import AddUser from "./components/AddUser/AddUser";
 import AddUserList from "./components/AddUserList/AddUserList";
-import Sidebar from "./components/Sidebar/Sidebar";
+// import Sidebar from "./components/Sidebar/Sidebar";
 import CategoryList from "./components/Category/CategoryList";
 import SubCategoryList from "./components/Subcategory/SubCategoryList";
 
@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Sidebar />
+        {/* <Sidebar /> */}
         <Switch>
           <Route exact path="/">
             <Login />

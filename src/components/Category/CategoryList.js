@@ -1,19 +1,22 @@
-import React from 'react';
+import React from "react";
 import * as IoIcons from "react-icons/io";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "../Category/CategoryList.css";
+import Sidebar from "../Sidebar/Sidebar";
 
 function CategoryList() {
   return (
-    <div className="CategoryList">
+    <div>
+      <Sidebar />
+      <div className="CategoryList">
         <div className="PlusButton">
-            <Link to = "/category">
-        <IoIcons.IoIosAdd />
-        </Link>
-            </div>
-
+          <Link to="/category">
+            <IoIcons.IoIosAdd />
+          </Link>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default CategoryList
+export default CategoryList;

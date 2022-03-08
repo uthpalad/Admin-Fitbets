@@ -23,12 +23,11 @@ const Category = () => {
 
     formData.append("title", categoryTitle);
     formData.append("description", description);
-    formData.append("image",categoryImageFile );
+    formData.append("image", categoryImageFile);
 
     setcategoryImageFile("");
     setcategoryTitle("");
     setdescription("");
-    
 
     //  axios.post('http://localhost:9000/employee/createEmployee',formData)
     //  .then((res)=>(res.data.success))
@@ -64,49 +63,49 @@ const Category = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.signup_container}>
-        <div className={styles.signup_form_container}>
-          
-          <div className={styles.right}>
-            <form className={styles.form_container} onSubmit={changeOnClick}>
-              <h3>Create Category</h3>
+    <div>
+      <Sidebar />
+      <div className={styles.container}>
+        <div className={styles.signup_container}>
+          <div className={styles.signup_form_container}>
+            <div className={styles.right}>
+              <form className={styles.form_container} onSubmit={changeOnClick}>
+                <h3>Create Category</h3>
 
-              
-              <input
-                type="text"
-                placeholder="Category Name"
-                id="title"
-                value={categoryTitle}
-                onChange={(e) => setcategoryTitle(e.target.value)}
-                required
-                className={styles.input}
-              />
-              <input
-                type="text"
-                placeholder="description"
-                id="description"
-                value={description}
-                onChange={(e) => setdescription(e.target.value)}
-                required
-                className={styles.input}
-              />
+                <input
+                  type="text"
+                  placeholder="Category Name"
+                  id="title"
+                  value={categoryTitle}
+                  onChange={(e) => setcategoryTitle(e.target.value)}
+                  required
+                  className={styles.input}
+                />
+                <input
+                  type="text"
+                  placeholder="description"
+                  id="description"
+                  value={description}
+                  onChange={(e) => setdescription(e.target.value)}
+                  required
+                  className={styles.input}
+                />
 
+                <input
+                  type="file"
+                  placeholder="Upload your image"
+                  filename="image"
+                  onChange={onChangeFile}
+                  required
+                  className={styles.input}
+                />
 
-              <input
-                type="file"
-                placeholder="Upload your image"
-                filename="image"
-                onChange={onChangeFile}
-                required
-                className={styles.input}
-              />
-              
-              {error && <div className={styles.error_msg}>{error}</div>}
-              <button type="submit" className={styles.green_btn}>
-                Create
-              </button>
-            </form>
+                {error && <div className={styles.error_msg}>{error}</div>}
+                <button type="submit" className={styles.green_btn}>
+                  Create
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
