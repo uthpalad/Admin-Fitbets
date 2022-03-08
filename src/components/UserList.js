@@ -63,7 +63,8 @@ export default class UserList extends Component {
 
   render() {
     return (
-   
+      <div>
+        <Sidebar />
         <div className="container">
           <br />
           <br />
@@ -136,7 +137,7 @@ export default class UserList extends Component {
             </tbody>
           </table>
         </div>
-
+      </div>
     );
   }
 }

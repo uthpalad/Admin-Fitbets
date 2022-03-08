@@ -20,7 +20,7 @@ function Navbar() {
           </Link>
         </div>
         <nav className="nav-menu active">
-          <ul className="nav-menu-items" >
+          <ul className="nav-menu-items">
             {/* <li className="navbar-toggle">
               <Link to="#" className="menu-bars">
                 <AiIcons.AiOutlineClose />

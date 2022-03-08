@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import Sidebar from "../Sidebar/Sidebar";
 
 const ImgSlider = (props) => {
   let settings = {
@@ -14,29 +15,32 @@ const ImgSlider = (props) => {
     autoplay: true,
   };
   return (
-    <Carousel {...settings}>
-      <Wrap>
-        <a>
-          <img src="./images/1.jpeg " />
-        </a>
-      </Wrap>
-      <Wrap>
-        <a>
-          <img src="./images/2..jpeg" />
-        </a>
-      </Wrap>
-      <Wrap>
-        <a>
-          <img src="./images/3.jpeg" />
-        </a>
-      </Wrap>
-      <Wrap>
-        <a>
-          {" "}
-          <img src="./images/4.jpeg" />
-        </a>
-      </Wrap>
-    </Carousel>
+    <div>
+      <Sidebar />
+      <Carousel {...settings}>
+        <Wrap>
+          <a>
+            <img src="./images/1.jpeg " />
+          </a>
+        </Wrap>
+        <Wrap>
+          <a>
+            <img src="./images/2..jpeg" />
+          </a>
+        </Wrap>
+        <Wrap>
+          <a>
+            <img src="./images/3.jpeg" />
+          </a>
+        </Wrap>
+        <Wrap>
+          <a>
+            {" "}
+            <img src="./images/4.jpeg" />
+          </a>
+        </Wrap>
+      </Carousel>
+    </div>
   );
 };
 
