@@ -24,14 +24,14 @@ export const SidebarData = [
   },
   {
     title: "Admin List",
-    path: "/userlist",
+    path: "/adduser",
     icon: <IoIcons.IoMdContact />,
     cName: "nav-text",
   },
 
   {
     title: "User List",
-    path: "/adduserlist",
+    path: "userList",
     icon: <IoIcons.IoMdPeople />,
     cName: "nav-text",
   },

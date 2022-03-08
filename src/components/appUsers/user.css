@@ -2,6 +2,10 @@ body {
   background-color: #f9f9fa;
 }
 
+.container{
+  position:absolute;
+  left: 0px;
+}
 .padding {
   padding: 3rem !important;
 }
@@ -11,13 +15,8 @@ body {
 }
 
 .card {
-  margin-left: 0;
+  margin-left: -900pxpx;
   padding-left: 0;
-  /* border-radius: 5px;
-    -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
-    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
-    border: none;
-    margin-bottom: 5px */
   height: 100%;
   width: 800px;
 }
@@ -43,7 +42,7 @@ body {
     to(#ee5a6f)
   );
   /* background: linear-gradient(to right,  #61dafb, #378682) */
-  background: black;
+  background:#1c1c1c;
 }
 
 .user-profile {

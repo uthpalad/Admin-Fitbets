@@ -1,0 +1,20 @@
+
+
+.container{
+   position: absolute;
+   left: 240px;
+ 
+}
+.table{
+  empty-cells: show;
+  position: initial;
+  top: 40px;
+  left: 200px;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.img{
+    
+ border-radius: 50px !important;
+}

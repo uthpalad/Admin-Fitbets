@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./addUserList.css";
-import Sidebar from "../Sidebar/Sidebar";
 import Swal from "sweetalert2";
 
 export default class AddUserList extends Component {
@@ -66,7 +64,8 @@ export default class AddUserList extends Component {
 
         <div className="container">
           <br />
-          <br />
+        <br />
+  
           <div
             class="input-group rounded"
             style={{ marginLeft: "80px", width: "1000px" }}

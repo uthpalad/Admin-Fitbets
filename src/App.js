@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Home from "./components/Home";
 import Register from "./components/Register/Register";
-import UserList from "./components/UserList";
+import UserList from "./components/appUsers/UserList";
 import EditProfile from "./components/EditProfile";
-import userProfile from "./components/appUsers/userDetails";
 import Category from "./components/Category/Category";
 import Subcategory from "./components/Subcategory/Subcategory";
 import AddUser from "./components/AddUser/AddUser";
@@ -14,6 +13,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import CategoryList from "./components/Category/CategoryList";
 import SubCategoryList from "./components/Subcategory/SubCategoryList";
 import userDetails from "./components/appUsers/userDetails";
+
 
 
 function App() {
@@ -46,12 +46,10 @@ function App() {
           <Route path="/adduser">
             <AddUser />
           </Route>
-          <Route path="/userDetails/:_id">
-            <userDetails/>
-          </Route>
           <Route path="/editProfile/:_id" component={EditProfile} />
           <Route path="/userList" component={UserList} />
           <Route path="/adduserlist" component={AddUserList} />
+          <Route path="/userDetails/:id" component={userDetails} />
         </Switch>
       </Router>
     </div>
