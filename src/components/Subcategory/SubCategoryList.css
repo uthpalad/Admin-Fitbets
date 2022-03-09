@@ -1,5 +1,20 @@
-.CategoryList{
-    margin-left: 50px;
-    
-    
+.CategoryList {
+  margin-left: 50px;
+}
+
+.add_button {
+  background-color: #212138;
+  color: white;
+  font-size: 15px;
+  padding: 10px 60px;
+  border-radius: 5px;
+  /* margin: 10px 0px; */
+  cursor: pointer;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.add_button a {
+  color: aliceblue;
 }

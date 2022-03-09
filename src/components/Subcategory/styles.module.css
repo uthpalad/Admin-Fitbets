@@ -1,34 +1,18 @@
-.signup_container {
+.signup_form_container {
   width: 100%;
-  min-height: 50vh;
-  background-color: #fafafa;
+  height: 650px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  
-}
-
-/* .dropdown{
-  outline: none;
-  border: none;
-  width: 370px;
-  padding: 15px;
-  border-radius: 10px;
-  background-color: #edf5f3;
-  margin: 5px 0;
-  font-size: 14px;
-} */
-
-/* .signup_form_container {
-  width: 800px;
-  height: 900px; 
-  display: flex;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   box-shadow: 0px 3px 3px -2px rgba(214, 11, 11, 0.2),
     0px 3px 4px 0px rgba(194, 4, 4, 0.14), 0px 1px 8px 0px rgb(0 0 0 / 12%);
   overflow-y: auto;
-  margin-top: 20px;
-} */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://media.istockphoto.com/photos/gray-abstract-minimal-motion-backgrounds-loopable-elements-4k-picture-id1174989482?b=1&k=20&m=1174989482&s=170667a&w=0&h=ld7ukW9KTzUlJLc6c37C2xs5ESYP2wLyjxsEVCumn2s=");
+  background-size: cover;
+}
 
 .left {
   flex: 1;
@@ -70,7 +54,13 @@
   border-bottom-right-radius: 10px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  border: 4px solid black;
+  border: 4px solid darkgray;
+  background-color: lightgray;
+}
+
+.right h3 {
+  color: rgb(87, 85, 85);
+  top: 0px;
 }
 
 .form_container {
@@ -124,5 +114,3 @@
   color: white;
   margin: 10px;
 }
-
-
