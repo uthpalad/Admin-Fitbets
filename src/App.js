@@ -13,6 +13,7 @@ import AddUserList from "./components/AddUserList/AddUserList";
 import Sidebar from "./components/Sidebar/Sidebar";
 import CategoryList from "./components/Category/CategoryList";
 import SubCategoryList from "./components/Subcategory/SubCategoryList";
+import Objective from "./components/Objective/Objective";
 
 
 function App() {
@@ -42,8 +43,8 @@ function App() {
           <Route path="/subcategorylist">
             <SubCategoryList />
           </Route>
-          <Route path="/adduser">
-            <AddUser />
+          <Route path="/objective">
+            <Objective />
           </Route>
           <Route path="/editProfile/:_id" component={EditProfile} />
           <Route path="/userProfile/:id" component={userProfile} />

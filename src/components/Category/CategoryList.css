@@ -1,5 +1,14 @@
 .CategoryList{
-    margin-left: 50px;
-    
-    
+    margin-left: 50px;  
+
 }
+ .container{
+   margin-left: 200px;
+   margin-right: 0px;
+   background: goldenrod;
+ }
+/* 
+ .PlusButton{
+    border: black;
+    border-radius: 50%;
+ } */

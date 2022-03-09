@@ -23,6 +23,12 @@ export const SidebarData = [
     cName: "nav-text",
   },
   {
+    title: "Objective",
+    path: "/objective",
+    icon: <IoIcons.IoIosArrowDropdown />,
+    cName: "nav-text",
+  },
+  {
     title: "Admin List",
     path: "/userlist",
     icon: <IoIcons.IoMdContact />,

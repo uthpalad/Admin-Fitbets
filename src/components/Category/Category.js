@@ -1,6 +1,5 @@
 import { Link, useHistory } from "react-router-dom";
 import styles from "../Category/styles.module.css";
-import Sidebar from "../Sidebar/Sidebar";
 import Swal from "sweetalert2";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -64,6 +63,7 @@ const Category = () => {
   };
 
   return (
+  
     <div className={styles.container}>
       <div className={styles.signup_container}>
         <div className={styles.signup_form_container}>
@@ -111,6 +111,7 @@ const Category = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 

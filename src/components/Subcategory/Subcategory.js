@@ -69,7 +69,7 @@ const Category = () => {
     <div className={styles.container}>
       <div className={styles.signup_container}>
         <div className={styles.signup_form_container}>
-          
+
           <div className={styles.right}>
             <form className={styles.form_container} onSubmit={changeOnClick}>
               <h3>Create Sub-Category</h3>
@@ -100,12 +100,25 @@ const Category = () => {
                 required
                 className={styles.input}
               />
-              
+
+              <div className="dropdown">
+              <label>
+                Select a Category:
+                <select >
+                  <option value="grapefruit">Sports</option>
+                  <option value="lime">Fashion</option>
+                  <option value="coconut">Entertainment</option>
+                </select>
+              </label>
+              </div>
+
               {error && <div className={styles.error_msg}>{error}</div>}
               <button type="submit" className={styles.green_btn}>
                 Create
               </button>
+
             </form>
+
           </div>
         </div>
       </div>
