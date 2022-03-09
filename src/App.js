@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Home from "./components/Home";
 import Register from "./components/Register/Register";
-import UserList from "./components/UserList";
+import UserList from "./components/appUsers/UserList";
 import EditProfile from "./components/EditProfile";
 import userProfile from "./components/userProfile";
 import Category from "./components/Category/Category";
@@ -14,7 +14,11 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import CategoryList from "./components/Category/CategoryList";
 import SubCategoryList from "./components/Subcategory/SubCategoryList";
 import Objective from "./components/Objective/Objective";
-
+import userDetails from "./components/appUsers/userDetails";
+import friends from "./components/appUsers/friends";
+import idols from "./components/appUsers/idols";
+import posts from "./components/appUsers/posts";
+import challenges from "./components/appUsers/challenges";
 
 function App() {
   return (
@@ -33,13 +37,13 @@ function App() {
           </Route>
           <Route path="/category">
             <Category />
-            </Route>
+          </Route>
           <Route path="/categorylist">
-            <CategoryList/>
+            <CategoryList />
           </Route>
           <Route path="/subcategory">
             <Subcategory />
-            </Route>
+          </Route>
           <Route path="/subcategorylist">
             <SubCategoryList />
           </Route>
@@ -49,7 +53,12 @@ function App() {
           <Route path="/editProfile/:_id" component={EditProfile} />
           <Route path="/userProfile/:id" component={userProfile} />
           <Route path="/userList" component={UserList} />
-          <Route path="/adduserlist" component={AddUserList} />
+          {/* <Route path="/adduserlist" component={AddUserList} /> */}
+          <Route path="/friends" component={friends} />
+          <Route path="/idols" component={idols} />
+          <Route path="/posts" component={posts} />
+          <Route path="/challenges" component={challenges} />
+          <Route path="/userDetails/:id" component={userDetails} />
         </Switch>
       </Router>
     </div>
