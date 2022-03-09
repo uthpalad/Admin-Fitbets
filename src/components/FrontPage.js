@@ -1,30 +1,30 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import Sidebar from "../Sidebar/Sidebar";
+import { Link} from "react-router-dom";
 
 const FrontPage = (props) => {
   return (
-    <div>
-      <Sidebar />
-      <Container>
-        <Content>
-          <CTA>
-            {/* <CTALogoOne src="/images/cta-logo-one.svg" /> */}
-            <SignUp>
-              <Link to="/register">Register</Link>
-            </SignUp>
-            <br />
-            <SignIn>
-              <Link to="/login">Login</Link>
-            </SignIn>
-            {/* <Description>
+    <Container>
+      <Content>
+        <CTA>
+          {/* <CTALogoOne src="/images/cta-logo-one.svg" /> */}
+          <SignUp>
+          <Link to="/register"> 
+            Register
+          </Link>
+          </SignUp>
+          <br />
+          <SignIn>
+          <Link to="/login"> 
+          Login
+          </Link>
+          </SignIn>
+          {/* <Description>
           </Description> */}
-            {/* <CTALogoTwo src="/images/cta-logo-two.png" /> */}
-          </CTA>
-          <BgImage />
-        </Content>
-      </Container>
-    </div>
+          {/* <CTALogoTwo src="/images/cta-logo-two.png" /> */}
+        </CTA>
+        <BgImage />
+      </Content>
+    </Container>
   );
 };
 

@@ -14,12 +14,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const url = "http://localhost:9000/employee/login";
-      // const { data: res } = await axios.post(url, data);
-      // console.log(res.data);
-      // localStorage.setItem("token", res.data.token);
-      // localStorage.setItem("userId", res.data.userId);
-      window.location = "/categorylist";
+      const url = "http://localhost:9000/employee/login";
+      const { data: res } = await axios.post(url, data);
+      console.log(res.data);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userId", res.data.userId);
+      window.location = "/home";
     } catch (error) {
       if (
         error.response &&

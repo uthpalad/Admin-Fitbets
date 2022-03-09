@@ -6,6 +6,7 @@ import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
 
 const AddUser = () => {
+
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [address, setAddress] = useState("");
@@ -23,12 +24,14 @@ const AddUser = () => {
     formData.append("address", address);
     formData.append("email", email);
     formData.append("contactNumber", contactNumber);
+  
 
     setFname("");
     setLname("");
     setAddress("");
     setEmail("");
     setContactNumber("");
+ 
 
     try {
       axios
@@ -55,75 +58,74 @@ const AddUser = () => {
       } else {
         console.log(error);
       }
-      console.log(error);
+    console.log(error)
     }
   };
 
   return (
-    <div>
-      <Sidebar />
-      <div className={styles.signup_container}>
-        <div className={styles.signup_form_container}>
-          <div className={styles.right}>
-            <form className={styles.form_container} onSubmit={changeOnClick}>
-              <h3>Add User</h3>
 
-              <input
-                type="text"
-                placeholder="First Name"
-                id="fname"
-                value={fname}
-                onChange={(e) => setFname(e.target.value)}
-                required
-                className={styles.input}
-              />
-              <input
-                type="text"
-                placeholder="Last Name"
-                id="lname"
-                value={lname}
-                onChange={(e) => setLname(e.target.value)}
-                required
-                className={styles.input}
-              />
-              <input
-                type="text"
-                placeholder="Address"
-                id="address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required
-                className={styles.input}
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className={styles.input}
-              />
-              <input
-                type="text"
-                placeholder="Contact Number"
-                id="fname"
-                value={contactNumber}
-                onChange={(e) => setContactNumber(e.target.value)}
-                required
-                className={styles.input}
-              />
+    <div className={styles.signup_container}>
+      <div className={styles.signup_form_container}>
+       
+        <div className={styles.right}>
+          <form className={styles.form_container} onSubmit={changeOnClick}>
+            <h3>Add User</h3>
 
-              {error && <div className={styles.error_msg}>{error}</div>}
-              <button type="submit" className={styles.green_btn}>
-                Add User
-              </button>
-            </form>
-          </div>
+            <input
+              type="text"
+              placeholder="First Name"
+              id="fname"
+              value={fname}
+              onChange={(e) => setFname(e.target.value)}
+              required
+              className={styles.input}
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              id="lname"
+              value={lname}
+              onChange={(e) => setLname(e.target.value)}
+              required
+              className={styles.input}
+            />
+            <input
+              type="text"
+              placeholder="Address"
+              id="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              required
+              className={styles.input}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className={styles.input}
+            />
+            <input
+              type="text"
+              placeholder="Contact Number"
+              id="fname"
+              value={contactNumber}
+              onChange={(e) => setContactNumber(e.target.value)}
+              required
+              className={styles.input}
+            />
+           
+            {error && <div className={styles.error_msg}>{error}</div>}
+            <button type="submit" className={styles.green_btn}>
+              Add User
+            </button>
+          </form>
         </div>
       </div>
     </div>
-  );
+      );
 };
 
 export default AddUser;

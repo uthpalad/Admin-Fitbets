@@ -63,8 +63,7 @@ export default class UserList extends Component {
 
   render() {
     return (
-      <div>
-        <Sidebar />
+   
         <div className="container">
           <br />
           <br />
@@ -107,7 +106,6 @@ export default class UserList extends Component {
                         href={`/employee/${emp._id}`}
                         style={{ textDecoration: "none", color: "black" }}
                       >
-                     
                         {emp.fname}
                       </a>
                     </td>
@@ -138,7 +136,7 @@ export default class UserList extends Component {
             </tbody>
           </table>
         </div>
-      </div>
+
     );
   }
 }

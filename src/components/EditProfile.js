@@ -74,74 +74,73 @@ const EditProfile = () => {
   }, []);
 
   return (
-    <div>
-      <Sidebar />
-      <div className={styles.signup_container}>
-        <div className={styles.signup_form_container}>
-          <div className={styles.right}>
-            <form className={styles.form_container} onSubmit={updateUserData}>
-              <h3>Edit Profile</h3>
-              <input
-                type="text"
-                placeholder="First Name"
-                name="fname"
-                value={user.fname}
-                onChange={handleChange}
-                required
-                className={styles.input}
-              />
-              <input
-                type="text"
-                placeholder="Last Name"
-                name="lname"
-                value={user.lname}
-                onChange={handleChange}
-                required
-                className={styles.input}
-              />
-              <input
-                type="text"
-                placeholder="Address"
-                name="address"
-                value={user.address}
-                onChange={handleChange}
-                required
-                className={styles.input}
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                name="email"
-                value={user.email}
-                onChange={handleChange}
-                required
-                className={styles.input}
-              />
-              <input
-                type="text"
-                placeholder="Contact Number"
-                name="fname"
-                value={user.contactNumber}
-                onChange={handleChange}
-                required
-                className={styles.input}
-              />
 
-              <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={user.password}
-                onChange={handleChange}
-                // required
-                className={styles.input}
-              />
-              {error && <div className={styles.error_msg}>{error}</div>}
-              <button type="submit" className={styles.green_btn}>
-                Update
-              </button>
-            </form>
-          </div>
+    <div className={styles.signup_container}>
+      <div className={styles.signup_form_container}>
+        
+        <div className={styles.right}>
+          <form className={styles.form_container} onSubmit={updateUserData}>
+            <h3>Edit Profile</h3>
+            <input
+              type="text"
+              placeholder="First Name"
+              name="fname"
+              value={user.fname}
+              onChange={handleChange}
+              required
+              className={styles.input}
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              name="lname"
+              value={user.lname}
+              onChange={handleChange}
+              required
+              className={styles.input}
+            />
+            <input
+              type="text"
+              placeholder="Address"
+              name="address"
+              value={user.address}
+              onChange={handleChange}
+              required
+              className={styles.input}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={user.email}
+              onChange={handleChange}
+              required
+              className={styles.input}
+            />
+            <input
+              type="text"
+              placeholder="Contact Number"
+              name="fname"
+              value={user.contactNumber}
+              onChange={handleChange}
+              required
+              className={styles.input}
+            />
+            
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={user.password}
+              onChange={handleChange}
+              // required
+              className={styles.input}
+            />
+            {error && <div className={styles.error_msg}>{error}</div>}
+            <button type="submit" className={styles.green_btn}>
+              Update
+            </button>
+          </form>
         </div>
       </div>
     </div>

@@ -5,22 +5,22 @@ import Home from "./components/Home";
 import Register from "./components/Register/Register";
 import UserList from "./components/UserList";
 import EditProfile from "./components/EditProfile";
-import userProfile from "./components/appUsers/userDetails";
+import userProfile from "./components/userProfile";
 import Category from "./components/Category/Category";
 import Subcategory from "./components/Subcategory/Subcategory";
 import AddUser from "./components/AddUser/AddUser";
 import AddUserList from "./components/AddUserList/AddUserList";
-// import Sidebar from "./components/Sidebar/Sidebar";
+import Sidebar from "./components/Sidebar/Sidebar";
 import CategoryList from "./components/Category/CategoryList";
 import SubCategoryList from "./components/Subcategory/SubCategoryList";
-import userDetails from "./components/appUsers/userDetails";
+import Objective from "./components/Objective/Objective";
 
 
 function App() {
   return (
     <div className="App">
       <Router>
-        {/* <Sidebar /> */}
+        <Sidebar />
         <Switch>
           <Route exact path="/">
             <Login />
@@ -33,23 +33,21 @@ function App() {
           </Route>
           <Route path="/category">
             <Category />
-          </Route>
+            </Route>
           <Route path="/categorylist">
-            <CategoryList />
+            <CategoryList/>
           </Route>
           <Route path="/subcategory">
             <Subcategory />
-          </Route>
+            </Route>
           <Route path="/subcategorylist">
             <SubCategoryList />
           </Route>
-          <Route path="/adduser">
-            <AddUser />
-          </Route>
-          <Route path="/userDetails/:_id">
-            <userDetails/>
+          <Route path="/objective">
+            <Objective />
           </Route>
           <Route path="/editProfile/:_id" component={EditProfile} />
+          <Route path="/userProfile/:id" component={userProfile} />
           <Route path="/userList" component={UserList} />
           <Route path="/adduserlist" component={AddUserList} />
         </Switch>

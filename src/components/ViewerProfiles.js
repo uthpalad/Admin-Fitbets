@@ -29,20 +29,17 @@ export default class ViewerProfiles extends Component {
 
   render() {
     return (
-      <div>
-        <Sidebar />
-        <Container>
-          {this.state.Employee.map((emp, index) => {
-            return (
-              <Wrap>
-                <Link to={`/userProfile/${emp._id}`}>
-                  <img src={emp.image} />
-                </Link>
-              </Wrap>
-            );
-          })}
-        </Container>
-      </div>
+      <Container>
+        {this.state.Employee.map((emp, index) => {
+          return (
+            <Wrap>
+              <Link to={`/userProfile/${emp._id}`}>
+                <img src={emp.image} />
+              </Link>
+            </Wrap>
+          );
+        })}
+      </Container>
     );
   }
 }
@@ -88,3 +85,5 @@ const Wrap = styled.div`
     z-index: 10000;
   }
 `;
+
+
