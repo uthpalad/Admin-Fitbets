@@ -3,7 +3,9 @@ import axios from "axios";
 import "./userProfile.css";
 import Sidebar from "./Sidebar/Sidebar";
 
-export default class userProfile extends Component {
+import { Link } from "react-router-dom";
+import "./user.css";
+export default class userDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,26 +13,26 @@ export default class userProfile extends Component {
     };
   }
 
-  componentDidMount() {
-    this.retrieveEmployees();
-  }
+  // componentDidMount() {
+  //   this.retrieveEmployees();
+  // }
 
-  retrieveEmployees() {
-    const id = this.props.match.params.id;
-    axios
-      .get(`http://localhost:9000/employee/getEmployee/${id}`)
-      .then((res) => {
-        if (res.data.success) {
-          this.setState({
-            emp: res.data.emp,
-          });
-        }
-      });
-  }
+  // retrieveEmployees() {
+  //   const id = this.props.match.params.id;
+  //   axios
+  //     .get(`http://localhost:9000/employee/getEmployee/${id}`)
+  //     .then((res) => {
+  //       if (res.data.success) {
+  //         this.setState({
+  //           emp: res.data.emp,
+  //         });
+  //       }
+  //     });
+  // }
 
   render() {
-    const { fname, lname, address, email, contactNumber, image } =
-      this.state.emp;
+    // const { username, email,image} =
+    //   this.state.emp;
     return (
       <div>
         <Sidebar />
