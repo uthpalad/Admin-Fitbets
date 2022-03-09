@@ -1,11 +1,12 @@
-body {
-  background-color: #f9f9fa;
-}
 
-.container{
-  position:absolute;
-  left: 0px;
-}
+
+ /* .container{
+   position:absolute;
+   left: 20px;
+  
+ 
+ 
+}  */
 .padding {
   padding: 3rem !important;
 }
@@ -14,12 +15,14 @@ body {
   overflow: hidden;
 }
 
-.card {
-  margin-left: -900pxpx;
-  padding-left: 0;
+ .card {
+ position:absolute;
+  /* padding-left: 0; */
+     left: -500px;
+     top: -50px;
   height: 100%;
   width: 800px;
-}
+} 
 
 .m-r-0 {
   margin-right: 0px;
@@ -58,7 +61,6 @@ body {
   margin-bottom: 25px;
   border-width: 50px;
   border-radius: 50%;
-  
 }
 
 .img-radius {
@@ -116,18 +118,24 @@ h6 {
 .f-w-600 {
   font-weight: 700;
   font-size: 30px;
+  align-items:center
 }
 .f-w-500 {
   font-weight: 600;
+  align-items:center;
 }
+
 
 .m-b-20 {
   margin-bottom: 20px;
   background-color: goldenrod;
+
 }
 
 .m-t-40 {
   margin-top: 20px;
+ 
+
 }
 
 .p-b-5 {

@@ -1,0 +1,13 @@
+
+
+.container{
+   position: absolute;
+   left: 250px;
+   padding-top: 30px;
+ 
+}
+
+.img{
+    
+ border-radius: 50px !important;
+}

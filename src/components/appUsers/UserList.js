@@ -1,65 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./userList.css";
 import Swal from "sweetalert2";
 
 export default class UserList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      Employee: [],
-    };
-  }
-
-  componentDidMount() {
-    this.retrieveEmployees();
-  }
-
-  retrieveEmployees() {
-    axios.get("http://localhost:9000/employee/allEmployees").then((res) => {
-      if (res.data.success) {
-        this.setState({
-          Employee: res.data.Employees,
-        });
-      }
-    });
-  }
-
-  onDelete = (id) => {
-    axios
-      .delete(`http://localhost:9000/employee/deleteEmployee/${id}`)
-      .then((res) => {
-        // alert("Deleted Sucessfully");
-        Swal.fire({
-          position: "top",
-          icon: "success",
-          title: "sucessfully deleted !!!",
-          confirmButtonColor: "#3bb19b",
-          timer: 1500,
-        });
-        this.retrieveEmployees();
-      });
-  };
-
-  filterData(Employee, searchKey) {
-    const result = Employee.filter(
-      (emp) =>
-        emp.fname.toLowerCase().includes(searchKey) ||
-        emp.lname.toLowerCase().includes(searchKey) ||
-        emp.contactNumber.toLowerCase().includes(searchKey)
-    );
-    this.setState({ Employee: result });
-  }
-
-  handleSearchArea = (e) => {
-    const searchKey = e.currentTarget.value;
-    axios.get("http://localhost:9000/employee/allEmployees").then((res) => {
-      if (res.data.success) {
-        this.filterData(res.data.Employees, searchKey);
-      }
-    });
-  };
-
   render() {
     return (
       <div className="container">
@@ -83,7 +28,7 @@ export default class UserList extends Component {
         </div>
         <br />
 
-        <table className="table" >
+        <table className="table">
           <thead bgcolor="goldenrod">
             <tr>
               <th scope="col"></th>
@@ -94,42 +39,35 @@ export default class UserList extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.Employee.map((emp, index) => {
-              return (
-                <tr key={index}>
-                  <th scope="row">{index + 1}</th>
-                  <td>
-                    <a
-                      href={`/employee/${emp._id}`}
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      {emp.fname}
-                    </a>
-                  </td>
-                  <td>{emp.lname}</td>
+            <tr>
+              <th scope="row"></th>
+              <td>
+                <Link
+                  to="/userDetails/:id"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Thilini
+                </Link>
+              </td>
+              <td>Abesekara</td>
 
-                  <td>
-                    <img src={emp.image} width="50px" />{" "}
-                  </td>
-                  <td>
-                    <a
-                      href={`/editProfile/${emp._id}`}
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      <i className="fas fa-edit"></i> Edit
-                    </a>
-                    {"                   "}
-                    <a
-                      href="#"
-                      onClick={() => this.onDelete(emp._id)}
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      <i className="fas fa-trash-alt"></i> Delete
-                    </a>
-                  </td>
-                </tr>
-              );
-            })}
+              <td>
+                <img src={""} width="50px" />{" "}
+              </td>
+              <td>
+                <a style={{ textDecoration: "none", color: "black" }}>
+                  <i className="fas fa-edit"></i> Edit
+                </a>
+                {"                   "}
+                <a
+                  href="#"
+                  // onClick={() => this.onDelete(emp._id)}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <i className="fas fa-trash-alt"></i> Delete
+                </a>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

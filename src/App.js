@@ -13,7 +13,10 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import CategoryList from "./components/Category/CategoryList";
 import SubCategoryList from "./components/Subcategory/SubCategoryList";
 import userDetails from "./components/appUsers/userDetails";
-
+import friends from "./components/appUsers/friends";
+import idols from "./components/appUsers/idols";
+import posts from "./components/appUsers/posts";
+import challenges from "./components/appUsers/challenges";
 
 
 function App() {
@@ -46,9 +49,12 @@ function App() {
           <Route path="/adduser">
             <AddUser />
           </Route>
-          <Route path="/editProfile/:_id" component={EditProfile} />
           <Route path="/userList" component={UserList} />
           <Route path="/adduserlist" component={AddUserList} />
+          <Route path="/friends" component={friends} />
+          <Route path="/idols" component={idols} />
+          <Route path="/posts" component={posts} />
+          <Route path="/challenges" component={challenges} />
           <Route path="/userDetails/:id" component={userDetails} />
         </Switch>
       </Router>
