@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import "./sidebar.css";
 import { IconContext } from "react-icons";
+import * as IoIcons from "react-icons/io";
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -15,8 +16,12 @@ function Navbar() {
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
         <div className="navbar">
-          <Link to="#" className="menu-bars">
-            {/* <FaIcons.FaBars  /> */}
+          <div className="menu-bars">
+            <img src="../images/logo_fit.png" />
+          </div>
+
+          <Link to="/profile" className="profile-icon">
+            <img src="../images/profile-icon.png" />
           </Link>
         </div>
         <nav className="nav-menu active">

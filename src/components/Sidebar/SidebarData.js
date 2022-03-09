@@ -23,6 +23,12 @@ export const SidebarData = [
     cName: "nav-text",
   },
   {
+    title: "Objective",
+    path: "/objective",
+    icon: <IoIcons.IoIosArrowDropdown />,
+    cName: "nav-text",
+  },
+  {
     title: "Admin List",
     path: "/userlist",
     icon: <IoIcons.IoMdContact />,
@@ -51,7 +57,7 @@ export const SidebarData = [
   },
   {
     title: "SignOut",
-    path: "/login",
+    path: "/signout",
     icon: <FaIcons.FaSignOutAlt />,
     cName: "nav-text",
   },

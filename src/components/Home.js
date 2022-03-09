@@ -8,13 +8,17 @@ import axios from "axios";
 export default class Home extends Component {
   render() {
     return (
-      <div>
-        <Sidebar />
-        <ViewerProfiles />
+      <div className="Container">
+       <div>
+       <ViewerProfiles />
+       </div>
+        
       </div>
     );
   }
 }
+
+
 
 //  const Container = styled.main`
 

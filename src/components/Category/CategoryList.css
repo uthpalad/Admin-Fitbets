@@ -1,5 +1,13 @@
-.CategoryList{
-    margin-left: 50px;
-    
-    
+.CategoryList {
+  margin-left: 50px;
 }
+.container {
+  margin-left: 200px;
+  margin-right: 0px;
+  background: lightgrey;
+}
+/* 
+ .PlusButton{
+    border: black;
+    border-radius: 50%;
+ } */
