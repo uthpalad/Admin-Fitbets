@@ -1,42 +1,18 @@
-import styled from "styled-components";
-import React, { Component } from "react";
-// import ImgSlider from "./ImgSlider"
-import ViewerProfiles from "./ViewerProfiles";
-import Sidebar from "../components/Sidebar/Sidebar";
-import axios from "axios";
+import { Component } from "react";
 
-export default class Home extends Component {
+import Dashboard from "./DashBoard/dashboard";
+import DashboardMenu from "./DashBoard/dashboard_menu";
+
+class Home extends Component {
   render() {
     return (
-      <div className="Container">
-       <div>
-       <ViewerProfiles />
-       </div>
-        
+      <div className="container-scroller">
+        <Dashboard />
+        <div className="container-fluid page-body-wrapper">
+          <DashboardMenu />
+        </div>
       </div>
     );
   }
 }
-
-
-
-//  const Container = styled.main`
-
-//  max-width: 1320px;
-//  margin-left:200px;
-//   position: relative;
-//   min-height: calc(100vh - 700px);
-//   overflow-x: hidden;
-//   display: block;
-//   top: 0px;
-//   padding: 0 calc(3.5vw + 5px);
-//   &:after {
-//     background: url("/images/login-background.jpg") center center / cover
-//       no-repeat fixed;
-//     content: "";
-//     position: absolute;
-//     inset: 0px;
-//     opacity: 1;
-//     z-index: -1;
-//   }
-//  `;
+export default Home;

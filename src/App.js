@@ -1,65 +1,28 @@
-import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Login from "./components/Login/Login";
-import Home from "./components/Home";
-import Register from "./components/Register/Register";
-import UserList from "./components/appUsers/UserList";
-import EditProfile from "./components/EditProfile";
-import userProfile from "./components/userProfile";
-import Category from "./components/Category/Category";
-import Subcategory from "./components/Subcategory/Subcategory";
-import AddUser from "./components/AddUser/AddUser";
-import AddUserList from "./components/AddUserList/AddUserList";
-import Sidebar from "./components/Sidebar/Sidebar";
-import CategoryList from "./components/Category/CategoryList";
-import SubCategoryList from "./components/Subcategory/SubCategoryList";
-import Objective from "./components/Objective/Objective";
-import userDetails from "./components/appUsers/userDetails";
-import friends from "./components/appUsers/friends";
-import idols from "./components/appUsers/idols";
-import posts from "./components/appUsers/posts";
-import challenges from "./components/appUsers/challenges";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Dashboard from "./Components/DashBoard/dashboard";
+import NewCategory from "./Components/Category/addCategory";
+import Home from "./Components/home";
+import CategoryList from "./Components/Category/categoryList";
+import NewSubCategory from "./Components/SubCategory/addSubCategory";
+import EditCategory from "./Components/Category/editCategory";
+import SubCategoryList from "./Components/SubCategory/subCategoryList";
+import EditSubCategory from "./Components/SubCategory/editSubCategory";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router>
-        <Sidebar />
-        <Switch>
-          <Route exact path="/">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/home">
-            <Home />
-          </Route>
-          <Route path="/category">
-            <Category />
-          </Route>
-          <Route path="/categorylist">
-            <CategoryList />
-          </Route>
-          <Route path="/subcategory">
-            <Subcategory />
-          </Route>
-          <Route path="/subcategorylist">
-            <SubCategoryList />
-          </Route>
-          <Route path="/objective">
-            <Objective />
-          </Route>
-          <Route path="/editProfile/:_id" component={EditProfile} />
-          <Route path="/userProfile/:id" component={userProfile} />
-          <Route path="/userList" component={UserList} />
-          {/* <Route path="/adduserlist" component={AddUserList} /> */}
-          <Route path="/friends" component={friends} />
-          <Route path="/idols" component={idols} />
-          <Route path="/posts" component={posts} />
-          <Route path="/challenges" component={challenges} />
-          <Route path="/userDetails/:id" component={userDetails} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/category" element={<NewCategory />}></Route>
+          <Route path="/all_category" element={<CategoryList />}></Route>
+          <Route path="/edit_category" element={<EditCategory />}></Route>
+          <Route path="/sub_category" element={<NewSubCategory />}></Route>
+          <Route path="/all__sub_category" element={<SubCategoryList />}></Route>
+          <Route path="/edit_sub_category" element={<EditSubCategory />}></Route>
+        </Routes>
       </Router>
     </div>
   );
