@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { Component } from "react";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
@@ -16,7 +18,7 @@ class NewCategory extends Component {
     this.state = initialState;
     this.onFileChange = this.onFileChange.bind(this);
   }
-  onFileChange = (event) => {
+  onFileChange = event => {
     this.setState({ image: event.target.files[0] });
     this.setState({ previewImage: URL.createObjectURL(event.target.files[0]) });
   };
@@ -35,8 +37,7 @@ class NewCategory extends Component {
               <ul
                 className="nav nav-tabs border-top"
                 id="setting-panel"
-                role="tablist"
-              >
+                role="tablist">
                 <li className="nav-item">
                   <a
                     className="nav-link active"
@@ -45,8 +46,7 @@ class NewCategory extends Component {
                     href="#todo-section"
                     role="tab"
                     aria-controls="todo-section"
-                    aria-expanded="true"
-                  >
+                    aria-expanded="true">
                     TO DO LIST
                   </a>
                 </li>
@@ -57,8 +57,7 @@ class NewCategory extends Component {
                     data-toggle="tab"
                     href="#chats-section"
                     role="tab"
-                    aria-controls="chats-section"
-                  >
+                    aria-controls="chats-section">
                     CHATS
                   </a>
                 </li>
@@ -68,8 +67,7 @@ class NewCategory extends Component {
                   className="tab-pane fade show active scroll-wrapper"
                   id="todo-section"
                   role="tabpanel"
-                  aria-labelledby="todo-section"
-                >
+                  aria-labelledby="todo-section">
                   <div className="add-items d-flex px-3 mb-0">
                     <form className="form w-100">
                       <div className="form-group d-flex">
@@ -81,8 +79,7 @@ class NewCategory extends Component {
                         <button
                           type="submit"
                           className="add btn btn-primary todo-list-add-btn"
-                          id="add-task"
-                        >
+                          id="add-task">
                           Add
                         </button>
                       </div>
@@ -176,8 +173,7 @@ class NewCategory extends Component {
                   className="tab-pane fade"
                   id="chats-section"
                   role="tabpanel"
-                  aria-labelledby="chats-section"
-                >
+                  aria-labelledby="chats-section">
                   <div className="d-flex align-items-center justify-content-between border-bottom">
                     <p className="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">
                       Friends
@@ -331,8 +327,7 @@ class NewCategory extends Component {
                           </div>
                           <button
                             type="submit"
-                            className="btn btn-primary mr-2"
-                          >
+                            className="btn btn-primary mr-2">
                             Submit
                           </button>
                           <button className="btn btn-light">Cancel</button>

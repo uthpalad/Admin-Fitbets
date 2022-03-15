@@ -3,11 +3,11 @@
 var dayjs = require("dayjs");
 
 export const userColumns = [
-  { field: "id", headerName: "ID", width: 80 },
+  { field: "id", headerName: "ID", width: 60 },
   {
     field: "username",
     headerName: "UserName",
-    width: 200,
+    width: 175,
     renderCell: params => {
       return (
         <div className="cellWithImg">
@@ -51,7 +51,7 @@ export const userColumns = [
   {
     field: "is_active",
     headerName: "Status",
-    width: 200,
+    width: 100,
     renderCell: params => {
       return (
         <div className={`cellWithStatus ${params.row.is_active}`}>
