@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
+import * as IoIcons from "react-icons/io";
 import Back from "../assets/images/add_image1.png";
 
 const initialState = {
@@ -311,13 +313,15 @@ class CategoryList extends Component {
                                 <td>
                                   <div className="row">
                                     <div className="col-6">
+                                    <Link to="/edit_category" >
                                       <button class="btn btn-deep-purple">
-                                        <i class="fa fa-pencil mr-1"></i> Left
+                                        <i class="fa fa-pencil mr-1" ></i> Edit
                                       </button>
+                                      </Link>
                                     </div>
                                     <div className="col-6">
                                       <button class="btn btn-deep-purple">
-                                        <i class="fa fa-pencil mr-1"></i> Left
+                                      <i className="fas fa-trash-alt"></i> Delete
                                       </button>
                                     </div>
                                   </div>
@@ -341,4 +345,3 @@ class CategoryList extends Component {
   }
 }
 export default CategoryList;
-
