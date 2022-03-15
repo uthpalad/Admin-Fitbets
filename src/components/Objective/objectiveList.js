@@ -3,23 +3,16 @@ import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
-import Back from "../assets/images/add_image1.png";
 
-const initialState = {
-  image: null,
-  previewImage: null,
-};
 
-class CategoryList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = initialState;
-    this.onFileChange = this.onFileChange.bind(this);
-  }
-  onFileChange = (event) => {
-    this.setState({ image: event.target.files[0] });
-    this.setState({ previewImage: URL.createObjectURL(event.target.files[0]) });
-  };
+
+class ObjectiveList extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = initialState;
+//     this.onFileChange = this.onFileChange.bind(this);
+//   }
+  
 
   render() {
     return (
@@ -270,44 +263,30 @@ class CategoryList extends Component {
                   <div className="col-lg-12 grid-margin stretch-card">
                     <div className="card">
                       <div className="card-body">
-                        <h1 className="card-title">List of All Cateogry </h1>
+                        <h1 className="card-title">Objective List </h1>
                         <p className="card-description">
-                          Check All Category List
+                          Check All Objective List
                         </p>
                         <br />
                         <div className="table-responsive">
                           <table className="table table-striped">
                             <thead>
                               <tr>
-                                <th>Icon</th>
-                                <th>Name</th>
+                                <th>Objective Title</th>
+                                <th>Objective</th>
                                 <th>Equipment</th>
-                                <th>Rule</th>
+                                <th>Rules</th>
+                                <th>Time</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <td className="py-1">
-                                  <img
-                                    src="../../images/faces/face1.jpg"
-                                    alt="image"
-                                  />
-                                </td>
-                                <td>Herman Beck</td>
-                                <td>
-                                  <div className="progress">
-                                    <div
-                                      className="progress-bar bg-success"
-                                      role="progressbar"
-                                      style={{ width: "50%" }}
-                                      aria-valuenow={25}
-                                      aria-valuemin={0}
-                                      aria-valuemax={100}
-                                    />
-                                  </div>
-                                </td>
-                                <td>$ 77.99</td>
+                                <td>Max point in one minute</td>
+                                <td>Maxpoint..........</td>
+                                <td>Basketball</td>
+                                <td>Rule 1, 2, 3</td>
+                                <td>One minute Exactly</td>
                                 <td>
                                   <div className="row">
                                     <div className="col-6">
@@ -315,11 +294,7 @@ class CategoryList extends Component {
                                         <i class="fa fa-pencil mr-1"></i> Left
                                       </button>
                                     </div>
-                                    <div className="col-6">
-                                      <button class="btn btn-deep-purple">
-                                        <i class="fa fa-pencil mr-1"></i> Left
-                                      </button>
-                                    </div>
+                                    
                                   </div>
                                 </td>
                               </tr>
@@ -340,4 +315,4 @@ class CategoryList extends Component {
     );
   }
 }
-export default CategoryList;
+export default ObjectiveList;

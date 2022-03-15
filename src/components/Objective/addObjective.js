@@ -3,23 +3,16 @@ import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
-import Back from "../assets/images/add_image1.png";
 
-const initialState = {
-  image: null,
-  previewImage: null,
-};
 
-class CategoryList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = initialState;
-    this.onFileChange = this.onFileChange.bind(this);
-  }
-  onFileChange = (event) => {
-    this.setState({ image: event.target.files[0] });
-    this.setState({ previewImage: URL.createObjectURL(event.target.files[0]) });
-  };
+
+class NewObjective extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = initialState;
+//     this.onFileChange = this.onFileChange.bind(this);
+//   }
+ 
 
   render() {
     return (
@@ -267,65 +260,103 @@ class CategoryList extends Component {
             <div className="main-panel">
               <div className="content-wrapper">
                 <div className="row">
-                  <div className="col-lg-12 grid-margin stretch-card">
+                  <div className="col-12 grid-margin stretch-card">
                     <div className="card">
                       <div className="card-body">
-                        <h1 className="card-title">List of All Cateogry </h1>
+                        <h1 className="card-title">New Objective Details</h1>
                         <p className="card-description">
-                          Check All Category List
+                          Now You can add new Objective Details
                         </p>
                         <br />
-                        <div className="table-responsive">
-                          <table className="table table-striped">
-                            <thead>
-                              <tr>
-                                <th>Icon</th>
-                                <th>Name</th>
-                                <th>Equipment</th>
-                                <th>Rule</th>
-                                <th>Action</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td className="py-1">
-                                  <img
-                                    src="../../images/faces/face1.jpg"
-                                    alt="image"
-                                  />
-                                </td>
-                                <td>Herman Beck</td>
-                                <td>
-                                  <div className="progress">
-                                    <div
-                                      className="progress-bar bg-success"
-                                      role="progressbar"
-                                      style={{ width: "50%" }}
-                                      aria-valuenow={25}
-                                      aria-valuemin={0}
-                                      aria-valuemax={100}
-                                    />
-                                  </div>
-                                </td>
-                                <td>$ 77.99</td>
-                                <td>
-                                  <div className="row">
-                                    <div className="col-6">
-                                      <button class="btn btn-deep-purple">
-                                        <i class="fa fa-pencil mr-1"></i> Left
-                                      </button>
-                                    </div>
-                                    <div className="col-6">
-                                      <button class="btn btn-deep-purple">
-                                        <i class="fa fa-pencil mr-1"></i> Left
-                                      </button>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                        <form className="forms-sample">
+                          <div class="form-group">
+                            <label for="exampleSelectGender">
+                              Main Category
+                            </label>
+                            <select
+                              class="form-control"
+                              id="exampleSelectGender"
+                            >
+                              <option>Sports</option>
+                              <option>Fashion</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleSelectGender">
+                              Sub Category
+                            </label>
+                            <select
+                              class="form-control"
+                              id="exampleSelectGender"
+                            >
+                              <option>Basketball</option>
+                              <option>Football</option>
+                            </select>
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="exampleInputName1">
+                              Objective Title
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputName1"
+                              placeholder="Objective title"
+                            />
+                          </div>
+
+                          <div className="form-group">
+                            <label htmlFor="exampleInputName1">
+                              Objective
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputName1"
+                              placeholder="Objective"
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="exampleInputName1">
+                              Equipment
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputName1"
+                              placeholder="Equipment"
+                            />
+                          </div>
+
+                          <div className="form-group">
+                            <label htmlFor="exampleTextarea1">Rules</label>
+                            <textarea
+                              className="form-control"
+                              id="exampleTextarea1"
+                              rows={4}
+                              defaultValue={""}
+                            />
+                          </div>
+
+                          <div className="form-group">
+                            <label htmlFor="exampleInputName1">
+                              Time
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputName1"
+                              placeholder="Time"
+                            />
+                          </div>
+                          <button
+                            type="submit"
+                            className="btn btn-primary mr-2"
+                          >
+                            Submit
+                          </button>
+                          <button className="btn btn-light">Cancel</button>
+                        </form>
                       </div>
                     </div>
                   </div>
@@ -340,4 +371,4 @@ class CategoryList extends Component {
     );
   }
 }
-export default CategoryList;
+export default NewObjective;

@@ -322,8 +322,16 @@ class DashboardMenu extends Component {
                   <ul className="nav flex-column sub-menu">
                     <li className="nav-item">
                       {" "}
-                      <a className="nav-link" href="pages/charts/chartjs.html">
+                      <a className="nav-link" href="/add_objectives">
                         New Objective
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        href="pages/forms/basic_elements.html"
+                      >
+                        Objective List
                       </a>
                     </li>
                   </ul>
