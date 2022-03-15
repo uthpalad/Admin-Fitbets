@@ -1,25 +1,46 @@
+/** @format */
+
 import { useEffect, useState } from "react";
-import Axios from "axios";
+import axios from "axios";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardMenu from "../DashBoard/dashboard_menu";
-import "../UserList/UserList";
+import "./userList";
 
 function Uaerlist() {
   const [data, setDate] = useState([]);
 
   useEffect(() => {
     // Axios.get("https://jsonplaceholder.typicode.com/posts")
-    Axios.get(
-      "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/user/get-all-users/"
-    )
+    axios
+      .get(
+        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/user/get-all-users/"
+      )
 
-      .then((res) => {
+      .then(res => {
         console.log("Getting from:", res.data);
         setDate(res.data.data);
       })
 
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }, []);
+
+  // const deleteItems = (oldData) => {
+  //   axios
+  //     .delete(`delete url/${oldData.id}`, {
+  //       headers: {
+
+  //       },
+  //     })
+  //     .then(res => {
+  //       console.log(res.data);
+  //       console.log(res.data.length);
+  //       const users = res.data.data;
+  //       setuserDetail(users);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // };
 
   const arr = data.map((data, index) => {
     return (
@@ -36,8 +57,7 @@ function Uaerlist() {
             src={data.player_card_url}
             width="50px"
             height="50px"
-            border-radius="50%"
-          ></img>
+            border-radius="50%"></img>
         </td>
       </tr>
     );
