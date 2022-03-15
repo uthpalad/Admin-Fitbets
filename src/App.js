@@ -6,9 +6,9 @@ import NewCategory from "./Components/Category/addCategory";
 import Home from "./Components/home";
 import CategoryList from "./Components/Category/categoryList";
 import NewSubCategory from "./Components/SubCategory/addSubCategory";
-import EditCategory from "./Components/Category/editCategory";
+import UserDetails from "./Components/UserDetails/userDetails";
+import UserList from "./Components/UserList/UserList";
 import SubCategoryList from "./Components/SubCategory/subCategoryList";
-import EditSubCategory from "./Components/SubCategory/editSubCategory";
 
 function App() {
   return (
@@ -18,10 +18,10 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/category" element={<NewCategory />}></Route>
           <Route path="/all_category" element={<CategoryList />}></Route>
-          <Route path="/edit_category" element={<EditCategory />}></Route>
+          <Route path="/all_subcategory" element={<SubCategoryList />}></Route>
+          <Route path="/userlist" element={<UserList />}></Route>
           <Route path="/sub_category" element={<NewSubCategory />}></Route>
-          <Route path="/all__sub_category" element={<SubCategoryList />}></Route>
-          <Route path="/edit_sub_category" element={<EditSubCategory />}></Route>
+          <Route path="/userDetails" element={<UserDetails />}></Route>
         </Routes>
       </Router>
     </div>
