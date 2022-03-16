@@ -297,7 +297,7 @@ class DashboardMenu extends Component {
                     <li className="nav-item">
                       <a
                         className="nav-link"
-                        href="pages/forms/basic_elements.html"
+                        href="/all__sub_category"
                       >
                         Sub Category List
                       </a>
