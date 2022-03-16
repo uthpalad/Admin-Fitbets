@@ -10,6 +10,7 @@ import SubCategoryList from "./components/Subcategory/subCategoryList";
 import EditSubCategory from "./components/Subcategory/editSubCategory";
 import NewObjective from "./components/Objective/addObjective";
 import ObjectiveList from "./components/Objective/objectiveList";
+import UserList from "./components/Users/UserList";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/edit_sub_category" element={<EditSubCategory />}></Route>
           <Route path="/objective" element={<NewObjective />}></Route>
           <Route path="/objective_list" element={<ObjectiveList />}></Route>
+           <Route path="/userlist" element={<UserList/>}></Route>
         </Routes>
       </Router>
     </div>
