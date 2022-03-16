@@ -21,14 +21,8 @@ function App() {
           <Route path="/all_category" element={<CategoryList />}></Route>
           <Route path="/edit_category" element={<EditCategory />}></Route>
           <Route path="/sub_category" element={<NewSubCategory />}></Route>
-          <Route
-            path="/all__sub_category"
-            element={<SubCategoryList />}
-          ></Route>
-          <Route
-            path="/edit_sub_category"
-            element={<EditSubCategory />}
-          ></Route>
+          <Route path="/all__sub_category" element={<SubCategoryList />}></Route>
+          <Route path="/edit_sub_category" element={<EditSubCategory />}></Route>
           <Route path="/objective" element={<NewObjective />}></Route>
           <Route path="/objective_list" element={<ObjectiveList />}></Route>
         </Routes>
