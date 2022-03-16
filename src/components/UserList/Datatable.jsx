@@ -5,14 +5,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./datatable.scss";
 import "../assets/category.scss";
-
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridCellEditCommitParams } from "@mui/x-data-grid";
 import { userColumns, userRows } from "./userlistSource";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import { Button } from "@mui/material";
-
 
 const Datatable = () => {
   useEffect(() => {
@@ -20,8 +18,6 @@ const Datatable = () => {
   }, []);
 
   const [userDetail, setuserDetail] = useState([]);
-  const [deleteUserId, setdeleteUserId] = useState([]);
-  const [selectedRows, setSelectedRows] = React.useState([]);
 
   const getItems = () => {
     axios
@@ -37,14 +33,17 @@ const Datatable = () => {
         if (
           res.data.status == 200 &&
           res.data.message == "All Users List Received" &&
-          res.data.length != 0
+          res.data.data.length > 0
         ) {
           console.log(res.data);
           // console.log(res.data.length);
           const users = res.data.data;
           setuserDetail(users);
+
+          // loopUsername();
+          // console.log("userdetails:", userDetail[[0]].username);
         } else {
-          return;
+          console.error("internal database Error");
         }
       })
       .catch(error => {
@@ -52,28 +51,71 @@ const Datatable = () => {
       });
   };
 
-  const deleteItems = oldData => {
-    // axios
-    //   .delete(
-    //     `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/adminnew/deleteUser/${oldData.id}`,
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsImFkbWluX25hbWUiOiJBbnVyYSBBbWFyYWJhbmR1IiwiZW1haWxfYWRkcmVzcyI6ImFudXJhQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ2ODA1OTcyNTYyLCJleHAiOjE2NDY4MDcxODIxNjJ9.ovNWylxyptm9pXJ4dxYR8robCKekTFjjaZjrLOaup3zhg3RK8o6elT8E4iwN6251RMvEux25SzQUBbo3EXDxAvuv1dPLEk1jL04P_rRejurY1W6C_b8LceqWpcJbuVKKJHigik4v8GxBguAsnUEeKsB_tNypKaSWv6K0pgt6ajuaEZktSKeHwuGVGmv8Zhpccbkh7R_gW1KkJs-iBRqn27aTBDX2XUSt94_J1pu0dTI6-Au4zHKwp-H8-PkFK1yq8e0cUZUzbvYOAy9QeUIinVQk0Nx0rRtp4fE1GVkQe_s5Zq819ZT_5HdjXkHE3XIBpkUcCR7Mgf68VfrdVE0awaXFiOzob3uQu7Wq86B0HYQmndFMEQeMOHCu6xbnbY-QT8IqwUSPBJeLunfkksMc6hHjI5kpCPieJ_HWIqsa-h-gG9F0T2g0eMkxWUV2jHsXwgKltcz0lI5Nh7L6OgCllZrEhTFt3K81qhaYKgIztZOEK4XLtAgj0ClK0U-DLSev1y7a4iZXx3PgyT14hCx9ljfvLXjDhCmKKSRko_1lYMVSuwl2a1e_WVfTbk46gKEXyDn_8V3lEeqCrlfu-UI2aCwcZB36t2tRQBqT2z7qYjVvnfNXMu3pPF5aq-qme7mhn-kT4QskKXvWXFft-4D6wqEnGxx91ksc1GEQ8wnQ3NA`,
-    //       },
-    //     }
-    //   )
-    //   .then(res => {
-    //     // console.log(res.data);
-    //     // console.log(res.data.length);
-    //     // const users = res.data.data;
-    //     // setuserDetail(users);
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
-
-    console.log(oldData, "hello");
+  const deleteItems = rowId => {
+    axios
+      .delete(
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/adminnew/deleteUser/${rowId}`,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsImFkbWluX25hbWUiOiJBbnVyYSBBbWFyYWJhbmR1IiwiZW1haWxfYWRkcmVzcyI6ImFudXJhQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ2ODA1OTcyNTYyLCJleHAiOjE2NDY4MDcxODIxNjJ9.ovNWylxyptm9pXJ4dxYR8robCKekTFjjaZjrLOaup3zhg3RK8o6elT8E4iwN6251RMvEux25SzQUBbo3EXDxAvuv1dPLEk1jL04P_rRejurY1W6C_b8LceqWpcJbuVKKJHigik4v8GxBguAsnUEeKsB_tNypKaSWv6K0pgt6ajuaEZktSKeHwuGVGmv8Zhpccbkh7R_gW1KkJs-iBRqn27aTBDX2XUSt94_J1pu0dTI6-Au4zHKwp-H8-PkFK1yq8e0cUZUzbvYOAy9QeUIinVQk0Nx0rRtp4fE1GVkQe_s5Zq819ZT_5HdjXkHE3XIBpkUcCR7Mgf68VfrdVE0awaXFiOzob3uQu7Wq86B0HYQmndFMEQeMOHCu6xbnbY-QT8IqwUSPBJeLunfkksMc6hHjI5kpCPieJ_HWIqsa-h-gG9F0T2g0eMkxWUV2jHsXwgKltcz0lI5Nh7L6OgCllZrEhTFt3K81qhaYKgIztZOEK4XLtAgj0ClK0U-DLSev1y7a4iZXx3PgyT14hCx9ljfvLXjDhCmKKSRko_1lYMVSuwl2a1e_WVfTbk46gKEXyDn_8V3lEeqCrlfu-UI2aCwcZB36t2tRQBqT2z7qYjVvnfNXMu3pPF5aq-qme7mhn-kT4QskKXvWXFft-4D6wqEnGxx91ksc1GEQ8wnQ3NA`,
+          },
+        }
+      )
+      .then(res => {
+        if (
+          res.data.status === 200 &&
+          res.data.message === "succesfully deleted" &&
+          res.data.status === "OK"
+        ) {
+          console.log(res.data.message);
+          console.log(rowId, "hello");
+        } else {
+          console.log(res.data.message);
+        }
+        // console.log(res.data.length);
+        // const users = res.data.data;
+        // setuserDetail(users);
+      })
+      .then(res => {
+        window.location.reload(false);
+      })
+      .catch(error => {
+        console.error("delete fail! server error", error);
+      });
   };
+
+   const editItems = rowId => {
+     axios
+       .put(
+         `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/adminnew/update/${rowId}`,
+         {
+           headers: {
+             Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsImFkbWluX25hbWUiOiJBbnVyYSBBbWFyYWJhbmR1IiwiZW1haWxfYWRkcmVzcyI6ImFudXJhQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ2ODA1OTcyNTYyLCJleHAiOjE2NDY4MDcxODIxNjJ9.ovNWylxyptm9pXJ4dxYR8robCKekTFjjaZjrLOaup3zhg3RK8o6elT8E4iwN6251RMvEux25SzQUBbo3EXDxAvuv1dPLEk1jL04P_rRejurY1W6C_b8LceqWpcJbuVKKJHigik4v8GxBguAsnUEeKsB_tNypKaSWv6K0pgt6ajuaEZktSKeHwuGVGmv8Zhpccbkh7R_gW1KkJs-iBRqn27aTBDX2XUSt94_J1pu0dTI6-Au4zHKwp-H8-PkFK1yq8e0cUZUzbvYOAy9QeUIinVQk0Nx0rRtp4fE1GVkQe_s5Zq819ZT_5HdjXkHE3XIBpkUcCR7Mgf68VfrdVE0awaXFiOzob3uQu7Wq86B0HYQmndFMEQeMOHCu6xbnbY-QT8IqwUSPBJeLunfkksMc6hHjI5kpCPieJ_HWIqsa-h-gG9F0T2g0eMkxWUV2jHsXwgKltcz0lI5Nh7L6OgCllZrEhTFt3K81qhaYKgIztZOEK4XLtAgj0ClK0U-DLSev1y7a4iZXx3PgyT14hCx9ljfvLXjDhCmKKSRko_1lYMVSuwl2a1e_WVfTbk46gKEXyDn_8V3lEeqCrlfu-UI2aCwcZB36t2tRQBqT2z7qYjVvnfNXMu3pPF5aq-qme7mhn-kT4QskKXvWXFft-4D6wqEnGxx91ksc1GEQ8wnQ3NA`,
+           },
+         }
+       )
+       .then(res => {
+         if (
+           res.data.status === 200 &&
+           res.data.message === "" &&
+           res.data.status === "OK"
+         ) {
+           console.log(res.data.message);
+           console.log(rowId, "hello");
+         } else {
+           console.log(res.data.message);
+         }
+         // console.log(res.data.length);
+         // const users = res.data.data;
+         // setuserDetail(users);
+       })
+       .then(res => {
+         window.location.reload(false);
+       })
+       .catch(error => {
+         console.error("delete fail! server error", error);
+       });
+   };
 
   const actionColumn = [
     {
@@ -92,6 +134,7 @@ const Datatable = () => {
       },
     },
   ];
+
   const actionColumn2 = [
     {
       field: "action2",
@@ -103,12 +146,27 @@ const Datatable = () => {
             {/* <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link> */}
-            <Button className="deleteButton">Delete</Button>
+            <Button
+              className="deleteButton"
+              onClick={() => deleteItems(params.row.id)}>
+              Delete
+            </Button>
           </div>
         );
       },
     },
   ];
+
+  const handleCommit = (e) => {
+    const array = userDetail.map(r => {
+      if (r.id === e.id) {
+        return { ...r, [e.field]: e.value };
+      } else {
+        return { ...r };
+      }
+    });
+    setuserDetail(array);
+  };
 
   return (
     <>
@@ -349,6 +407,11 @@ const Datatable = () => {
                 <div className="col-lg-12 grid-margin stretch-card">
                   <div className="card">
                     <div className="card-body">
+                      <div>
+                        {userDetail.map(item => (
+                          <p key={item.id}>{JSON.stringify(item.username)}</p>
+                        ))}
+                      </div>
                       {/*table content*/}
                       <div className="datatable">
                         <div className="datatableTitle">
@@ -364,27 +427,19 @@ const Datatable = () => {
                           </div>
                         </div>
                         <DataGrid
+                          onCellEditCommit={handleCommit}
                           rows={userDetail} //userDetail
                           columns={userColumns.concat(
                             actionColumn,
                             actionColumn2
                           )}
-                          onSelectionModelChange={ids => {
-                            const selectedIDs = new Set(ids);
-                            const selectedRows = ids.rows.filter(row =>
-                              selectedIDs.has(row.id)
-                            );
-
-                            setSelectedRows(selectedRows);
-                          }}
+                          // rowSpacingType='border'
+                          // editMode="cell"
+                          // rowHeight={52}
                           pageSize={9}
-                          rowsPerPageOptions={[8]}
-                          checkboxSelection
-                          
+                          rowsPerPageOptions={[9]}
+                          // checkboxSelection
                         />
-                        <pre style={{ fontSize: 10 }}>
-                          {JSON.stringify(selectedRows, null, 4)}
-                        </pre>
                       </div>
                     </div>
                   </div>

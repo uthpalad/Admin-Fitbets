@@ -8,6 +8,7 @@ export const userColumns = [
     field: "username",
     headerName: "UserName",
     width: 175,
+    editable: true,
     renderCell: params => {
       return (
         <div className="cellWithImg">
@@ -25,11 +26,13 @@ export const userColumns = [
     field: "email_address",
     headerName: "Email",
     width: 200,
+    editable: true,
   },
   {
     field: "birthday",
     headerName: "Birth Day",
     width: 140,
+    type: "date",
     renderCell: params => {
       return (
         <div className="cellWithImg">
@@ -47,6 +50,7 @@ export const userColumns = [
     field: "mobile_number",
     headerName: "Contact Number",
     width: 150,
+    editable: true,
   },
   {
     field: "is_active",
