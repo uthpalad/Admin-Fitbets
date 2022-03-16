@@ -379,8 +379,8 @@ class DashboardMenu extends Component {
                   <ul className="nav flex-column sub-menu">
                     <li className="nav-item">
                       {" "}
-                      <a className="nav-link" href="pages/icons/mdi.html">
-                        Mdi icons
+                      <a className="nav-link" href="/userlist">
+                        All Users
                       </a>
                     </li>
                   </ul>
