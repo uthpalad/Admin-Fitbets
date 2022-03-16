@@ -1,228 +1,147 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
-import Back from "../assets/images/add_image1.png";
-import { useState } from "react";
 import axios from "axios";
 
+const NewSubCategory = () => {
+  const [categoryId, setcategoryId] = useState("");
+  const [subcategoryImageFile, setsubcategoryImageFile] = useState("");
+  const [subcategoryName, setsubcategoryName] = useState("");
+  const [challenges, setchallenges] = useState("");
+  const [error, setError] = useState("");
 
-// const initialState = {
-//   image: null,
-//   previewImage: Back,
-// };
+  const onChangeFile = (e) => {
+    setsubcategoryImageFile(e.target.files[0]);
+  };
 
- class NewSubCategory extends Component {
-   //const NewSubCategory  = () => {
-   constructor(props) {
-     super(props);
-     //  this.state = initialState;
-     this.state = {
-       image: null,
-       mainCategory: "",
-       subCategory: "",
-       Challenge: "",
-       previewImage: Back,
-     };
-     this.onFileChange = this.onFileChange.bind(this);
-   }
-   onFileChange = (event) => {
-     //  this.setState({ image: event.target.files[0] });
-     //  this.setState({ previewImage: URL.createObjectURL(event.target.files[0]) });
-     const { name, value } = event.target.files[0];
-     this.setState({ ...this.state, [name]: value });
-     this.setState({
-       previewImage: URL.createObjectURL(event.target.files[0]),
-     });
-   };
+  const changeOnClick = (e) => {
+    e.preventDefault();
 
-   handleChange = (event) => {
-     const { name, value } = event.target;
-     this.setState({ ...this.state, [name]: value });
-     console.log(this.state);
-   };
+    const formData = new FormData();
 
-   
-   handleSubmit = (event) => {
-     event.preventDefault();
-     const { image, mainCategory, subCategory, Challenge } = this.state;
-     const subCategoryList = {
-       categoryImageFile: image,
-       mainCategory: mainCategory,
-       subCategory: subCategory,
-       Challenge: Challenge,
-     };
+    formData.append("categoryId", categoryId);
+    formData.append("subcategoryImageFile", subcategoryImageFile);
+    formData.append("subcategoryName", subcategoryName);
+    formData.append("challenges", challenges);
 
-     axios
-       .post(
-         ` http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/addSubCategoryToAdminPanel`,
-         subCategoryList
-       )
-       .then((res) => {
-         this.setState({
-           image: null,
-           mainCategory: "",
-           subCategory: "",
-           Challenge: "",
-           previewImage: Back,
-         });
-         console.log(res);
-         console.log(res.data.data);
-       });
-   };
-   // const [mainCategory, setMainCategory] = useState("");
-   // const [subCategory, setSubCategory] = useState("");
-   // const [Challenge, setChallenge] = useState("");
+    setcategoryId("");
+    setsubcategoryImageFile("");
+    setsubcategoryName("");
+    setchallenges("");
 
-   //  const onChangeFile = (e) => {
-   //    setFileName(e.target.files[0]);
-   // };
+    axios
+      .post(
+        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/addSubCategoryToAdminPanel",
+        formData
+      )
+      .then((res) => res.data.success)
+      .catch((error) => {
+        if (
+          error.response &&
+          error.response.status >= 400 &&
+          error.response.status <= 500
+        ) {
+          setError(error.response.data.message);
+        } else {
+          console.log(error);
+        }
+      });
+  };
 
-   // const changeOnClick = (e) => {
-   //   e.preventDefault();
+  return (
+    <>
+      <div className="container-scroller">
+        <Dashboard />
 
-   //   const formData = new FormData();
+        <div className="container-fluid page-body-wrapper">
+          <DashboardMenu />
 
-   //   formData.append("fname", fname);
-   //   formData.append("lname", lname);
-   //   formData.append("address", address);
-   //   formData.append("email", email);
-   //   formData.append("contactNumber", contactNumber);
+          <div className="main-panel">
+            <div className="content-wrapper">
+              <div className="row">
+                <div className="col-12 grid-margin stretch-card">
+                  <div className="card">
+                    <div className="card-body">
+                      <h1 className="card-title">New Sub Category Details</h1>
+                      <p className="card-description">
+                        Now You can add new Sub Category Details
+                      </p>
+                      <br />
+                      <form action="" method="post" onSubmit={changeOnClick}>
+                        <div className="form-group">
+                          <label htmlFor="exampleInputName1">
+                            Sub Category Id
+                          </label>
+                          <input
+                            type="text"
+                            name="categoryId"
+                            className="form-control"
+                            id="categoryId"
+                            value={categoryId}
+                            onChange={(e) => setcategoryId(e.target.value)}
+                            placeholder="categoryId"
+                          />
+                        </div>
 
-   //   setMainCategory("");
-   //   setSubCategory("");
-   //   setFileName("");
-   //   setChallenge("");
+                        <div className="form-group">
+                          <label>Category Images</label>
+                          <input
+                            type="file"
+                            placeholder="Upload your image"
+                            filename="subcategoryImageFile"
+                            onChange={onChangeFile}
+                            required
+                            className="form-control form-control-user"
+                          />
+                        </div>
+                        <br />
 
-   //   Axios.post(
-   //     "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/addSubCategoryToAdminPanel"
-   //   )
+                        <div className="form-group">
+                          <label htmlFor="subcategoryName">
+                            Subcategory Name
+                          </label>
+                          <input
+                            type="text"
+                            name="subcategoryName"
+                            className="form-control"
+                            id="subcategoryName"
+                            value={subcategoryName}
+                            onChange={(e) => setsubcategoryName(e.target.value)}
+                            placeholder="subcategoryName"
+                          />
+                        </div>
 
-   //     .then((res) => {
-   //       console.log("Getting from:", res.data);
-   //       setDate(res.data.data);
-   //     })
+                        <div className="form-group">
+                          <label htmlFor="challenges">Challenges</label>
+                          <input
+                            type="text"
+                            name="challenges"
+                            className="form-control"
+                            id="challenges"
+                            value={challenges}
+                            onChange={(e) => setchallenges(e.target.value)}
+                            placeholder="challenges"
+                          />
+                        </div>
 
-   //     .catch((err) => console.log(err));
-   // }
+                        <button type="submit" className="btn btn-primary mr-2">
+                          Submit
+                        </button>
+                        <button className="btn btn-light">Cancel</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-  //  state = {
-  //    mainCategory: "",
-  //    subCategory: "",
-  //    Challenge: "",
-  //  };
-  //  handleChange = (event) => {
-  //    this.setState({ name: event.target.value });
-  //  };
-   render() {
-     return (
-       <>
-         <div className="container-scroller">
-           <Dashboard />
-
-           <div className="container-fluid page-body-wrapper">
-             <DashboardMenu />
-
-             <div className="main-panel">
-               <div className="content-wrapper">
-                 <div className="row">
-                   <div className="col-12 grid-margin stretch-card">
-                     <div className="card">
-                       <div className="card-body">
-                         <h1 className="card-title">
-                           New Sub Category Details
-                         </h1>
-                         <p className="card-description">
-                           Now You can add new Sub Category Details
-                         </p>
-                         <br />
-                         <form
-                           className="forms-sample"
-                           onSubmit={this.handleSubmit}
-                         >
-                           <div class="form-group">
-                             <label for="exampleSelectGender">
-                               Main Category
-                             </label>
-                             <select
-                               class="form-control"
-                               id="exampleSelectGender"
-                               name="mainCategory"
-                               value={this.state.mainCategory}
-                               onChange={this.handleChange}
-                             >
-                               <option value="sports">Sports</option>
-                               <option value="fashion">Fashion</option>
-                             </select>
-                           </div>
-                           <div className="form-group">
-                             <label htmlFor="exampleInputName1">
-                               Sub Category Name
-                             </label>
-                             <input
-                               type="text"
-                               className="form-control"
-                               id="exampleInputName1"
-                               placeholder="Category Name"
-                               name="subCategory"
-                               value={this.state.subCategory}
-                               onChange={this.handleChange}
-                             />
-                           </div>
-
-                           <div className="form-group">
-                             <label>Sub Category Images</label>
-                             <input
-                               type="file"
-                               name="image"
-                               accept="image/*"
-                               onChange={this.onFileChange}
-                               className="form-control form-control-user"
-                               required
-                             />
-                           </div>
-                           <div className="col-12 p-0 ">
-                             <img
-                               src={this.state.previewImage}
-                               alt="Category Image"
-                               style={{ height: 400, width: "50%" }}
-                             />
-                           </div>
-                           <br />
-
-                           <div className="form-group">
-                             <label htmlFor="exampleTextarea1">Challenge</label>
-                             <textarea
-                               className="form-control"
-                               id="exampleTextarea1"
-                               rows={4}
-                               defaultValue={""}
-                               name="Challenge"
-                               value={this.state.Challenge}
-                               onChange={this.handleChange}
-                             />
-                           </div>
-                           <button
-                             type="submit"
-                             className="btn btn-primary mr-2"
-                           >
-                             Submit
-                           </button>
-                           <button className="btn btn-light">Cancel</button>
-                         </form>
-                       </div>
-                     </div>
-                   </div>
-                 </div>
-               </div>
-
-               <DashboardFooter />
-             </div>
-           </div>
-         </div>
-       </>
-     );
-   }
- }
+            <DashboardFooter />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 export default NewSubCategory;
