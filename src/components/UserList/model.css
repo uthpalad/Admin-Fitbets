@@ -1,0 +1,7 @@
+/** @format */
+
+.model-div {
+  color: blue;
+  display: flex;
+  flex-direction: row;
+}

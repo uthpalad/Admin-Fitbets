@@ -56,6 +56,7 @@ export const userColumns = [
     field: "is_active",
     headerName: "Status",
     width: 100,
+
     renderCell: params => {
       return (
         <div className={`cellWithStatus ${params.row.is_active}`}>

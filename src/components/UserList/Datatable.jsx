@@ -4,13 +4,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./datatable.scss";
+import "./model.css";
 import "../assets/category.scss";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { DataGrid, GridCellEditCommitParams } from "@mui/x-data-grid";
 import { userColumns, userRows } from "./userlistSource";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardMenu from "../DashBoard/dashboard_menu";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
+import { Modal, Button, Col, Row, Container } from "react-bootstrap";
 
 const Datatable = () => {
   useEffect(() => {
@@ -18,6 +20,16 @@ const Datatable = () => {
   }, []);
 
   const [userDetail, setuserDetail] = useState([]);
+  const [viewUserDetail, setviewUserDetail] = useState([]);
+  const [show, setshow] = useState(false);
+  const handleShow = id => {
+    setshow(true);
+    getOneUserDetail(id);
+  };
+  const handleClose = () => {
+    setshow(false);
+    setviewUserDetail([]);
+  };
 
   const getItems = () => {
     axios
@@ -40,6 +52,44 @@ const Datatable = () => {
           // console.log(res.data.length);
           const users = res.data.data;
           setuserDetail(users);
+
+          // loopUsername();
+          // console.log("userdetails:", userDetail[[0]].username);
+        } else if (res.data.data.length === 0) {
+          console.log(res.data.message);
+        } else {
+          console.error("internal database Error");
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  const getOneUserDetail = userRowId => {
+    axios
+      .get(
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/user/profile/${userRowId}`,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjUxOSwidXNlcm5hbWUiOiJkdWxhbl9TIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk5OS0wNS0yNSIsImVtYWlsX2FkZHJlc3MiOiJkdWxhbi5TQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIrOTQ3MTIzNDU2Nzg5IiwiaXNfYWN0aXZlIjp0cnVlfSwiaWF0IjoxNjQ3MDA5ODQwNDMzLCJleHAiOjE2NDcwMTEwNTAwMzN9.IIXXf1jWlIqfZryI1HskYtCgIZm0aQ4wAfSWvvyfzbYnUo5v-h2OaUvrvtHGjEDE4DpwJiSrxanwO7lE__WdZsO-bL6huoRlFOZ2rqMcrItGRiVVmcW3R9CUeSyzGvbJiSR7X2tACEriEly3vltcLEQniShTMMjz9OYc7JMZhWnX3fXZaEO3OuMwmdHJSrtjzjvKOPQX0xY1IgOFDn2-DIeYUdWYUbH-Nf9h1wzas5BrXg3TkGd_AMcNhDhD0xlK9xckAKd2VDFS3ObE9CSzSXpTQ4Ie5H91v6p7y_ChDkaLG3SiImuc026bCHMm0jIJQWkp_l4QPByPcur0NwBhFai3bT-UpI5Qbb7QNAX2bUIhunK5rhQX0HQx-r8FzQ7c1FuUGk4z2kmvb4gom3f_ZrAQoR5YtCznTn0olUJ7YjqtdC1JJUkH-sl7hcE7GbBRrm-8BjkjeaN1iKaMXNAqnjHRse7THgII5kOun6le2uo5QzreWUUXAp1fKL-aakbKZA7txReJ__i2YRuo_1zknMZ6fXR0sm31dG7N3SPzXeJJ4mmReiykbA5-xDxRs0t5qsAU9L-arv94bLDaHe-wbpFqA_R7zqL6j2yQzyEql3iL2FEEfff1d-exmwDjhCDTuC143FUANODhLF8lDYtxOCpNxL8dyYS8HJdmc6ywYlw`,
+          },
+        }
+      )
+      .then(res => {
+        if (
+          res.data.code === 200 &&
+          res.data.message === "profile exists" &&
+          res.data.data.length > 0
+        ) {
+          // console.log("response:", res.data);
+          console.log(res.data.data[0].username);
+          // console.log(res.data.message);
+          // console.log(res.data.length);
+          const user = res.data.data[0];
+          // console.log("user", user);
+          setviewUserDetail(user);
+          // console.log(viewUserDetail);
 
           // loopUsername();
           // console.log("userdetails:", userDetail[[0]].username);
@@ -93,12 +143,18 @@ const Datatable = () => {
       field: "action",
       headerName: "View profile",
       width: 100,
-      renderCell: () => {
+      renderCell: params => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
+            <Button
+              variant="success"
+              size="sm"
+              onClick={() => handleShow(params.row.id)}>
+              View
+            </Button>
+            {/* <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
-            </Link>
+            </Link> */}
             {/* <div className="deleteButton">Delete</div> */}
           </div>
         );
@@ -118,7 +174,8 @@ const Datatable = () => {
               <div className="viewButton">View</div>
             </Link> */}
             <Button
-              className="deleteButton"
+              variant="outline-danger"
+              size="sm"
               onClick={() => deleteItems(params.row.id)}>
               Delete
             </Button>
@@ -151,32 +208,34 @@ const Datatable = () => {
       }
     };
 
-    axios
-      .put(
-        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000//${e.id}`,
-        body(e),
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsImFkbWluX25hbWUiOiJBbnVyYSBBbWFyYWJhbmR1IiwiZW1haWxfYWRkcmVzcyI6ImFudXJhQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ2ODA1OTcyNTYyLCJleHAiOjE2NDY4MDcxODIxNjJ9.ovNWylxyptm9pXJ4dxYR8robCKekTFjjaZjrLOaup3zhg3RK8o6elT8E4iwN6251RMvEux25SzQUBbo3EXDxAvuv1dPLEk1jL04P_rRejurY1W6C_b8LceqWpcJbuVKKJHigik4v8GxBguAsnUEeKsB_tNypKaSWv6K0pgt6ajuaEZktSKeHwuGVGmv8Zhpccbkh7R_gW1KkJs-iBRqn27aTBDX2XUSt94_J1pu0dTI6-Au4zHKwp-H8-PkFK1yq8e0cUZUzbvYOAy9QeUIinVQk0Nx0rRtp4fE1GVkQe_s5Zq819ZT_5HdjXkHE3XIBpkUcCR7Mgf68VfrdVE0awaXFiOzob3uQu7Wq86B0HYQmndFMEQeMOHCu6xbnbY-QT8IqwUSPBJeLunfkksMc6hHjI5kpCPieJ_HWIqsa-h-gG9F0T2g0eMkxWUV2jHsXwgKltcz0lI5Nh7L6OgCllZrEhTFt3K81qhaYKgIztZOEK4XLtAgj0ClK0U-DLSev1y7a4iZXx3PgyT14hCx9ljfvLXjDhCmKKSRko_1lYMVSuwl2a1e_WVfTbk46gKEXyDn_8V3lEeqCrlfu-UI2aCwcZB36t2tRQBqT2z7qYjVvnfNXMu3pPF5aq-qme7mhn-kT4QskKXvWXFft-4D6wqEnGxx91ksc1GEQ8wnQ3NA`,
-          },
-        }
-      )
-      .then(res => {
-        if (res.data.status === 200 && res.data.status === "OK") {
-          console.log(res.data.message);
-        } else {
-          console.log(res.data.message);
-        }
-        // console.log(res.data.length);
-        // const users = res.data.data;
-        // setuserDetail(users);
-      })
-      .then(res => {
-        window.location.reload(false);
-      })
-      .catch(error => {
-        console.error("delete fail! server error", error);
-      });
+    console.log("edit data:", e.value);
+
+    // axios
+    //   .put(
+    //     `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000//${e.id}`,
+    //     body(e),
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsImFkbWluX25hbWUiOiJBbnVyYSBBbWFyYWJhbmR1IiwiZW1haWxfYWRkcmVzcyI6ImFudXJhQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ2ODA1OTcyNTYyLCJleHAiOjE2NDY4MDcxODIxNjJ9.ovNWylxyptm9pXJ4dxYR8robCKekTFjjaZjrLOaup3zhg3RK8o6elT8E4iwN6251RMvEux25SzQUBbo3EXDxAvuv1dPLEk1jL04P_rRejurY1W6C_b8LceqWpcJbuVKKJHigik4v8GxBguAsnUEeKsB_tNypKaSWv6K0pgt6ajuaEZktSKeHwuGVGmv8Zhpccbkh7R_gW1KkJs-iBRqn27aTBDX2XUSt94_J1pu0dTI6-Au4zHKwp-H8-PkFK1yq8e0cUZUzbvYOAy9QeUIinVQk0Nx0rRtp4fE1GVkQe_s5Zq819ZT_5HdjXkHE3XIBpkUcCR7Mgf68VfrdVE0awaXFiOzob3uQu7Wq86B0HYQmndFMEQeMOHCu6xbnbY-QT8IqwUSPBJeLunfkksMc6hHjI5kpCPieJ_HWIqsa-h-gG9F0T2g0eMkxWUV2jHsXwgKltcz0lI5Nh7L6OgCllZrEhTFt3K81qhaYKgIztZOEK4XLtAgj0ClK0U-DLSev1y7a4iZXx3PgyT14hCx9ljfvLXjDhCmKKSRko_1lYMVSuwl2a1e_WVfTbk46gKEXyDn_8V3lEeqCrlfu-UI2aCwcZB36t2tRQBqT2z7qYjVvnfNXMu3pPF5aq-qme7mhn-kT4QskKXvWXFft-4D6wqEnGxx91ksc1GEQ8wnQ3NA`,
+    //       },
+    //     }
+    //   )
+    //   .then(res => {
+    //     if (res.data.status === 200 && res.data.status === "OK") {
+    //       console.log(res.data.message);
+    //     } else {
+    //       console.log(res.data.message);
+    //     }
+    //     // console.log(res.data.length);
+    //     // const users = res.data.data;
+    //     // setuserDetail(users);
+    //   })
+    //   .then(res => {
+    //     window.location.reload(false);
+    //   })
+    //   .catch(error => {
+    //     console.error("delete fail! server error", error);
+    //   });
 
     // editItems(e.id);
     // const array = userDetail.map(r => {
@@ -430,11 +489,11 @@ const Datatable = () => {
                 <div className="col-lg-12 grid-margin stretch-card">
                   <div className="card">
                     <div className="card-body">
-                      <div>
+                      {/* <div>
                         {userDetail.map(item => (
                           <p key={item.id}>{JSON.stringify(item.username)}</p>
                         ))}
-                      </div>
+                      </div> */}
                       {/*table content*/}
                       <div className="datatable">
                         <div className="datatableTitle">
@@ -463,6 +522,39 @@ const Datatable = () => {
                           rowsPerPageOptions={[9]}
                           // checkboxSelection
                         />
+                        <Modal show={show}>
+                          <Modal.Header>
+                            <Modal.Title>User Details</Modal.Title>
+                          </Modal.Header>
+
+                          <Modal.Body>
+                            <div className="model-div">
+                              <div>
+                                {/* <img
+                                  src={viewUserDetail.player_card_url}
+                                  alt="user profile image"
+                                  sizes="10px"
+                                /> */}
+                              </div>
+                              <div>
+                                <h5>{viewUserDetail.id}</h5>
+                                <h5>{viewUserDetail.username}</h5>
+                                <h5>{viewUserDetail.email_address}</h5>
+                                <h5>{viewUserDetail.gender}</h5>
+                                <h5>{viewUserDetail.mobile_number}</h5>
+                              </div>
+                            </div>
+                          </Modal.Body>
+
+                          <Modal.Footer>
+                            <Button
+                              variant="outline-primary"
+                              size="sm"
+                              onClick={handleClose}>
+                              Close
+                            </Button>
+                          </Modal.Footer>
+                        </Modal>
                       </div>
                     </div>
                   </div>
