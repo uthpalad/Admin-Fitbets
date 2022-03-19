@@ -13,6 +13,7 @@ import Dashboard from "../DashBoard/dashboard";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 // import { Button } from "@mui/material";
 import { Modal, Button, Col, Row, Container } from "react-bootstrap";
+var dayjs = require("dayjs");
 
 const Datatable = () => {
   useEffect(() => {
@@ -503,7 +504,7 @@ const Datatable = () => {
                               <input type="text" placeholder="Search..." />
                               <SearchOutlinedIcon />
                             </div>
-                            <Link to="/users/new" className="link">
+                            <Link to="/category" className="link">
                               Add New
                             </Link>
                           </div>
@@ -523,37 +524,45 @@ const Datatable = () => {
                           // checkboxSelection
                         />
                         <Modal show={show}>
-                          <Modal.Header>
+                          {/* <Modal.Header>
                             <Modal.Title>User Details</Modal.Title>
-                          </Modal.Header>
+                          </Modal.Header> */}
 
                           <Modal.Body>
                             <div className="model-div">
-                              <div>
-                                {/* <img
+                              <div className="model-div-img">
+                                <img
+                                  className="img-div"
                                   src={viewUserDetail.player_card_url}
-                                  alt="user profile image"
-                                  sizes="10px"
-                                /> */}
+                                />
                               </div>
-                              <div>
-                                <h5>{viewUserDetail.id}</h5>
-                                <h5>{viewUserDetail.username}</h5>
-                                <h5>{viewUserDetail.email_address}</h5>
-                                <h5>{viewUserDetail.gender}</h5>
-                                <h5>{viewUserDetail.mobile_number}</h5>
+                              <div className="model-div-userinfo">
+                                <div className="model-div-name">
+                                  <h3>{viewUserDetail.username}</h3>&nbsp;
+                                  <p>
+                                    <strong>({viewUserDetail.gender})</strong>
+                                  </p>
+                                </div>
+                                <h6>{viewUserDetail.email_address}</h6>
+                                <h6>{viewUserDetail.mobile_number}</h6>
+                                <h6>
+                                  {dayjs(viewUserDetail.birthday).format(
+                                    "DD-MM-YYYY"
+                                  )}
+                                </h6>
                               </div>
+                            </div>
+                            <div className="model-div-close-btn">
+                              <Button
+                                variant="outline-primary"
+                                size="sm"
+                                onClick={handleClose}>
+                                Close
+                              </Button>
                             </div>
                           </Modal.Body>
 
-                          <Modal.Footer>
-                            <Button
-                              variant="outline-primary"
-                              size="sm"
-                              onClick={handleClose}>
-                              Close
-                            </Button>
-                          </Modal.Footer>
+                          {/* <Modal.Footer></Modal.Footer> */}
                         </Modal>
                       </div>
                     </div>
