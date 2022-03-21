@@ -4,11 +4,11 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NewCategory from "./components/Category/addCategory";
 import Home from "./components/Home";
-import CategoryList from "./components/Category/categoryList";
+import CategoryList from "./components/Category/CategoryList";
 import NewSubCategory from "./components/Subcategory/addSubCategory";
 import UserDetails from "./components/UserDetails/userDetails";
 import UserList from "./components/UserList/Datatable";
-import SubCategoryList from "./components/Subcategory/subCategoryList";
+import SubCategoryList from "./components/Subcategory/SubCategoryList";
 
 function App() {
   return (
