@@ -4,8 +4,6 @@ import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
 
-
-
 class NewObjective extends Component {
 //   constructor(props) {
 //     super(props);
