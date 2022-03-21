@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { Component } from "react";
 import DashboardFooter from "./dashboard_footer";
 
@@ -11,8 +13,7 @@ class DashboardMenu extends Component {
             <ul
               className="nav nav-tabs border-top"
               id="setting-panel"
-              role="tablist"
-            >
+              role="tablist">
               <li className="nav-item">
                 <a
                   className="nav-link active"
@@ -21,8 +22,7 @@ class DashboardMenu extends Component {
                   href="#todo-section"
                   role="tab"
                   aria-controls="todo-section"
-                  aria-expanded="true"
-                >
+                  aria-expanded="true">
                   TO DO LIST
                 </a>
               </li>
@@ -33,8 +33,7 @@ class DashboardMenu extends Component {
                   data-toggle="tab"
                   href="#chats-section"
                   role="tab"
-                  aria-controls="chats-section"
-                >
+                  aria-controls="chats-section">
                   CHATS
                 </a>
               </li>
@@ -44,8 +43,7 @@ class DashboardMenu extends Component {
                 className="tab-pane fade show active scroll-wrapper"
                 id="todo-section"
                 role="tabpanel"
-                aria-labelledby="todo-section"
-              >
+                aria-labelledby="todo-section">
                 <div className="add-items d-flex px-3 mb-0">
                   <form className="form w-100">
                     <div className="form-group d-flex">
@@ -57,8 +55,7 @@ class DashboardMenu extends Component {
                       <button
                         type="submit"
                         className="add btn btn-primary todo-list-add-btn"
-                        id="add-task"
-                      >
+                        id="add-task">
                         Add
                       </button>
                     </div>
@@ -150,8 +147,7 @@ class DashboardMenu extends Component {
                 className="tab-pane fade"
                 id="chats-section"
                 role="tabpanel"
-                aria-labelledby="chats-section"
-              >
+                aria-labelledby="chats-section">
                 <div className="d-flex align-items-center justify-content-between border-bottom">
                   <p className="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">
                     Friends
@@ -252,8 +248,7 @@ class DashboardMenu extends Component {
                   data-toggle="collapse"
                   href="#ui-basic"
                   aria-expanded="false"
-                  aria-controls="ui-basic"
-                >
+                  aria-controls="ui-basic">
                   <i className="icon-layout menu-icon" />
                   <span className="menu-title">Category</span>
                   <i className="menu-arrow" />
@@ -281,8 +276,7 @@ class DashboardMenu extends Component {
                   data-toggle="collapse"
                   href="#form-elements"
                   aria-expanded="false"
-                  aria-controls="form-elements"
-                >
+                  aria-controls="form-elements">
                   <i className="icon-columns menu-icon" />
                   <span className="menu-title">Sub Category</span>
                   <i className="menu-arrow" />
@@ -295,10 +289,7 @@ class DashboardMenu extends Component {
                       </a>
                     </li>
                     <li className="nav-item">
-                      <a
-                        className="nav-link"
-                        href="/all__sub_category"
-                      >
+                      <a className="nav-link" href="/all__sub_category">
                         Sub Category List
                       </a>
                     </li>
@@ -312,8 +303,7 @@ class DashboardMenu extends Component {
                   data-toggle="collapse"
                   href="#charts"
                   aria-expanded="false"
-                  aria-controls="charts"
-                >
+                  aria-controls="charts">
                   <i className="icon-bar-graph menu-icon" />
                   <span className="menu-title">Objectives</span>
                   <i className="menu-arrow" />
@@ -327,10 +317,7 @@ class DashboardMenu extends Component {
                       </a>
                     </li>
                     <li className="nav-item">
-                      <a
-                        className="nav-link"
-                        href="/objective_list"
-                      >
+                      <a className="nav-link" href="/objective_list">
                         Objective List
                       </a>
                     </li>
@@ -343,8 +330,7 @@ class DashboardMenu extends Component {
                   data-toggle="collapse"
                   href="#tables"
                   aria-expanded="false"
-                  aria-controls="tables"
-                >
+                  aria-controls="tables">
                   <i className="icon-grid-2 menu-icon" />
                   <span className="menu-title">Admin List</span>
                   <i className="menu-arrow" />
@@ -355,8 +341,7 @@ class DashboardMenu extends Component {
                       {" "}
                       <a
                         className="nav-link"
-                        href="pages/tables/basic-table.html"
-                      >
+                        href="pages/tables/basic-table.html">
                         Basic table
                       </a>
                     </li>
@@ -369,8 +354,7 @@ class DashboardMenu extends Component {
                   data-toggle="collapse"
                   href="#icons"
                   aria-expanded="false"
-                  aria-controls="icons"
-                >
+                  aria-controls="icons">
                   <i className="icon-head menu-icon" />
                   <span className="menu-title">User List</span>
                   <i className="menu-arrow" />
@@ -380,7 +364,7 @@ class DashboardMenu extends Component {
                     <li className="nav-item">
                       {" "}
                       <a className="nav-link" href="/userlist">
-                        All Users
+                        User list
                       </a>
                     </li>
                   </ul>
@@ -392,8 +376,7 @@ class DashboardMenu extends Component {
                   data-toggle="collapse"
                   href="#auth"
                   aria-expanded="false"
-                  aria-controls="auth"
-                >
+                  aria-controls="auth">
                   <i className="icon-contract menu-icon" />
                   <span className="menu-title">Add Users</span>
                   <i className="menu-arrow" />
@@ -411,8 +394,7 @@ class DashboardMenu extends Component {
                       {" "}
                       <a
                         className="nav-link"
-                        href="pages/samples/register.html"
-                      >
+                        href="pages/samples/register.html">
                         {" "}
                         Register{" "}
                       </a>
@@ -426,8 +408,7 @@ class DashboardMenu extends Component {
                   data-toggle="collapse"
                   href="#error"
                   aria-expanded="false"
-                  aria-controls="error"
-                >
+                  aria-controls="error">
                   <i className="icon-ban menu-icon" />
                   <span className="menu-title">Profile</span>
                   <i className="menu-arrow" />
@@ -438,8 +419,7 @@ class DashboardMenu extends Component {
                       {" "}
                       <a
                         className="nav-link"
-                        href="pages/samples/error-404.html"
-                      >
+                        href="pages/samples/error-404.html">
                         {" "}
                         404{" "}
                       </a>
@@ -448,8 +428,7 @@ class DashboardMenu extends Component {
                       {" "}
                       <a
                         className="nav-link"
-                        href="pages/samples/error-500.html"
-                      >
+                        href="pages/samples/error-500.html">
                         {" "}
                         500{" "}
                       </a>
