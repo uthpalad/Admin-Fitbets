@@ -17,7 +17,6 @@
     "@mui/icons-material": "^5.5.0",
     "@mui/material": "^5.5.0",
     "@mui/x-data-grid": "^5.6.1",
-    "axios": "^0.26.1",
     "dayjs": "^1.11.0",
     "react-bootstrap": "^2.2.1",
     "@emotion/react": "^11.8.2",
