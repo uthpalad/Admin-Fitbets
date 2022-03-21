@@ -13,6 +13,7 @@ function ObjectiveList() {
     sub_category_id: "",
     objective_name: "",
   });
+  const [deleteId, setDeleteId] = useState("");
 
   useEffect(() => {
     axios
@@ -31,7 +32,7 @@ function ObjectiveList() {
       })
 
       .catch((err) => console.log(err));
-  }, []);
+  }, [deleteId]);
 
   const deleteObjective = (data) => {
     // console.log(data);
@@ -43,7 +44,8 @@ function ObjectiveList() {
         },
       }
     );
-    window.location = `/objective_list`; //url+data.id
+    setDeleteId(data);
+    // window.location = `/objective_list`; //url+data.id
   };
 
   const editObjective = (data) => {
