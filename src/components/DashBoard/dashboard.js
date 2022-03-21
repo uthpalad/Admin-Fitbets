@@ -3,6 +3,11 @@ import DashboardMenu from "./dashboard_menu";
 
 class Dashboard extends Component {
   render() {
+
+    const logout = () => {
+      window.localStorage.clear();
+      window.location.href =  "http://localhost:3000";
+    }
     return (
       <div>
         <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -126,7 +131,7 @@ class Dashboard extends Component {
                     <i className="ti-settings text-primary" />
                     Settings
                   </a>
-                  <a className="dropdown-item">
+                  <a className="dropdown-item" onClick={logout}>
                     <i className="ti-power-off text-primary" />
                     Logout
                   </a>

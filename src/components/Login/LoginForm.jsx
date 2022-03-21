@@ -19,7 +19,7 @@ export default function LoginForm(props) {
       admin_name,
       password,
       device_token,
-    };
+    }; 
 
     axios
       .post(
@@ -33,16 +33,21 @@ export default function LoginForm(props) {
         console.log(status);
         console.log(response.data.token);
         console.log(response.data.success);
-        if (response.status == 200) {
+        if (response.status == 200 && response.data.success) {
           window.location = "/home";
         } else {
-          console.log("Missmatch");
-          setError("Missmatch");
+          console.log("Invalid username or password");
+          setError("Invalid username or password");
         }
+
       })
-      .catch((err) => {        
-          setError("Sever error");
-          console.log("Sever error");
+      .catch((err) => { 
+        if(!err.data.success){
+          console.log("Invalid username or password");
+          setError("Invalid username or password");
+        }       
+          setError("Server error");
+          console.log("Server error");
       });
   }
 
