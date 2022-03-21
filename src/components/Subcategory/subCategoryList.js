@@ -8,34 +8,37 @@ import "../assets/category.scss";
 import AsyncSelect from "react-select/async";
 
 function SubCategoryList() {
+  const [inputValue, setValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState(null);
 
-  const [categories, setcategories] = useState([]);
-  const [categoryId, setCategoryId] = useState("");
-  const [subcategoryName, setsubcategoryName] = useState("");
-  
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/admin/getAllsubCategories")
+  const handleInputChange = (value) => {
+    setValue(value);
+  };
 
-      .then((res) => {
-        setcategories(res.data.data);
-      })
+  const handleChange = (value) => {
+    setSelectedValue(value);
+  };
 
-      .catch((err) => console.log(err));
-  }, []);
+  async function fetchData() {
+    const response = await axios.get(
+      "http://localhost:8000/admin/getAllsubCategories"
+    );
+  console.log(response.data.data);
+    return response.data.data;
+  }
 
- const arr = categories.map((data, index) => {
-   return (
-     <tr>
-       <td>{data.id}</td>
-       <td>{data.categoryId}</td>
-       <td>{data.subcategoryName}</td>
-       <td>
-         <img src={data.subcategoryImageFile} width="50px" height="50px"></img>
-       </td>
-     </tr>
-   );
- });
+  //   const DisplayData=selectedValue.map(
+  //       (info)=>{
+  //           return(
+  //               <tr>
+  //                   <td>{info.id}</td>
+  //                   <td>{info.categoryId}</td>
+  //                   <td>{info.subcategoryName}</td>
+  //               </tr>
+  //           )
+  //       }
+  // )
+
   return (
     <>
       <div className="container-scroller">
@@ -54,12 +57,13 @@ function SubCategoryList() {
                         Check All Sub Category List
                       </p>
                       <br />
-                      {/* <div>
+
+                      <div>
                         Selected value:
                         {JSON.stringify(selectedValue || {}, null, 2)}
-                      </div> */}
+                      </div>
 
-                      {/* <AsyncSelect
+                      <AsyncSelect
                         cacheOptions
                         defaultOptions
                         value={selectedValue}
@@ -70,26 +74,8 @@ function SubCategoryList() {
                         loadOptions={fetchData}
                         onInputChange={handleInputChange}
                         onChange={handleChange}
-                      /> */}
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleSelectGender">Sub Category</label>
-                      <select
-                        class="form-control"
-                        id="exampleSelectGender"
-                        name="categoryId"
-                        // value={selectedValue}
-                        onChange={(e) => setCategoryId(e.target.value)}
-                      >
-                        {categories.map(function (category, i) {
-                          // console.log(category.id);
-                          return (
-                            <option key={i} value={category.id}>
-                              {category.subcategoryName}
-                            </option>
-                          );
-                        })}
-                      </select>
+                      />
+
                     </div>
 
                     <div>
@@ -102,7 +88,7 @@ function SubCategoryList() {
                             <th>Subcategory Image</th>
                           </tr>
                         </thead>
-                        <tbody>{arr}</tbody>
+                        <tbody>{/* {DisplayData} */}</tbody>
                       </table>
                     </div>
                   </div>
