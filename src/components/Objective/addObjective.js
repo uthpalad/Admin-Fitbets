@@ -7,6 +7,7 @@ import axios from "axios";
 
 const NewObjective = () => {
   const [objectiveData, setObjectiveData] = useState({
+    category_id: "",
     sub_category_id: "",
     objective_name: "",
   });
@@ -15,7 +16,7 @@ const NewObjective = () => {
     e.preventDefault();
     console.log(
       "sent data = " + objectiveData.objective_name,
-      objectiveData.sub_category_id
+      objectiveData.sub_category_id, objectiveData.category_id
     );
     axios
       .post(
@@ -28,7 +29,7 @@ const NewObjective = () => {
         }
       )
       .then((res) => {
-        setObjectiveData({ sub_category_id: "", objective_name: "" });
+        setObjectiveData({category_id:"", sub_category_id: "", objective_name: "" });
         console.log(res);
       });
   };
@@ -58,6 +59,23 @@ const NewObjective = () => {
                       </p>
                       <br />
                       <form action="" method="post" onSubmit={onSubmit}>
+                      <div className="form-group">
+                          <label htmlFor="category_id">
+                             Category ID
+                          </label>
+                          <input
+                            type="number"
+                            name="category_id"
+                            className="form-control"
+                            id="category_id"
+                            value={objectiveData.category_id}
+                            onChange={handleChange}
+                            placeholder="Category ID"
+                          />
+                        </div>
+                        <br />
+
+
                         <div className="form-group">
                           <label htmlFor="sub_category_id">
                             sub Category ID
