@@ -30,7 +30,6 @@ const NewSubCategory = () => {
   const onChangeFile = (e) => {
     setsubcategoryImageFile(e.target.files[0]);
     console.log(categoryId);
-
   };
 
   const changeOnClick = (e) => {
@@ -100,7 +99,7 @@ const NewSubCategory = () => {
                               // console.log(category.id);
                               return (
                                 <option key={i} value={category.id}>
-                                  {category.id}{" "}
+                                  {/* {category.id}{" "} */}
                                   {category.categoryName}
                                 </option>
                               );
@@ -152,7 +151,6 @@ const NewSubCategory = () => {
                         <button type="submit" className="btn btn-primary mr-2">
                           Submit
                         </button>
-                      
                       </form>
                     </div>
                   </div>
