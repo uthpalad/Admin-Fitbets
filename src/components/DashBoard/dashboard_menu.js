@@ -345,7 +345,7 @@ class DashboardMenu extends Component {
                       {" "}
                       <a
                         className="nav-link"
-                        href="pages/tables/basic-table.html">
+                        href="/adminList">
                         Basic table
                       </a>
                     </li>

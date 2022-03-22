@@ -13,6 +13,7 @@ import EditSubCategory from "./components/Subcategory/editSubCategory";
 import NewObjective from "./components/Objective/addObjective";
 import ObjectiveList from "./components/Objective/objectiveList";
 import UserList from "./components/UserList/Datatable";
+// import AdminList from "./components/AdminList/Datatable";
 import Login from "./components/Login/LoginForm";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/objective" element={<NewObjective />}></Route>
           <Route path="/objective_list" element={<ObjectiveList />}></Route>
           <Route path="/userlist" element={<UserList />}></Route>
+          {/* <Route path="/adminList" element={<AdminList />}></Route> */}
         </Routes>
       </Router>
     </div>
