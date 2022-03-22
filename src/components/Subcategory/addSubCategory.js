@@ -88,7 +88,7 @@ const NewSubCategory = () => {
                       <br />
                       <form action="" method="post" onSubmit={changeOnClick}>
                         <div class="form-group">
-                          <label for="exampleSelectGender">Sub Category</label>
+                          <label for="exampleSelectGender">Category Id</label>
                           <select
                             class="form-control"
                             id="exampleSelectGender"
@@ -100,7 +100,7 @@ const NewSubCategory = () => {
                               // console.log(category.id);
                               return (
                                 <option key={i} value={category.id}>
-                                  {category.id}{" --- "}
+                                  {category.id}{" "}
                                   {category.categoryName}
                                 </option>
                               );
@@ -109,7 +109,7 @@ const NewSubCategory = () => {
                         </div>
 
                         <div className="form-group">
-                          <label>Category Images</label>
+                          <label>Select Category Image</label>
                           <input
                             type="file"
                             placeholder="Upload your image"

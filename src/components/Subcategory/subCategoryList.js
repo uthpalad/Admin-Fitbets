@@ -5,39 +5,47 @@ import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
+import Select from 'react-select';
 import AsyncSelect from "react-select/async";
 
 function SubCategoryList() {
-  const [inputValue, setValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState(null);
+  const [SubCategories, setSubCategories] = useState([]);
+  const [subCategory, setSubCategory] = useState([]);
 
-  const handleInputChange = (value) => {
-    setValue(value);
+  useEffect(() => {
+    axios
+      .get(
+        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories"
+      )
+
+      .then((res) => {
+        // console.log("Getting from:", res.data.data[0].id);
+        //console.log(res.data.data)
+        setSubCategories(res.data.data);
+      })
+
+      .catch((err) => console.log(err));
+  }, []);
+
+  const getAllSubCategories = (id) => {
+    // console.log(data);
+
+    axios
+      .get(
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories/${id}`
+      )
+      .then((res) => {
+        console.log(res.data.data);
+        // console.log("Getting from:", res.data.data[0].id);
+        if (res.data.data.length === 0) {
+          setSubCategory([]);
+        } else {
+          setSubCategory(res.data.data);
+        }
+      })
+
+      .catch((err) => console.log(err));
   };
-
-  const handleChange = (value) => {
-    setSelectedValue(value);
-  };
-
-  async function fetchData() {
-    const response = await axios.get(
-      "http://localhost:8000/admin/getAllsubCategories"
-    );
-  console.log(response.data.data);
-    return response.data.data;
-  }
-
-  //   const DisplayData=selectedValue.map(
-  //       (info)=>{
-  //           return(
-  //               <tr>
-  //                   <td>{info.id}</td>
-  //                   <td>{info.categoryId}</td>
-  //                   <td>{info.subcategoryName}</td>
-  //               </tr>
-  //           )
-  //       }
-  // )
 
   return (
     <>
@@ -58,24 +66,25 @@ function SubCategoryList() {
                       </p>
                       <br />
 
-                      <div>
-                        Selected value:
-                        {JSON.stringify(selectedValue || {}, null, 2)}
-                      </div>
-
-                      <AsyncSelect
-                        cacheOptions
-                        defaultOptions
-                        value={selectedValue}
-                        getOptionalLabel={(e) => e.subcategoryName
-                           
-                        }
-                        getOptionalValue={(e) => e.id}
-                        loadOptions={fetchData}
-                        onInputChange={handleInputChange}
-                        onChange={handleChange}
-                      />
-
+                      <select
+                        class="form-control"
+                        id="exampleSelectGender"
+                        name="id"
+                        value={SubCategories.id}
+                        onChange={(e) => getAllSubCategories(e.target.value)}
+                      >
+                        <option value="0">Select Sub Category</option>
+                        {SubCategories.map(function (subCategory, i) {
+                          // console.log(category.id);
+                          return (
+                            <option key={i} value={subCategory.id}>
+                              {subCategory.id}
+                              {"-"}
+                              {subCategory.subcategoryName}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </div>
 
                     <div>
@@ -83,12 +92,28 @@ function SubCategoryList() {
                         <thead>
                           <tr>
                             <th>Subcategory Id</th>
-                            <th>Category Id</th>
-                            <th>Category Name</th>
-                            <th>Subcategory Image</th>
+                            <th>categoryId</th>
+                            <th>subcategoryName</th>
+                            <th>Image</th>
                           </tr>
                         </thead>
-                        <tbody>{/* {DisplayData} */}</tbody>
+                        <tbody>
+                          {subCategory.map(function (subCategory, i) {
+                            console.log(subCategory.id);
+                            return (
+                              <tr>
+                                <td>{subCategory.id}</td>
+                                <td>{subCategory.categoryId}</td>
+                                <td>{subCategory.subcategoryName}</td>
+                                <img
+                                  src={subCategory.subcategoryImageFile}
+                                  width="50px"
+                                  height="50px"
+                                ></img>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
                       </table>
                     </div>
                   </div>
