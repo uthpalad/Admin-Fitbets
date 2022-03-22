@@ -10,6 +10,7 @@ function ObjectiveList() {
   const [data, setData] = useState([]);
   const [visible, setVisible] = useState(false);
   const [Objective, SetObjective] = useState({
+    category_id: "",
     sub_category_id: "",
     objective_name: "",
   });
@@ -66,6 +67,7 @@ function ObjectiveList() {
 
         SetObjective({
           ...Objective,
+          category_id: objective.category_id,
           sub_category_id: objective.sub_category_id,
           objective_name: objective.objective_name,
         });
@@ -78,6 +80,21 @@ function ObjectiveList() {
     return (
       <div>
         <form action="" method="post">
+          <div className="form-group">
+            <label htmlFor="category_id">Category ID</label>
+            <input
+              type="number"
+              name="category_id"
+              className="form-control"
+              id="category_id"
+              value={Objective.category_id}
+              // onChange={handleChange}
+              placeholder="Category ID"
+            />
+          </div>
+          <br />
+
+
           <div className="form-group">
             <label htmlFor="sub_category_id">sub Category ID</label>
             <input
@@ -117,6 +134,7 @@ function ObjectiveList() {
     return (
       <tr>
         {/* <td>{data.id}</td> */}
+        <td>{data.category_id}</td>
         <td>{data.sub_category_id}</td>
         <td>{data.objective_name}</td>
         <td>
@@ -166,7 +184,7 @@ function ObjectiveList() {
                       <table className="table table-striped">
                         <thead>
                           <tr>
-                            {/* <th>ID</th> */}
+                            <th>Category Id</th>
                             <th>Sub Category Id</th>
                             <th>Objective Name</th>
                             <th>Action</th>
