@@ -11,12 +11,45 @@ const NewObjective = () => {
     sub_category_id: "",
     objective_name: "",
   });
+  const [categories, setcategories] = useState([]);
+  const [categoryId, setCategoryId] = useState("");
+  const [SubCategories, setSubCategories] = useState([]);
+  const [subCategory, setSubCategory] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(
+        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllCategories"
+      )
+
+      .then((res) => {
+        // console.log("Getting from:", res.data.data[0].id);
+        setcategories(res.data.data);
+      })
+
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories/${objectiveData.category_id}`
+      )
+
+      .then((res) => {
+        // console.log("Getting from:", res.data.data[0].id);
+        //console.log(res.data.data)
+        setSubCategories(res.data.data);
+      })
+
+      .catch((err) => console.log(err));
+  }, [objectiveData.category_id]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(
       "sent data = " + objectiveData.objective_name,
-      objectiveData.sub_category_id, objectiveData.category_id
+      objectiveData.sub_category_id
     );
     axios
       .post(
@@ -29,7 +62,7 @@ const NewObjective = () => {
         }
       )
       .then((res) => {
-        setObjectiveData({category_id:"", sub_category_id: "", objective_name: "" });
+        setObjectiveData({ sub_category_id: "", objective_name: "" });
         console.log(res);
       });
   };
@@ -59,24 +92,7 @@ const NewObjective = () => {
                       </p>
                       <br />
                       <form action="" method="post" onSubmit={onSubmit}>
-                      <div className="form-group">
-                          <label htmlFor="category_id">
-                             Category ID
-                          </label>
-                          <input
-                            type="number"
-                            name="category_id"
-                            className="form-control"
-                            id="category_id"
-                            value={objectiveData.category_id}
-                            onChange={handleChange}
-                            placeholder="Category ID"
-                          />
-                        </div>
-                        <br />
-
-
-                        <div className="form-group">
+                        {/* <div className="form-group">
                           <label htmlFor="sub_category_id">
                             sub Category ID
                           </label>
@@ -89,6 +105,57 @@ const NewObjective = () => {
                             onChange={handleChange}
                             placeholder="sub Category ID"
                           />
+                        </div> */}
+
+                        <div class="form-group">
+                          <label for="exampleSelectGender">Category</label>
+                          <select
+                            class="form-control"
+                            id="exampleSelectGender"
+                            name="categoryId"
+                            // value={selectedValue}
+                            onChange={(e) => setObjectiveData({ 
+                              ...objectiveData,
+                              category_id: e.target.value})}
+                          >
+                            <option value="0">Select Category</option>
+                            {categories.map(function (category, i) {
+                              // console.log(category.id);
+                              return (
+                                <option key={i} value={category.id}>
+                                  {category.id}
+                                  {" - "}
+                                  {category.categoryName}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        </div>
+                        <br />
+
+                        <div class="form-group">
+                          <label for="exampleSelectGender">Sub Category</label>
+                          <select
+                        class="form-control"
+                        id="exampleSelectGender"
+                        name="id"
+                        value={SubCategories.id}
+                        onChange={(e) => setObjectiveData({ 
+                          ...objectiveData,
+                          subcategory_id: e.target.value})}
+                      >
+                        <option value="0">Select Sub Category</option>
+                        {SubCategories.map(function (subCategory, i) {
+                          // console.log(category.id);
+                          return (
+                            <option key={i} value={subCategory.id}>
+                              {subCategory.id}
+                              {"-"}
+                              {subCategory.subcategoryName}
+                            </option>
+                          );
+                        })}
+                      </select>
                         </div>
                         <br />
 
