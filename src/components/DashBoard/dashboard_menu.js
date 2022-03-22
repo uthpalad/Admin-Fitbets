@@ -328,6 +328,7 @@ class DashboardMenu extends Component {
                   </ul>
                 </div>
               </li>
+              
               <li className="nav-item">
                 <a
                   className="nav-link"
@@ -345,13 +346,15 @@ class DashboardMenu extends Component {
                       {" "}
                       <a
                         className="nav-link"
-                        href="/adminList">
-                        Basic table
+                        href="/Admin_list">
+                        Admin list
+
                       </a>
                     </li>
                   </ul>
                 </div>
               </li>
+
               <li className="nav-item">
                 <a
                   className="nav-link"
