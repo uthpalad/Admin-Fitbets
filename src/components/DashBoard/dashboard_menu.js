@@ -348,6 +348,7 @@ class DashboardMenu extends Component {
                         className="nav-link"
                         href="/Admin_list">
                         Admin list
+
                       </a>
                     </li>
                   </ul>

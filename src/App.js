@@ -14,6 +14,7 @@ import NewObjective from "./components/Objective/addObjective";
 import ObjectiveList from "./components/Objective/objectiveList";
 import AdminList from "./components/AdminList/adminList";
 import UserList from "./components/UserList/Datatable";
+// import AdminList from "./components/AdminList/Datatable";
 import Login from "./components/Login/LoginForm";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/objective_list" element={<ObjectiveList />}></Route>
           <Route path="/Admin_list" element={<AdminList />}></Route>
           <Route path="/userlist" element={<UserList />}></Route>
+          {/* <Route path="/adminList" element={<AdminList />}></Route> */}
         </Routes>
       </Router>
     </div>
