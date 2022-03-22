@@ -12,6 +12,7 @@ import SubCategoryList from "./components/Subcategory/subCategoryList";
 import EditSubCategory from "./components/Subcategory/editSubCategory";
 import NewObjective from "./components/Objective/addObjective";
 import ObjectiveList from "./components/Objective/objectiveList";
+import AdminList from "./components/AdminList/adminList";
 import UserList from "./components/UserList/Datatable";
 import Login from "./components/Login/LoginForm";
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/edit_sub_category" element={<EditSubCategory />}></Route>
           <Route path="/objective" element={<NewObjective />}></Route>
           <Route path="/objective_list" element={<ObjectiveList />}></Route>
+          <Route path="/Admin_list" element={<AdminList />}></Route>
           <Route path="/userlist" element={<UserList />}></Route>
         </Routes>
       </Router>
