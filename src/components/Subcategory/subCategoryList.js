@@ -47,6 +47,37 @@ function SubCategoryList() {
       .catch((err) => console.log(err));
   };
 
+  const deleteObjective = (data) => {
+    axios
+      .delete(
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/deleteSubCategories/${data}`,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsImFkbWluX25hbWUiOiJBbnVyYSBBbWFyYWJhbmR1IiwiZW1haWxfYWRkcmVzcyI6ImFudXJhQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ2ODA1OTcyNTYyLCJleHAiOjE2NDY4MDcxODIxNjJ9.ovNWylxyptm9pXJ4dxYR8robCKekTFjjaZjrLOaup3zhg3RK8o6elT8E4iwN6251RMvEux25SzQUBbo3EXDxAvuv1dPLEk1jL04P_rRejurY1W6C_b8LceqWpcJbuVKKJHigik4v8GxBguAsnUEeKsB_tNypKaSWv6K0pgt6ajuaEZktSKeHwuGVGmv8Zhpccbkh7R_gW1KkJs-iBRqn27aTBDX2XUSt94_J1pu0dTI6-Au4zHKwp-H8-PkFK1yq8e0cUZUzbvYOAy9QeUIinVQk0Nx0rRtp4fE1GVkQe_s5Zq819ZT_5HdjXkHE3XIBpkUcCR7Mgf68VfrdVE0awaXFiOzob3uQu7Wq86B0HYQmndFMEQeMOHCu6xbnbY-QT8IqwUSPBJeLunfkksMc6hHjI5kpCPieJ_HWIqsa-h-gG9F0T2g0eMkxWUV2jHsXwgKltcz0lI5Nh7L6OgCllZrEhTFt3K81qhaYKgIztZOEK4XLtAgj0ClK0U-DLSev1y7a4iZXx3PgyT14hCx9ljfvLXjDhCmKKSRko_1lYMVSuwl2a1e_WVfTbk46gKEXyDn_8V3lEeqCrlfu-UI2aCwcZB36t2tRQBqT2z7qYjVvnfNXMu3pPF5aq-qme7mhn-kT4QskKXvWXFft-4D6wqEnGxx91ksc1GEQ8wnQ3NA`,
+          },
+        }
+      )
+      .then((res) => {
+        if (
+          res.data.code === 200 &&
+          res.data.message === "succesfully deleted" &&
+          res.data.success === true
+        ) {
+          console.log(res.data.message);
+        } else if (res.data.success === false) {
+          console.log(res.data.message);
+        } else {
+          console.log(res.data.message);
+        }
+      })
+      .then((res) => {
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.error("delete fail! server error", error);
+      });
+  };
+
   return (
     <>
       <div className="container-scroller">
@@ -95,6 +126,7 @@ function SubCategoryList() {
                             <th>categoryId</th>
                             <th>subcategoryName</th>
                             <th>Image</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -105,11 +137,14 @@ function SubCategoryList() {
                                 <td>{subCategory.id}</td>
                                 <td>{subCategory.categoryId}</td>
                                 <td>{subCategory.subcategoryName}</td>
+                                <td>
                                 <img
                                   src={subCategory.subcategoryImageFile}
                                   width="50px"
                                   height="50px"
                                 ></img>
+                                </td>
+                                <td><button onClick={() => deleteObjective(subCategory.id)}>Delete</button></td>
                               </tr>
                             );
                           })}
