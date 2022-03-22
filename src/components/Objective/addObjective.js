@@ -24,14 +24,21 @@ const NewObjective = () => {
 
       .then((res) => {
         // console.log("Getting from:", res.data.data[0].id);
-        setcategories(res.data.data);
+        
+        if(res.data.data){
+          setcategories(res.data.data);
+        }else{
+          setcategories([]);
+        }
       })
 
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
-    axios
+    // console.log(objectiveData.category_id + "aa")
+    if(objectiveData.category_id !==""){
+      axios
       .get(
         `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories/${objectiveData.category_id}`
       )
@@ -39,18 +46,23 @@ const NewObjective = () => {
       .then((res) => {
         // console.log("Getting from:", res.data.data[0].id);
         //console.log(res.data.data)
-        setSubCategories(res.data.data);
+        if(res.data.data){
+          setSubCategories(res.data.data);
+        }else{
+          setSubCategories([]);
+        }
       })
 
       .catch((err) => console.log(err));
+    }
   }, [objectiveData.category_id]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(
-      "sent data = " + objectiveData.objective_name,
-      objectiveData.sub_category_id
+      "sent data = " + objectiveData.objective_name +".." + objectiveData.category_id + ".." + objectiveData.sub_category_id
     );
+    
     axios
       .post(
         "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/objective/create",
@@ -62,8 +74,10 @@ const NewObjective = () => {
         }
       )
       .then((res) => {
-        setObjectiveData({ sub_category_id: "", objective_name: "" });
+        setObjectiveData({ category_id: "", sub_category_id: "", objective_name: "" });
         console.log(res);
+        alert(res.data.message);
+      
       });
   };
 
@@ -113,12 +127,13 @@ const NewObjective = () => {
                             class="form-control"
                             id="exampleSelectGender"
                             name="categoryId"
+                            placeholder="Select Category"
                             // value={selectedValue}
                             onChange={(e) => setObjectiveData({ 
                               ...objectiveData,
                               category_id: e.target.value})}
                           >
-                            <option value="0">Select Category</option>
+                         
                             {categories.map(function (category, i) {
                               // console.log(category.id);
                               return (
@@ -139,12 +154,12 @@ const NewObjective = () => {
                         class="form-control"
                         id="exampleSelectGender"
                         name="id"
-                        value={SubCategories.id}
+                        placeholder="Select Sub Category"
+                        // value={SubCategories.id}
                         onChange={(e) => setObjectiveData({ 
                           ...objectiveData,
-                          subcategory_id: e.target.value})}
+                          sub_category_id: e.target.value})}
                       >
-                        <option value="0">Select Sub Category</option>
                         {SubCategories.map(function (subCategory, i) {
                           // console.log(category.id);
                           return (
