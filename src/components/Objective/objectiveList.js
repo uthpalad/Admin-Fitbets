@@ -239,7 +239,7 @@ function ObjectiveList() {
             </select>
             {(subCategories.length === 0 && visibleEditForm) ? (<small id="passwordHelp" class="text-danger">Sub category list is empty. Please create a sub category before creating an objective </small>) : null}
           </div>
-          <br />
+          
 
           <div className="form-group">
             <label htmlFor="objective_name">Objective Name</label>
