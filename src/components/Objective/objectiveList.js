@@ -202,7 +202,7 @@ function ObjectiveList() {
                 }
               })}
             </select>
-            {categories.length === 0 ? (<small id="passwordHelp" class="text-danger">Category list is empty. Please create a category before creating an objective </small>) : null}
+            {(categories.length === 0 && visibleEditForm) ? (<small id="passwordHelp" class="text-danger">Category list is empty. Please create a category before creating an objective </small>) : null}
           </div>
 
           <div class="form-group">
@@ -237,7 +237,7 @@ function ObjectiveList() {
                 }
               })}
             </select>
-            {subCategories.length === 0 ? (<small id="passwordHelp" class="text-danger">Sub category list is empty. Please create a sub category before creating an objective </small>) : null}
+            {(subCategories.length === 0 && visibleEditForm) ? (<small id="passwordHelp" class="text-danger">Sub category list is empty. Please create a sub category before creating an objective </small>) : null}
           </div>
           <br />
 
