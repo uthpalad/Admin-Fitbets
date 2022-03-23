@@ -153,7 +153,7 @@ function ObjectiveList() {
           setVisibleEditForm(false);
           window.location.reload(false);
         } else {
-          alert("Something is a wrong.")
+          alert(res.data.message)
          setVisibleEditForm(false);
         }
       });
