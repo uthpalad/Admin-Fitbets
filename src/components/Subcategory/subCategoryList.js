@@ -1,27 +1,24 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
-import Select from 'react-select';
-import AsyncSelect from "react-select/async";
 
 function SubCategoryList() {
-  const [SubCategories, setSubCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
 
   useEffect(() => {
     axios
       .get(
-        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories"
+        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllCategories"
       )
 
       .then((res) => {
         // console.log("Getting from:", res.data.data[0].id);
         //console.log(res.data.data)
-        setSubCategories(res.data.data);
+        setCategories(res.data.data);
       })
 
       .catch((err) => console.log(err));
@@ -91,7 +88,7 @@ function SubCategoryList() {
                 <div className="col-lg-12 grid-margin stretch-card">
                   <div className="card">
                     <div className="card-body">
-                      <h1 className="card-title">List of All SubCateogry </h1>
+                      <h1 className="card-title">List of All SubCateogry</h1>
                       <p className="card-description">
                         Check All Sub Category List
                       </p>
@@ -101,17 +98,17 @@ function SubCategoryList() {
                         class="form-control"
                         id="exampleSelectGender"
                         name="id"
-                        value={SubCategories.id}
+                        value={categories.id}
                         onChange={(e) => getAllSubCategories(e.target.value)}
                       >
-                        <option value="0">Select Sub Category</option>
-                        {SubCategories.map(function (subCategory, i) {
+                        <option value="0">Select a Category</option>
+                        {categories.map(function (category, i) {
                           // console.log(category.id);
                           return (
-                            <option key={i} value={subCategory.id}>
-                              {subCategory.id}
+                            <option key={i} value={category.id}>
+                              {category.id}
                               {"-"}
-                              {subCategory.subcategoryName}
+                              {category.categoryName}
                             </option>
                           );
                         })}

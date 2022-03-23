@@ -95,6 +95,7 @@ const NewSubCategory = () => {
                             // value={selectedValue}
                             onChange={(e) => setCategoryId(e.target.value)}
                           >
+                            <option value="0">Select a Category</option>
                             {categories.map(function (category, i) {
                               // console.log(category.id);
                               return (
