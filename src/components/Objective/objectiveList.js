@@ -7,14 +7,16 @@ import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
 
 function ObjectiveList() {
-  const [data, setData] = useState([]);
-  const [visible, setVisible] = useState(false);
-  const [Objective, SetObjective] = useState({
+  const [objectives, setObjectives] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [visibleEditForm, setVisibleEditForm] = useState(false);
+  const [objective, setObjective] = useState({
+    id : "",
     category_id: "",
     sub_category_id: "",
     objective_name: "",
   });
-  const [deleteId, setDeleteId] = useState("");
 
   useEffect(() => {
     axios
@@ -26,14 +28,15 @@ function ObjectiveList() {
           },
         }
       )
-
       .then((res) => {
-        console.log("Getting from:", res.data);
-        setData(res.data.data);
+        if(res.data.data){
+          setObjectives(res.data.data);
+        }else{
+          alert(res.data.message)
+        }
       })
-
       .catch((err) => console.log(err));
-  }, [deleteId]);
+  }, []);
 
   const deleteObjective = (data) => {
     axios
@@ -66,13 +69,44 @@ function ObjectiveList() {
       });
   };
 
+  //getting all subcategories
+  useEffect(() => {
+    if (categories.length !== 0) {
+      axios
+        .get(
+          `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories/${objective.category_id}`
+        )
+        .then((res) => {
+          if (res.data.data) {
+            setSubCategories(res.data.data);
+          } else {
+            setSubCategories([]);
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setSubCategories([]);
+    }
+  }, [objective.category_id]);
 
-  const editObjective = (data) => {
-    // console.log(data);
+  const editObjective = (id) => {
+    setSubCategories([]);
+    axios
+      .get(
+        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllCategories"
+      )
+      .then((res) => {
+        if (res.data.data) {
+          setCategories(res.data.data);
+        } else {
+          setCategories([]);
+        }
+      })
+      .catch((err) => console.log(err));
 
     axios
       .get(
-        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/objective/getObjective/${data}`,
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/objective/getObjective/${id}`,
         {
           headers: {
             Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjEzLCJhZG1pbl9uYW1lIjoic2FnYXJhaCIsImVtYWlsX2FkZHJlc3MiOiJzYWdhcmFoQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ3NDIwNjAyMzQ2LCJleHAiOjE2NDc0MjE4MTE5NDZ9.huDeLFH61HQSeFP_K_E2Co8h7JMNG57Hm8kRGUllnoaRw4yCjSdOl5Q9NaE58hIYNruRdwQz-tHf0UhzQzMT_-wSleXs2JhOmXJTIfWqwl9g8-qPQBcxUpUYyaHxBEYj8dtK4x-fJkUeBmPwuFcLa3ZBb7u8MV2F-NoTADtvZoEwEo-VeJ-T5ZCwx5Bgx20cvZAnSagPgu8ZOZcDMKDAMq_TnB-DtuILSS6Z8VJSeHqMhJ5aqYlXEf8RhyfT_B6vg_6lowqM5c-qlKpWljAqWNyWqxFx81Cca7cDQjVVraaSX8GNQQsOp5llhG3TAEyZ77uO8H30SFTmkbAG5ytUH2_iuftp-rPfeIgzvfxDEYaYMNgLGgHu3iVoO-L0zdUDaeMQYS-soK9EO3GepNWwka_IxqV_1bzrbc2Vha_xyVPOeHAhR1Y-18LcppfrnnBVszdlk2OthJs5Y244k3LtzvRemmMIhND7SgSxqe1CYaBZHWP_K7ezqmfOqxgozxBrLErfEzA08YT1x4_XE75AZHxGXoFk1kbc_rNRvJAneVb5DlcINgP9oB2uxAjiVhScgJqgVVLEN0dTz9J5aY-0gt75TDZp9XObAslLGKDXDf0vzHytUWdIs8ZjAwegCfUVn8WbkQQLemmjtD9mn6gJkrMndTe7p0lXrjyMXsStBIo`,
@@ -80,50 +114,117 @@ function ObjectiveList() {
         }
       )
       .then((res) => {
-        console.log(res);
-        const objective = res.data.data[0];
+        if (res.data.data[0]) {
+          const objective = res.data.data[0];
 
-        SetObjective({
-          ...Objective,
-          category_id: objective.category_id,
-          sub_category_id: objective.sub_category_id,
-          objective_name: objective.objective_name,
-        });
+          setObjective({
+            ...objective,
+            id: objective.id,
+            category_id: objective.category_id,
+            sub_category_id: objective.sub_category_id,
+            objective_name: objective.objective_name,
+          });
+          setVisibleEditForm(true);
+        } else {
+          setVisibleEditForm(false);
+        }
       });
-    setVisible(true);
   };
-  console.log(visible);
-  console.log(Objective);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(
+      "sent data = " + "objective_name - "+ objective.objective_name + ", sub_category_id- "+  objective.sub_category_id+ ", category_id- "+  objective.category_id
+    );
+    axios
+      .put(
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/objective/update/${objective.id}`,
+        objective,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjEzLCJhZG1pbl9uYW1lIjoic2FnYXJhaCIsImVtYWlsX2FkZHJlc3MiOiJzYWdhcmFoQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ3NDIwNjAyMzQ2LCJleHAiOjE2NDc0MjE4MTE5NDZ9.huDeLFH61HQSeFP_K_E2Co8h7JMNG57Hm8kRGUllnoaRw4yCjSdOl5Q9NaE58hIYNruRdwQz-tHf0UhzQzMT_-wSleXs2JhOmXJTIfWqwl9g8-qPQBcxUpUYyaHxBEYj8dtK4x-fJkUeBmPwuFcLa3ZBb7u8MV2F-NoTADtvZoEwEo-VeJ-T5ZCwx5Bgx20cvZAnSagPgu8ZOZcDMKDAMq_TnB-DtuILSS6Z8VJSeHqMhJ5aqYlXEf8RhyfT_B6vg_6lowqM5c-qlKpWljAqWNyWqxFx81Cca7cDQjVVraaSX8GNQQsOp5llhG3TAEyZ77uO8H30SFTmkbAG5ytUH2_iuftp-rPfeIgzvfxDEYaYMNgLGgHu3iVoO-L0zdUDaeMQYS-soK9EO3GepNWwka_IxqV_1bzrbc2Vha_xyVPOeHAhR1Y-18LcppfrnnBVszdlk2OthJs5Y244k3LtzvRemmMIhND7SgSxqe1CYaBZHWP_K7ezqmfOqxgozxBrLErfEzA08YT1x4_XE75AZHxGXoFk1kbc_rNRvJAneVb5DlcINgP9oB2uxAjiVhScgJqgVVLEN0dTz9J5aY-0gt75TDZp9XObAslLGKDXDf0vzHytUWdIs8ZjAwegCfUVn8WbkQQLemmjtD9mn6gJkrMndTe7p0lXrjyMXsStBIo`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.data) {
+          alert(res.data.message)
+          setObjective({id : "", category_id: "", sub_category_id: "", objective_name: ""});
+          setVisibleEditForm(false);
+          window.location.reload(false);
+        } else {
+          alert("Something is a wrong.")
+         setVisibleEditForm(false);
+        }
+      });
+  };
+
   const drawer = () => {
     return (
       <div>
-        <form action="" method="post">
-          <div className="form-group">
-            <label htmlFor="category_id">Category ID</label>
-            <input
-              type="number"
-              name="category_id"
-              className="form-control"
-              id="category_id"
-              value={Objective.category_id}
-              // onChange={handleChange}
-              placeholder="Category ID"
-            />
+        <form action="" method="put" onSubmit={onSubmit}>
+          <div class="form-group">
+            <label for="exampleSelectGender">Category</label>
+            <select
+              class="form-control"
+              id="exampleSelectGender"
+              name="categories"
+              onChange={(e) =>
+                setObjective({
+                  ...objective,
+                  category_id: e.target.value,
+                })
+              }
+            >
+              {categories.map(function (category, i) {
+                if (category.id === objective.category_id) {
+                  return (
+                    <option key={i} value={category.id} selected>
+                      {category.id} {category.categoryName}
+                    </option>
+                  );
+                } else {
+                  return (
+                    <option key={i} value={category.id}>
+                      {category.id} {category.categoryName}
+                    </option>
+                  );
+                }
+              })}
+            </select>
+            {categories.length === 0 ? (<small id="passwordHelp" class="text-danger">Category list is empty. Please create a category before creating an objective </small>) : null}
           </div>
-          <br />
 
-
-          <div className="form-group">
-            <label htmlFor="sub_category_id">sub Category ID</label>
-            <input
-              type="number"
-              name="sub_category_id"
-              className="form-control"
-              id="sub_category_id"
-              value={Objective.sub_category_id}
-              // onChange={handleChange}
-              placeholder="sub Category ID"
-            />
+          <div class="form-group">
+            <label for="exampleSelectGender">Sub Category</label>
+            <select
+              class="form-control"
+              id="exampleSelectGender"
+              name="subCategories"
+              onChange={(e) =>
+                setObjective({
+                  ...objective,
+                  sub_category_id: e.target.value,
+                })
+              } 
+            >
+              {subCategories.map(function (subCategory, i) {
+                if (subCategory.id === objective.sub_category_id) {
+                  return (
+                    <option key={i} value={subCategory.id} selected>
+                      {subCategory.id} {subCategory.subcategoryName}
+                    </option>
+                  );
+                } else {
+                  return (
+                    <option key={i} value={subCategory.id}>
+                      {subCategory.id} {subCategory.subcategoryName}
+                    </option>
+                  );
+                }
+              })}
+            </select>
+            {subCategories.length === 0 ? (<small id="passwordHelp" class="text-danger">Sub category list is empty. Please create a sub category before creating an objective </small>) : null}
           </div>
           <br />
 
@@ -134,8 +235,13 @@ function ObjectiveList() {
               name="objective_name"
               className="form-control"
               id="objective_name"
-              value={Objective.objective_name}
-              // onChange={handleChange}
+              value={objective.objective_name}
+              onChange={(e) =>
+                setObjective({
+                  ...objective,
+                  objective_name: e.target.value,
+                })
+              }
               placeholder="Objective Name"
             />
           </div>
@@ -148,7 +254,7 @@ function ObjectiveList() {
       </div>
     );
   };
-  const arr = data.map((data, index) => {
+  const arr = objectives.map((data, index) => {
     return (
       <tr>
         {/* <td>{data.id}</td> */}
@@ -202,7 +308,7 @@ function ObjectiveList() {
                       <table className="table table-striped">
                         <thead>
                           <tr>
-                            <th>Category ID</th>
+                            <th>Category Id</th>
                             <th>Sub Category Id</th>
                             <th>Objective Name</th>
                             <th>Action</th>
@@ -216,7 +322,7 @@ function ObjectiveList() {
               </div>
             </div>
           </div>
-          {visible == true ? drawer() : null}
+          {visibleEditForm === true ? drawer() : null}
           <DashboardFooter />
         </div>
       </div>
