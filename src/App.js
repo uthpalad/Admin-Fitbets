@@ -12,27 +12,29 @@ import SubCategoryList from "./components/Subcategory/subCategoryList";
 import EditSubCategory from "./components/Subcategory/editSubCategory";
 import NewObjective from "./components/Objective/addObjective";
 import ObjectiveList from "./components/Objective/objectiveList";
+import AdminList from "./components/AdminList/adminList";
 import UserList from "./components/UserList/Datatable";
+// import AdminList from "./components/AdminList/Datatable";
+import Login from "./components/Login/LoginForm";
 
 function App() {
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/home" element={<Home />}></Route>
           <Route path="/category" element={<NewCategory />}></Route>
+          <Route path="/" element={ <Login />}></Route>
           <Route path="/all_category" element={<CategoryList />}></Route>
           <Route path="/edit_category" element={<EditCategory />}></Route>
           <Route path="/sub_category" element={<NewSubCategory />}></Route>
-          <Route
-            path="/all__sub_category"
-            element={<SubCategoryList />}></Route>
-          <Route
-            path="/edit_sub_category"
-            element={<EditSubCategory />}></Route>
+          <Route path="/all__sub_category" element={<SubCategoryList />}></Route>
+          <Route path="/edit_sub_category" element={<EditSubCategory />}></Route>
           <Route path="/objective" element={<NewObjective />}></Route>
           <Route path="/objective_list" element={<ObjectiveList />}></Route>
+          <Route path="/Admin_list" element={<AdminList />}></Route>
           <Route path="/userlist" element={<UserList />}></Route>
+          {/* <Route path="/adminList" element={<AdminList />}></Route> */}
         </Routes>
       </Router>
     </div>

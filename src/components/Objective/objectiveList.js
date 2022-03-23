@@ -11,7 +11,6 @@ function ObjectiveList() {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [visibleEditForm, setVisibleEditForm] = useState(false);
-  const [deletedId, setDeletedId] = useState(null);
   const [objective, setObjective] = useState({
     id : "",
     category_id: "",
@@ -30,24 +29,43 @@ function ObjectiveList() {
         }
       )
       .then((res) => {
-        setObjectives(res.data.data);
+        if(res.data.data){
+          setObjectives(res.data.data);
+        }else{
+          alert(res.data.message)
+        }
       })
       .catch((err) => console.log(err));
-  }, [deletedId]);
+  }, []);
 
-  const deleteObjective = (id) => {
+  const deleteObjective = (data) => {
     axios
       .delete(
-        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/objective/delete/${id}`,
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/objective/delete/${data}`,
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjEzLCJhZG1pbl9uYW1lIjoic2FnYXJhaCIsImVtYWlsX2FkZHJlc3MiOiJzYWdhcmFoQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ3NDIwNjAyMzQ2LCJleHAiOjE2NDc0MjE4MTE5NDZ9.huDeLFH61HQSeFP_K_E2Co8h7JMNG57Hm8kRGUllnoaRw4yCjSdOl5Q9NaE58hIYNruRdwQz-tHf0UhzQzMT_-wSleXs2JhOmXJTIfWqwl9g8-qPQBcxUpUYyaHxBEYj8dtK4x-fJkUeBmPwuFcLa3ZBb7u8MV2F-NoTADtvZoEwEo-VeJ-T5ZCwx5Bgx20cvZAnSagPgu8ZOZcDMKDAMq_TnB-DtuILSS6Z8VJSeHqMhJ5aqYlXEf8RhyfT_B6vg_6lowqM5c-qlKpWljAqWNyWqxFx81Cca7cDQjVVraaSX8GNQQsOp5llhG3TAEyZ77uO8H30SFTmkbAG5ytUH2_iuftp-rPfeIgzvfxDEYaYMNgLGgHu3iVoO-L0zdUDaeMQYS-soK9EO3GepNWwka_IxqV_1bzrbc2Vha_xyVPOeHAhR1Y-18LcppfrnnBVszdlk2OthJs5Y244k3LtzvRemmMIhND7SgSxqe1CYaBZHWP_K7ezqmfOqxgozxBrLErfEzA08YT1x4_XE75AZHxGXoFk1kbc_rNRvJAneVb5DlcINgP9oB2uxAjiVhScgJqgVVLEN0dTz9J5aY-0gt75TDZp9XObAslLGKDXDf0vzHytUWdIs8ZjAwegCfUVn8WbkQQLemmjtD9mn6gJkrMndTe7p0lXrjyMXsStBIo`,
+            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsImFkbWluX25hbWUiOiJBbnVyYSBBbWFyYWJhbmR1IiwiZW1haWxfYWRkcmVzcyI6ImFudXJhQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ2ODA1OTcyNTYyLCJleHAiOjE2NDY4MDcxODIxNjJ9.ovNWylxyptm9pXJ4dxYR8robCKekTFjjaZjrLOaup3zhg3RK8o6elT8E4iwN6251RMvEux25SzQUBbo3EXDxAvuv1dPLEk1jL04P_rRejurY1W6C_b8LceqWpcJbuVKKJHigik4v8GxBguAsnUEeKsB_tNypKaSWv6K0pgt6ajuaEZktSKeHwuGVGmv8Zhpccbkh7R_gW1KkJs-iBRqn27aTBDX2XUSt94_J1pu0dTI6-Au4zHKwp-H8-PkFK1yq8e0cUZUzbvYOAy9QeUIinVQk0Nx0rRtp4fE1GVkQe_s5Zq819ZT_5HdjXkHE3XIBpkUcCR7Mgf68VfrdVE0awaXFiOzob3uQu7Wq86B0HYQmndFMEQeMOHCu6xbnbY-QT8IqwUSPBJeLunfkksMc6hHjI5kpCPieJ_HWIqsa-h-gG9F0T2g0eMkxWUV2jHsXwgKltcz0lI5Nh7L6OgCllZrEhTFt3K81qhaYKgIztZOEK4XLtAgj0ClK0U-DLSev1y7a4iZXx3PgyT14hCx9ljfvLXjDhCmKKSRko_1lYMVSuwl2a1e_WVfTbk46gKEXyDn_8V3lEeqCrlfu-UI2aCwcZB36t2tRQBqT2z7qYjVvnfNXMu3pPF5aq-qme7mhn-kT4QskKXvWXFft-4D6wqEnGxx91ksc1GEQ8wnQ3NA`,
           },
         }
       )
       .then((res) => {
-        alert("Deleted Successfully");
-        setDeletedId(id);
+        if (
+          res.data.code === 200 &&
+          res.data.message === "succesfully deleted" &&
+          res.data.success === true
+        ) {
+          console.log(res.data.message);
+        } else if (res.data.success === false) {
+          console.log(res.data.message);
+        } else {
+          console.log(res.data.message);
+        }
+      })
+      .then((res) => {
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.error("delete fail! server error", error);
       });
   };
 
@@ -132,10 +150,11 @@ function ObjectiveList() {
         if (res.data.data) {
           alert(res.data.message)
           setObjective({id : "", category_id: "", sub_category_id: "", objective_name: ""});
-          //setVisibleEditForm(false);
+          setVisibleEditForm(false);
+          window.location.reload(false);
         } else {
           alert("Something is a wrong.")
-         // setVisibleEditForm(false);
+         setVisibleEditForm(false);
         }
       });
   };

@@ -2,9 +2,13 @@
 
 import React, { Component } from "react";
 import DashboardFooter from "./dashboard_footer";
+// import {useHistory } from "react-router-dom";
+
+
 
 class DashboardMenu extends Component {
   render() {
+
     return (
       <div>
         <div>
@@ -324,6 +328,7 @@ class DashboardMenu extends Component {
                   </ul>
                 </div>
               </li>
+              
               <li className="nav-item">
                 <a
                   className="nav-link"
@@ -341,13 +346,15 @@ class DashboardMenu extends Component {
                       {" "}
                       <a
                         className="nav-link"
-                        href="pages/tables/basic-table.html">
-                        Basic table
+                        href="/Admin_list">
+                        Admin list
+
                       </a>
                     </li>
                   </ul>
                 </div>
               </li>
+
               <li className="nav-item">
                 <a
                   className="nav-link"

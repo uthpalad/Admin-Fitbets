@@ -5,39 +5,78 @@ import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
+import Select from 'react-select';
 import AsyncSelect from "react-select/async";
 
 function SubCategoryList() {
-  const [inputValue, setValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState(null);
+  const [SubCategories, setSubCategories] = useState([]);
+  const [subCategory, setSubCategory] = useState([]);
 
-  const handleInputChange = (value) => {
-    setValue(value);
+  useEffect(() => {
+    axios
+      .get(
+        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories"
+      )
+
+      .then((res) => {
+        // console.log("Getting from:", res.data.data[0].id);
+        //console.log(res.data.data)
+        setSubCategories(res.data.data);
+      })
+
+      .catch((err) => console.log(err));
+  }, []);
+
+  const getAllSubCategories = (id) => {
+    // console.log(data);
+
+    axios
+      .get(
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories/${id}`
+      )
+      .then((res) => {
+        console.log(res.data.data);
+        // console.log("Getting from:", res.data.data[0].id);
+        if (res.data.data.length === 0) {
+          setSubCategory([]);
+        } else {
+          setSubCategory(res.data.data);
+        }
+      })
+
+      .catch((err) => console.log(err));
   };
 
-  const handleChange = (value) => {
-    setSelectedValue(value);
+  const deleteObjective = (data) => {
+    axios
+      .delete(
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/deleteSubCategories/${data}`,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsImFkbWluX25hbWUiOiJBbnVyYSBBbWFyYWJhbmR1IiwiZW1haWxfYWRkcmVzcyI6ImFudXJhQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ2ODA1OTcyNTYyLCJleHAiOjE2NDY4MDcxODIxNjJ9.ovNWylxyptm9pXJ4dxYR8robCKekTFjjaZjrLOaup3zhg3RK8o6elT8E4iwN6251RMvEux25SzQUBbo3EXDxAvuv1dPLEk1jL04P_rRejurY1W6C_b8LceqWpcJbuVKKJHigik4v8GxBguAsnUEeKsB_tNypKaSWv6K0pgt6ajuaEZktSKeHwuGVGmv8Zhpccbkh7R_gW1KkJs-iBRqn27aTBDX2XUSt94_J1pu0dTI6-Au4zHKwp-H8-PkFK1yq8e0cUZUzbvYOAy9QeUIinVQk0Nx0rRtp4fE1GVkQe_s5Zq819ZT_5HdjXkHE3XIBpkUcCR7Mgf68VfrdVE0awaXFiOzob3uQu7Wq86B0HYQmndFMEQeMOHCu6xbnbY-QT8IqwUSPBJeLunfkksMc6hHjI5kpCPieJ_HWIqsa-h-gG9F0T2g0eMkxWUV2jHsXwgKltcz0lI5Nh7L6OgCllZrEhTFt3K81qhaYKgIztZOEK4XLtAgj0ClK0U-DLSev1y7a4iZXx3PgyT14hCx9ljfvLXjDhCmKKSRko_1lYMVSuwl2a1e_WVfTbk46gKEXyDn_8V3lEeqCrlfu-UI2aCwcZB36t2tRQBqT2z7qYjVvnfNXMu3pPF5aq-qme7mhn-kT4QskKXvWXFft-4D6wqEnGxx91ksc1GEQ8wnQ3NA`,
+          },
+        }
+      )
+      .then((res) => {
+        if (
+          res.data.code === 200 &&
+          res.data.message === "succesfully deleted" &&
+          res.data.success === true
+        ) {
+          console.log(res.data.message);
+        } else if (res.data.success === false) {
+          console.log(res.data.message);
+        } else {
+          console.log(res.data.message);
+        }
+      })
+      .then((res) => {
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.error("delete fail! server error", error);
+      });
   };
-
-  async function fetchData() {
-    const response = await axios.get(
-      "http://localhost:8000/admin/getAllsubCategories"
-    );
-  console.log(response.data.data);
-    return response.data.data;
-  }
-
-  //   const DisplayData=selectedValue.map(
-  //       (info)=>{
-  //           return(
-  //               <tr>
-  //                   <td>{info.id}</td>
-  //                   <td>{info.categoryId}</td>
-  //                   <td>{info.subcategoryName}</td>
-  //               </tr>
-  //           )
-  //       }
-  // )
 
   return (
     <>
@@ -58,24 +97,25 @@ function SubCategoryList() {
                       </p>
                       <br />
 
-                      <div>
-                        Selected value:
-                        {JSON.stringify(selectedValue || {}, null, 2)}
-                      </div>
-
-                      <AsyncSelect
-                        cacheOptions
-                        defaultOptions
-                        value={selectedValue}
-                        getOptionalLabel={(e) => e.subcategoryName
-                           
-                        }
-                        getOptionalValue={(e) => e.id}
-                        loadOptions={fetchData}
-                        onInputChange={handleInputChange}
-                        onChange={handleChange}
-                      />
-
+                      <select
+                        class="form-control"
+                        id="exampleSelectGender"
+                        name="id"
+                        value={SubCategories.id}
+                        onChange={(e) => getAllSubCategories(e.target.value)}
+                      >
+                        <option value="0">Select Sub Category</option>
+                        {SubCategories.map(function (subCategory, i) {
+                          // console.log(category.id);
+                          return (
+                            <option key={i} value={subCategory.id}>
+                              {subCategory.id}
+                              {"-"}
+                              {subCategory.subcategoryName}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </div>
 
                     <div>
@@ -83,12 +123,32 @@ function SubCategoryList() {
                         <thead>
                           <tr>
                             <th>Subcategory Id</th>
-                            <th>Category Id</th>
-                            <th>Category Name</th>
-                            <th>Subcategory Image</th>
+                            <th>categoryId</th>
+                            <th>subcategoryName</th>
+                            <th>Image</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
-                        <tbody>{/* {DisplayData} */}</tbody>
+                        <tbody>
+                          {subCategory.map(function (subCategory, i) {
+                            console.log(subCategory.id);
+                            return (
+                              <tr>
+                                <td>{subCategory.id}</td>
+                                <td>{subCategory.categoryId}</td>
+                                <td>{subCategory.subcategoryName}</td>
+                                <td>
+                                <img
+                                  src={subCategory.subcategoryImageFile}
+                                  width="50px"
+                                  height="50px"
+                                ></img>
+                                </td>
+                                <td><button onClick={() => deleteObjective(subCategory.id)}>Delete</button></td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
                       </table>
                     </div>
                   </div>
