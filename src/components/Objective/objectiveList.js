@@ -90,7 +90,6 @@ function ObjectiveList() {
   }, [objective.category_id]);
 
   const editObjective = (id) => {
-    setSubCategories([]);
     axios
       .get(
         "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllCategories"
@@ -159,23 +158,34 @@ function ObjectiveList() {
       });
   };
 
+
+  const onCancel = (e) => {
+    setCategories([]);
+    setSubCategories([]);
+    setObjective({id : "", category_id: "", sub_category_id: "", objective_name: ""});
+    setVisibleEditForm(false);
+  };
+
   const drawer = () => {
     return (
       <div>
-        <form action="" method="put" onSubmit={onSubmit}>
+        <form action="" method="put">
           <div class="form-group">
-            <label for="exampleSelectGender">Category</label>
+            <label for="categories">Category</label>
             <select
               class="form-control"
-              id="exampleSelectGender"
+              id="categories"
               name="categories"
               onChange={(e) =>
-                setObjective({
+             {      
+               console.log("category_id :-" + e.target.value)
+               setObjective({
                   ...objective,
                   category_id: e.target.value,
-                })
+                })}
               }
             >
+            <option value="">-Select-Category-</option>
               {categories.map(function (category, i) {
                 if (category.id === objective.category_id) {
                   return (
@@ -196,18 +206,21 @@ function ObjectiveList() {
           </div>
 
           <div class="form-group">
-            <label for="exampleSelectGender">Sub Category</label>
+            <label for="subCategories">Sub Category</label>
             <select
               class="form-control"
-              id="exampleSelectGender"
+              id="subCategories"
               name="subCategories"
               onChange={(e) =>
+              {
+                console.log("sub_category_id :-" + e.target.value)
                 setObjective({
                   ...objective,
                   sub_category_id: e.target.value,
-                })
+                })}
               } 
             >
+            <option value="">-Select-Subcategory-</option>
               {subCategories.map(function (subCategory, i) {
                 if (subCategory.id === objective.sub_category_id) {
                   return (
@@ -237,19 +250,21 @@ function ObjectiveList() {
               id="objective_name"
               value={objective.objective_name}
               onChange={(e) =>
+              {
+                console.log("objective_name :-" + e.target.value)
                 setObjective({
                   ...objective,
                   objective_name: e.target.value,
-                })
+                })}
               }
               placeholder="Objective Name"
             />
           </div>
 
-          <button type="submit" className="btn btn-primary mr-2">
+          <button type="submit" className="btn btn-primary mr-2" onClick={onSubmit}>
             Submit
           </button>
-          <button className="btn btn-light">Cancel</button>
+          <button className="btn btn-light" onClick={onCancel}>Cancel</button>
         </form>
       </div>
     );
