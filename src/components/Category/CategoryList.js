@@ -1,4 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
@@ -65,6 +66,9 @@ function CategoryList() {
           <div className="row">
             <div className="col-6">
               <button onClick={() => deleteObjective(data.id)}>Delete</button>
+            </div>
+            <div className="col-6">
+              <Link to={`/${data.id}`} ><button>Edit</button></Link>
             </div>
           </div>
         </td>

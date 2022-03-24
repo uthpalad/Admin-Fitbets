@@ -4,6 +4,7 @@ import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
 import axios from "axios";
+import DefaultImage from "../assets/images/add_image1.png";
 
 const NewSubCategory = () => {
   const [categories, setcategories] = useState([]);
@@ -12,6 +13,7 @@ const NewSubCategory = () => {
   const [subcategoryName, setsubcategoryName] = useState("");
   const [challenges, setchallenges] = useState("");
   const [error, setError] = useState("");
+  const [previewImage, setPreviewImage] = useState(DefaultImage);
 
   useEffect(() => {
     axios
@@ -29,7 +31,7 @@ const NewSubCategory = () => {
 
   const onChangeFile = (e) => {
     setsubcategoryImageFile(e.target.files[0]);
-    console.log(categoryId);
+    setPreviewImage(URL.createObjectURL(e.target.files[0]))
   };
 
   const changeOnClick = (e) => {
@@ -117,6 +119,13 @@ const NewSubCategory = () => {
                             onChange={onChangeFile}
                             required
                             className="form-control form-control-user"
+                          />
+                        </div>
+                        <div className="col-12 p-0 ">
+                          <img
+                            src={previewImage}
+                            alt="Category Image"
+                            style={{ height: 400, width: "100%" }}
                           />
                         </div>
                         <br />
