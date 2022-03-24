@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory,useNavigate } from "react-router-dom";
 import axios from "axios";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
@@ -7,15 +7,22 @@ import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
 
 function ObjectiveList() {
+  const navigate = useNavigate();
   const [objectives, setObjectives] = useState([]);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [visibleEditForm, setVisibleEditForm] = useState(false);
   const [objective, setObjective] = useState({
-    id : "",
+    id: "",
     category_id: "",
     sub_category_id: "",
     objective_name: "",
+    time: "",
+  });
+  const [message, setMessage] = useState({
+    status: false,
+    success: "",
+    message: "",
   });
 
   useEffect(() => {
@@ -29,13 +36,16 @@ function ObjectiveList() {
         }
       )
       .then((res) => {
-        if(res.data.data){
+        if (res.data.data) {
           setObjectives(res.data.data);
-        }else{
-          alert(res.data.message)
+        } else {
+          setMessage({status:true, success: false, message: res.data.message });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((error) => {
+        console.log("error = " + error);
+        navigate("/home");
+      });
   }, []);
 
   const deleteObjective = (data) => {
@@ -49,23 +59,18 @@ function ObjectiveList() {
         }
       )
       .then((res) => {
-        if (
-          res.data.code === 200 &&
-          res.data.message === "succesfully deleted" &&
-          res.data.success === true
-        ) {
-          console.log(res.data.message);
-        } else if (res.data.success === false) {
-          console.log(res.data.message);
+        if (res.data.success) {
+          setMessage({status:true, success: true, message: res.data.message });
         } else {
-          console.log(res.data.message);
+          setMessage({status:true, success: false, message: res.data.message });
         }
       })
       .then((res) => {
         window.location.reload(false);
       })
       .catch((error) => {
-        console.error("delete fail! server error", error);
+        console.log("error = " + error);
+        navigate("/home");
       });
   };
 
@@ -81,15 +86,19 @@ function ObjectiveList() {
             setSubCategories(res.data.data);
           } else {
             setSubCategories([]);
+            setMessage({status:true, success: false, message: res.data.message });
           }
         })
-        .catch((err) => console.log(err));
+        .catch((error) => {
+          console.log("error = " + error);
+          navigate("/home");
+        });
     } else {
       setSubCategories([]);
     }
   }, [objective.category_id]);
 
-  const editObjective = (id) => {
+  const editObjective = async (id) => {
     axios
       .get(
         "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllCategories"
@@ -99,9 +108,13 @@ function ObjectiveList() {
           setCategories(res.data.data);
         } else {
           setCategories([]);
+          setMessage({status:true, success: false, message: res.data.message });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((error) => {
+        console.log("error = " + error);
+        navigate("/home");
+      });
 
     axios
       .get(
@@ -122,23 +135,43 @@ function ObjectiveList() {
             category_id: objective.category_id,
             sub_category_id: objective.sub_category_id,
             objective_name: objective.objective_name,
+            time: objective.time,
           });
           setVisibleEditForm(true);
         } else {
           setVisibleEditForm(false);
+          setMessage({status:true, success: false, message: res.data.message });
         }
+      })      
+      .catch((error) => {
+        console.log("error = " + error);
+        navigate("/home");
       });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     console.log(
-      "sent data = " + "objective_name - "+ objective.objective_name + ", sub_category_id- "+  objective.sub_category_id+ ", category_id- "+  objective.category_id
+      "sent data = " +
+        "objective_name - " +
+        objective.objective_name +
+        ", sub_category_id- " +
+        objective.sub_category_id +
+        ", category_id- " +
+        objective.category_id +
+        ", time- " +
+        objective.time
     );
+    let updateObjective = {
+      category_id: objective.category_id,
+      sub_category_id: objective.sub_category_id,
+      objective_name: objective.objective_name,
+      time: objective.time,
+    };
     axios
       .put(
         `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/objective/update/${objective.id}`,
-        objective,
+        updateObjective,
         {
           headers: {
             Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjEzLCJhZG1pbl9uYW1lIjoic2FnYXJhaCIsImVtYWlsX2FkZHJlc3MiOiJzYWdhcmFoQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ3NDIwNjAyMzQ2LCJleHAiOjE2NDc0MjE4MTE5NDZ9.huDeLFH61HQSeFP_K_E2Co8h7JMNG57Hm8kRGUllnoaRw4yCjSdOl5Q9NaE58hIYNruRdwQz-tHf0UhzQzMT_-wSleXs2JhOmXJTIfWqwl9g8-qPQBcxUpUYyaHxBEYj8dtK4x-fJkUeBmPwuFcLa3ZBb7u8MV2F-NoTADtvZoEwEo-VeJ-T5ZCwx5Bgx20cvZAnSagPgu8ZOZcDMKDAMq_TnB-DtuILSS6Z8VJSeHqMhJ5aqYlXEf8RhyfT_B6vg_6lowqM5c-qlKpWljAqWNyWqxFx81Cca7cDQjVVraaSX8GNQQsOp5llhG3TAEyZ77uO8H30SFTmkbAG5ytUH2_iuftp-rPfeIgzvfxDEYaYMNgLGgHu3iVoO-L0zdUDaeMQYS-soK9EO3GepNWwka_IxqV_1bzrbc2Vha_xyVPOeHAhR1Y-18LcppfrnnBVszdlk2OthJs5Y244k3LtzvRemmMIhND7SgSxqe1CYaBZHWP_K7ezqmfOqxgozxBrLErfEzA08YT1x4_XE75AZHxGXoFk1kbc_rNRvJAneVb5DlcINgP9oB2uxAjiVhScgJqgVVLEN0dTz9J5aY-0gt75TDZp9XObAslLGKDXDf0vzHytUWdIs8ZjAwegCfUVn8WbkQQLemmjtD9mn6gJkrMndTe7p0lXrjyMXsStBIo`,
@@ -147,22 +180,36 @@ function ObjectiveList() {
       )
       .then((res) => {
         if (res.data.data) {
-          alert(res.data.message)
-          setObjective({id : "", category_id: "", sub_category_id: "", objective_name: ""});
+          alert(res.data.message);
+          setObjective({
+            id: "",
+            category_id: "",
+            sub_category_id: "",
+            objective_name: "",
+            time: "",
+          });
           setVisibleEditForm(false);
           window.location.reload(false);
         } else {
-          alert(res.data.message)
-         setVisibleEditForm(false);
+          setMessage({status:true, success: false, message: res.data.message });
+          setVisibleEditForm(false);
         }
+      })   
+      .catch((error) => {
+        console.log("error = " + error);
+        navigate("/home");
       });
   };
-
 
   const onCancel = (e) => {
     setCategories([]);
     setSubCategories([]);
-    setObjective({id : "", category_id: "", sub_category_id: "", objective_name: ""});
+    setObjective({
+      id: "",
+      category_id: "",
+      sub_category_id: "",
+      objective_name: "",
+    });
     setVisibleEditForm(false);
   };
 
@@ -176,16 +223,15 @@ function ObjectiveList() {
               class="form-control"
               id="categories"
               name="categories"
-              onChange={(e) =>
-             {      
-               console.log("category_id :-" + e.target.value)
-               setObjective({
+              onChange={(e) => {
+                console.log("category_id :-" + e.target.value);
+                setObjective({
                   ...objective,
                   category_id: e.target.value,
-                })}
-              }
+                });
+              }}
             >
-            <option value="">-Select-Category-</option>
+              <option value="">-Select-Category-</option>
               {categories.map(function (category, i) {
                 if (category.id === objective.category_id) {
                   return (
@@ -202,7 +248,12 @@ function ObjectiveList() {
                 }
               })}
             </select>
-            {(categories.length === 0 && visibleEditForm) ? (<small id="passwordHelp" class="text-danger">Category list is empty. Please create a category before creating an objective </small>) : null}
+            {categories.length === 0 && visibleEditForm ? (
+              <small id="passwordHelp" class="text-danger">
+                Category list is empty. Please create a category before creating
+                an objective{" "}
+              </small>
+            ) : null}
           </div>
 
           <div class="form-group">
@@ -211,16 +262,15 @@ function ObjectiveList() {
               class="form-control"
               id="subCategories"
               name="subCategories"
-              onChange={(e) =>
-              {
-                console.log("sub_category_id :-" + e.target.value)
+              onChange={(e) => {
+                console.log("sub_category_id :-" + e.target.value);
                 setObjective({
                   ...objective,
                   sub_category_id: e.target.value,
-                })}
-              } 
+                });
+              }}
             >
-            <option value="">-Select-Subcategory-</option>
+              <option value="">-Select-Subcategory-</option>
               {subCategories.map(function (subCategory, i) {
                 if (subCategory.id === objective.sub_category_id) {
                   return (
@@ -237,9 +287,13 @@ function ObjectiveList() {
                 }
               })}
             </select>
-            {(subCategories.length === 0 && visibleEditForm) ? (<small id="passwordHelp" class="text-danger">Sub category list is empty. Please create a sub category before creating an objective </small>) : null}
+            {subCategories.length === 0 && visibleEditForm ? (
+              <small id="passwordHelp" class="text-danger">
+                Sub category list is empty. Please create a sub category before
+                creating an objective{" "}
+              </small>
+            ) : null}
           </div>
-          
 
           <div className="form-group">
             <label htmlFor="objective_name">Objective Name</label>
@@ -249,22 +303,46 @@ function ObjectiveList() {
               className="form-control"
               id="objective_name"
               value={objective.objective_name}
-              onChange={(e) =>
-              {
-                console.log("objective_name :-" + e.target.value)
+              onChange={(e) => {
+                console.log("objective_name :-" + e.target.value);
                 setObjective({
                   ...objective,
                   objective_name: e.target.value,
-                })}
-              }
+                });
+              }}
               placeholder="Objective Name"
             />
           </div>
 
-          <button type="submit" className="btn btn-primary mr-2" onClick={onSubmit}>
+          <div className="form-group">
+            <label htmlFor="time">Time</label>
+            <input
+              type="text"
+              name="time"
+              className="form-control"
+              id="time"
+              value={objective.time}
+              onChange={(e) => {
+                console.log("time :-" + e.target.value);
+                setObjective({
+                  ...objective,
+                  time: e.target.value,
+                });
+              }}
+              placeholder="Time"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary mr-2"
+            onClick={onSubmit}
+          >
             Submit
           </button>
-          <button className="btn btn-light" onClick={onCancel}>Cancel</button>
+          <button className="btn btn-light" onClick={onCancel}>
+            Cancel
+          </button>
         </form>
       </div>
     );
@@ -276,6 +354,7 @@ function ObjectiveList() {
         <td>{data.category_id}</td>
         <td>{data.sub_category_id}</td>
         <td>{data.objective_name}</td>
+        <td>{data.time}</td>
         <td>
           <div className="row">
             <div className="col-6">
@@ -317,6 +396,18 @@ function ObjectiveList() {
                 <div className="card">
                   <div className="card-body">
                     <h1 className="card-title">List of All Objective </h1>
+                    {message.status && message.success ? (
+                      <div class="alert alert-success" role="alert">
+                        {message.message}
+                      </div>
+                    ) : null}
+
+                    {message.status && !message.success ? (
+                      <div class="alert alert-danger" role="alert">
+                        {message.message}
+                      </div>
+                    ) : null}
+
                     <p className="card-description">Check All Objective List</p>
                     <br />
                     <div className="table-responsive">
@@ -326,6 +417,7 @@ function ObjectiveList() {
                             <th>Category Id</th>
                             <th>Sub Category Id</th>
                             <th>Objective Name</th>
+                            <th>Time</th>
                             <th>Action</th>
                           </tr>
                         </thead>

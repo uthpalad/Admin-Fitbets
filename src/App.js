@@ -26,7 +26,7 @@ function App() {
           <Route path="/category" element={<NewCategory />}></Route>
           <Route path="/" element={ <Login />}></Route>
           <Route path="/all_category" element={<CategoryList />}></Route>
-          <Route path="/edit_category" element={<EditCategory />}></Route>
+          <Route path=":id" element={<EditCategory />}></Route>
           <Route path="/sub_category" element={<NewSubCategory />}></Route>
           <Route path="/all__sub_category" element={<SubCategoryList />}></Route>
           <Route path="/edit_sub_category/:id" element={<EditSubCategory />}></Route>
