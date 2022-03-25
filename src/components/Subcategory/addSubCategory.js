@@ -31,7 +31,7 @@ const NewSubCategory = () => {
 
   const onChangeFile = (e) => {
     setsubcategoryImageFile(e.target.files[0]);
-    setPreviewImage(URL.createObjectURL(e.target.files[0]))
+    setPreviewImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const changeOnClick = (e) => {
@@ -125,7 +125,7 @@ const NewSubCategory = () => {
                           <img
                             src={previewImage}
                             alt="Category Image"
-                            style={{ height: 400, width: "100%" }}
+                            style={{ height: "50%", width: "50%" }}
                           />
                         </div>
                         <br />

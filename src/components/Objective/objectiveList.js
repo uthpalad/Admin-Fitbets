@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { useHistory,useNavigate } from "react-router-dom";
+import { useHistory, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
@@ -39,7 +39,11 @@ function ObjectiveList() {
         if (res.data.data) {
           setObjectives(res.data.data);
         } else {
-          setMessage({status:true, success: false, message: res.data.message });
+          setMessage({
+            status: true,
+            success: false,
+            message: res.data.message,
+          });
         }
       })
       .catch((error) => {
@@ -60,9 +64,17 @@ function ObjectiveList() {
       )
       .then((res) => {
         if (res.data.success) {
-          setMessage({status:true, success: true, message: res.data.message });
+          setMessage({
+            status: true,
+            success: true,
+            message: res.data.message,
+          });
         } else {
-          setMessage({status:true, success: false, message: res.data.message });
+          setMessage({
+            status: true,
+            success: false,
+            message: res.data.message,
+          });
         }
       })
       .then((res) => {
@@ -86,7 +98,11 @@ function ObjectiveList() {
             setSubCategories(res.data.data);
           } else {
             setSubCategories([]);
-            setMessage({status:true, success: false, message: res.data.message });
+            setMessage({
+              status: true,
+              success: false,
+              message: res.data.message,
+            });
           }
         })
         .catch((error) => {
@@ -108,7 +124,11 @@ function ObjectiveList() {
           setCategories(res.data.data);
         } else {
           setCategories([]);
-          setMessage({status:true, success: false, message: res.data.message });
+          setMessage({
+            status: true,
+            success: false,
+            message: res.data.message,
+          });
         }
       })
       .catch((error) => {
@@ -140,9 +160,13 @@ function ObjectiveList() {
           setVisibleEditForm(true);
         } else {
           setVisibleEditForm(false);
-          setMessage({status:true, success: false, message: res.data.message });
+          setMessage({
+            status: true,
+            success: false,
+            message: res.data.message,
+          });
         }
-      })      
+      })
       .catch((error) => {
         console.log("error = " + error);
         navigate("/home");
@@ -191,10 +215,14 @@ function ObjectiveList() {
           setVisibleEditForm(false);
           window.location.reload(false);
         } else {
-          setMessage({status:true, success: false, message: res.data.message });
+          setMessage({
+            status: true,
+            success: false,
+            message: res.data.message,
+          });
           setVisibleEditForm(false);
         }
-      })   
+      })
       .catch((error) => {
         console.log("error = " + error);
         navigate("/home");
