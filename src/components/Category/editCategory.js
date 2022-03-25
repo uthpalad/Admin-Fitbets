@@ -21,7 +21,7 @@ const EditCategory = () => {
   const [message, setMessage] = useState({
     status: false,
     success: "",
-    message: ""
+    message: "",
   });
 
   const onChangeFile = (e) => {
@@ -38,7 +38,7 @@ const EditCategory = () => {
     e.preventDefault();
 
     const formData = new FormData();
-console.log(category.equipment)
+    console.log(category.equipment);
     formData.append("categoryName", category.categoryName);
     formData.append("equipment", category.equipment);
     formData.append("categoryImageFile", category.categoryImageFile);
@@ -49,9 +49,17 @@ console.log(category.equipment)
       )
       .then((res) => {
         if (res.data.success) {
-          setMessage({status:true, success: true, message: "Successfully updated" });
+          setMessage({
+            status: true,
+            success: true,
+            message: "Successfully updated",
+          });
         } else {
-          setMessage({status:true, success: false, message: res.data.message });
+          setMessage({
+            status: true,
+            success: false,
+            message: res.data.message,
+          });
         }
       })
       .catch((error) => {
@@ -84,7 +92,11 @@ console.log(category.equipment)
             categoryImageFile: "",
           });
           setPreviewImage(DefaultImage);
-          setMessage({status:true, success: false, message: res.data.message });
+          setMessage({
+            status: true,
+            success: false,
+            message: res.data.message,
+          });
         }
       })
       .catch((error) => {
@@ -96,7 +108,6 @@ console.log(category.equipment)
   useEffect(() => {
     getCategoryData(categoryId);
   }, []);
-
 
   return (
     <>
@@ -113,18 +124,17 @@ console.log(category.equipment)
                     <div className="card-body">
                       <h1 className="card-title">Edit Category Details</h1>
 
-
-                      {(message.status && message.success) ? (
+                      {message.status && message.success ? (
                         <div class="alert alert-success" role="alert">
-                         { message.message}
+                          {message.message}
                         </div>
-                        ) : null}
-                      
-                        {(message.status && !(message.success)) ? (
+                      ) : null}
+
+                      {message.status && !message.success ? (
                         <div class="alert alert-danger" role="alert">
-                         { message.message}
+                          {message.message}
                         </div>
-                        ) : null}
+                      ) : null}
 
                       <p className="card-description">
                         Now You can edit Category Details
@@ -161,7 +171,7 @@ console.log(category.equipment)
                           <img
                             src={previewImage}
                             alt="Category Image"
-                            style={{ height: 300, width: "100%" }}
+                            style={{ height: "50%", width: "50%" }}
                           />
                         </div>
                         <br />

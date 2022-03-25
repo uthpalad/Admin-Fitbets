@@ -6,10 +6,10 @@ import "../assets/category.scss";
 import Back from "../assets/images/add_image1.png";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-////////////////////////////////////////////
+
 const EditSubCategory = () => {
-  const {id} = useParams();
-  console.log("id is "+id)
+  const { id } = useParams();
+  console.log("id is " + id);
   const [categories, setcategories] = useState([]);
   const [categoryId, setCategoryId] = useState("");
   const [subcategoryImageFile, setsubcategoryImageFile] = useState("");
@@ -26,12 +26,12 @@ const EditSubCategory = () => {
         // console.log("Getting from:", res.data.data[0].id);
         setcategories(res.data.data);
         setsubcategoryName(res.data.data[0].subcategoryName);
-        setCategoryId(res.data.data[0].categoryId)
+        setCategoryId(res.data.data[0].categoryId);
       })
 
       .catch((err) => console.log(err));
   }, []);
-  console.log(categoryId)
+  console.log(categoryId);
 
   const onChangeFile = (e) => {
     setsubcategoryImageFile(e.target.files[0]);
@@ -99,8 +99,6 @@ const EditSubCategory = () => {
                             value={categoryId}
                             onChange={(e) => setCategoryId(e.target.value)}
                           />
-                            
-                          
                         </div>
                         <div className="form-group">
                           <img src={subcategoryImageFile} alt="" />

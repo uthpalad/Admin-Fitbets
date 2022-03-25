@@ -4,7 +4,7 @@ import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function SubCategoryList() {
   const [categories, setCategories] = useState([]);
@@ -30,7 +30,7 @@ function SubCategoryList() {
 
     axios
       .get(
-        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategoriesByCategoryId/${id}`
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories/${id}`
       )
       .then((res) => {
         console.log(res.data.data);
@@ -124,7 +124,6 @@ function SubCategoryList() {
                             <th>categoryId</th>
                             <th>subcategoryName</th>
                             <th>Image</th>
-                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -136,14 +135,32 @@ function SubCategoryList() {
                                 <td>{subCategory.categoryId}</td>
                                 <td>{subCategory.subcategoryName}</td>
                                 <td>
-                                <img
-                                  src={subCategory.subcategoryImageFile}
-                                  width="50px"
-                                  height="50px"
-                                ></img>
+                                  <img
+                                    src={subCategory.subcategoryImageFile}
+                                    width="50px"
+                                    height="50px"
+                                  ></img>
                                 </td>
-                                <td><Link to={`/edit_sub_category/${subCategory.id}`}><button>Edit</button></Link></td>
-                                <td><button onClick={() => deleteObjective(subCategory.id)}>Delete</button></td>
+                                <td>
+                                  <div className="col-6">
+                                    <Link
+                                      to={`/edit_sub_category/${subCategory.id}`}
+                                    >
+                                      <button>Edit</button>
+                                    </Link>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div className="col-6">
+                                    <button
+                                      onClick={() =>
+                                        deleteObjective(subCategory.id)
+                                      }
+                                    >
+                                      Delete
+                                    </button>
+                                  </div>
+                                </td>
                               </tr>
                             );
                           })}

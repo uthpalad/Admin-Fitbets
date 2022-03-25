@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
@@ -58,18 +58,19 @@ function CategoryList() {
       <tr>
         <td>{data.id}</td>
         <td>{data.categoryName}</td>
-        <td>{data.equipment}</td>
         <td>
           <img src={data.categoryImageFile} width="50px" height="50px"></img>
         </td>
         <td>
-          <div className="row">
-            <div className="col-6">
-              <button onClick={() => deleteObjective(data.id)}>Delete</button>
-            </div>
-            <div className="col-6">
-              <Link to={`/${data.id}`} ><button>Edit</button></Link>
-            </div>
+          <div className="col-6">
+            <button onClick={() => deleteObjective(data.id)}>Delete</button>
+          </div>
+        </td>
+        <td>
+          <div className="col-6">
+            <Link to={`/${data.id}`}>
+              <button>Edit</button>
+            </Link>
           </div>
         </td>
       </tr>
@@ -99,9 +100,9 @@ function CategoryList() {
                           <tr>
                             <th>ID</th>
                             <th>Category Name</th>
-                            <th>Equipment</th>
                             <th>Image</th>
-                            <th>Action</th>
+                            {/* <th>Action-01</th> */}
+                            {/* <th>Action-02</th> */}
                           </tr>
                         </thead>
 
