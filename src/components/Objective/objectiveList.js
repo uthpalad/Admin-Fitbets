@@ -18,6 +18,7 @@ function ObjectiveList() {
     sub_category_id: "",
     objective_name: "",
     time: "",
+    rules:"",
   });
   const [message, setMessage] = useState({
     status: false,
@@ -156,6 +157,7 @@ function ObjectiveList() {
             sub_category_id: objective.sub_category_id,
             objective_name: objective.objective_name,
             time: objective.time,
+            rules: objective.rules,
           });
           setVisibleEditForm(true);
         } else {
@@ -191,6 +193,7 @@ function ObjectiveList() {
       sub_category_id: objective.sub_category_id,
       objective_name: objective.objective_name,
       time: objective.time,
+      rules: objective.rules,
     };
     axios
       .put(
@@ -211,6 +214,7 @@ function ObjectiveList() {
             sub_category_id: "",
             objective_name: "",
             time: "",
+            rules: "",
           });
           setVisibleEditForm(false);
           window.location.reload(false);
@@ -361,6 +365,25 @@ function ObjectiveList() {
             />
           </div>
 
+          <div className="form-group">
+            <label htmlFor="rules">Rules</label>
+            <input
+              type="text"
+              name="rules"
+              className="form-control"
+              id="rules"
+              value={objective.rules}
+              onChange={(e) => {
+                console.log("rules :-" + e.target.value);
+                setObjective({
+                  ...objective,
+                  rules: e.target.value,
+                });
+              }}
+              placeholder="Rules"
+            />
+          </div>
+
           <button
             type="submit"
             className="btn btn-primary mr-2"
@@ -383,6 +406,7 @@ function ObjectiveList() {
         <td>{data.sub_category_id}</td>
         <td>{data.objective_name}</td>
         <td>{data.time}</td>
+        <td>{data.rules}</td>
         <td>
           <div className="row">
             <div className="col-6">
@@ -446,6 +470,7 @@ function ObjectiveList() {
                             <th>Sub Category Id</th>
                             <th>Objective Name</th>
                             <th>Time</th>
+                            <th>rules</th>
                             <th>Action</th>
                           </tr>
                         </thead>
