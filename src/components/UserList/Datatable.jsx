@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../axios";
 import { Link } from "react-router-dom";
 import "./datatable.scss";
 import "./model.css";
@@ -23,7 +23,7 @@ const Datatable = () => {
   const [userDetail, setuserDetail] = useState([]);
   const [viewUserDetail, setviewUserDetail] = useState([]);
   const [show, setshow] = useState(false);
-  const handleShow = id => {
+  const handleShow = (id) => {
     setshow(true);
     getOneUserDetail(id);
   };
@@ -34,15 +34,12 @@ const Datatable = () => {
 
   const getItems = () => {
     axios
-      .get(
-        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/user/get-all-users`,
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjUxOSwidXNlcm5hbWUiOiJkdWxhbl9TIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk5OS0wNS0yNSIsImVtYWlsX2FkZHJlc3MiOiJkdWxhbi5TQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIrOTQ3MTIzNDU2Nzg5IiwiaXNfYWN0aXZlIjp0cnVlfSwiaWF0IjoxNjQ3MDA5ODQwNDMzLCJleHAiOjE2NDcwMTEwNTAwMzN9.IIXXf1jWlIqfZryI1HskYtCgIZm0aQ4wAfSWvvyfzbYnUo5v-h2OaUvrvtHGjEDE4DpwJiSrxanwO7lE__WdZsO-bL6huoRlFOZ2rqMcrItGRiVVmcW3R9CUeSyzGvbJiSR7X2tACEriEly3vltcLEQniShTMMjz9OYc7JMZhWnX3fXZaEO3OuMwmdHJSrtjzjvKOPQX0xY1IgOFDn2-DIeYUdWYUbH-Nf9h1wzas5BrXg3TkGd_AMcNhDhD0xlK9xckAKd2VDFS3ObE9CSzSXpTQ4Ie5H91v6p7y_ChDkaLG3SiImuc026bCHMm0jIJQWkp_l4QPByPcur0NwBhFai3bT-UpI5Qbb7QNAX2bUIhunK5rhQX0HQx-r8FzQ7c1FuUGk4z2kmvb4gom3f_ZrAQoR5YtCznTn0olUJ7YjqtdC1JJUkH-sl7hcE7GbBRrm-8BjkjeaN1iKaMXNAqnjHRse7THgII5kOun6le2uo5QzreWUUXAp1fKL-aakbKZA7txReJ__i2YRuo_1zknMZ6fXR0sm31dG7N3SPzXeJJ4mmReiykbA5-xDxRs0t5qsAU9L-arv94bLDaHe-wbpFqA_R7zqL6j2yQzyEql3iL2FEEfff1d-exmwDjhCDTuC143FUANODhLF8lDYtxOCpNxL8dyYS8HJdmc6ywYlw`,
-          },
-        }
-      )
-      .then(res => {
+      .get(`/user/get-all-users`, {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjUxOSwidXNlcm5hbWUiOiJkdWxhbl9TIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk5OS0wNS0yNSIsImVtYWlsX2FkZHJlc3MiOiJkdWxhbi5TQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIrOTQ3MTIzNDU2Nzg5IiwiaXNfYWN0aXZlIjp0cnVlfSwiaWF0IjoxNjQ3MDA5ODQwNDMzLCJleHAiOjE2NDcwMTEwNTAwMzN9.IIXXf1jWlIqfZryI1HskYtCgIZm0aQ4wAfSWvvyfzbYnUo5v-h2OaUvrvtHGjEDE4DpwJiSrxanwO7lE__WdZsO-bL6huoRlFOZ2rqMcrItGRiVVmcW3R9CUeSyzGvbJiSR7X2tACEriEly3vltcLEQniShTMMjz9OYc7JMZhWnX3fXZaEO3OuMwmdHJSrtjzjvKOPQX0xY1IgOFDn2-DIeYUdWYUbH-Nf9h1wzas5BrXg3TkGd_AMcNhDhD0xlK9xckAKd2VDFS3ObE9CSzSXpTQ4Ie5H91v6p7y_ChDkaLG3SiImuc026bCHMm0jIJQWkp_l4QPByPcur0NwBhFai3bT-UpI5Qbb7QNAX2bUIhunK5rhQX0HQx-r8FzQ7c1FuUGk4z2kmvb4gom3f_ZrAQoR5YtCznTn0olUJ7YjqtdC1JJUkH-sl7hcE7GbBRrm-8BjkjeaN1iKaMXNAqnjHRse7THgII5kOun6le2uo5QzreWUUXAp1fKL-aakbKZA7txReJ__i2YRuo_1zknMZ6fXR0sm31dG7N3SPzXeJJ4mmReiykbA5-xDxRs0t5qsAU9L-arv94bLDaHe-wbpFqA_R7zqL6j2yQzyEql3iL2FEEfff1d-exmwDjhCDTuC143FUANODhLF8lDYtxOCpNxL8dyYS8HJdmc6ywYlw`,
+        },
+      })
+      .then((res) => {
         if (
           res.data.status === 200 &&
           res.data.message === "All Users List Received" &&
@@ -62,22 +59,19 @@ const Datatable = () => {
           console.error("internal database Error");
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
 
-  const getOneUserDetail = userRowId => {
+  const getOneUserDetail = (userRowId) => {
     axios
-      .get(
-        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/user/profile/${userRowId}`,
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjUxOSwidXNlcm5hbWUiOiJkdWxhbl9TIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk5OS0wNS0yNSIsImVtYWlsX2FkZHJlc3MiOiJkdWxhbi5TQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIrOTQ3MTIzNDU2Nzg5IiwiaXNfYWN0aXZlIjp0cnVlfSwiaWF0IjoxNjQ3MDA5ODQwNDMzLCJleHAiOjE2NDcwMTEwNTAwMzN9.IIXXf1jWlIqfZryI1HskYtCgIZm0aQ4wAfSWvvyfzbYnUo5v-h2OaUvrvtHGjEDE4DpwJiSrxanwO7lE__WdZsO-bL6huoRlFOZ2rqMcrItGRiVVmcW3R9CUeSyzGvbJiSR7X2tACEriEly3vltcLEQniShTMMjz9OYc7JMZhWnX3fXZaEO3OuMwmdHJSrtjzjvKOPQX0xY1IgOFDn2-DIeYUdWYUbH-Nf9h1wzas5BrXg3TkGd_AMcNhDhD0xlK9xckAKd2VDFS3ObE9CSzSXpTQ4Ie5H91v6p7y_ChDkaLG3SiImuc026bCHMm0jIJQWkp_l4QPByPcur0NwBhFai3bT-UpI5Qbb7QNAX2bUIhunK5rhQX0HQx-r8FzQ7c1FuUGk4z2kmvb4gom3f_ZrAQoR5YtCznTn0olUJ7YjqtdC1JJUkH-sl7hcE7GbBRrm-8BjkjeaN1iKaMXNAqnjHRse7THgII5kOun6le2uo5QzreWUUXAp1fKL-aakbKZA7txReJ__i2YRuo_1zknMZ6fXR0sm31dG7N3SPzXeJJ4mmReiykbA5-xDxRs0t5qsAU9L-arv94bLDaHe-wbpFqA_R7zqL6j2yQzyEql3iL2FEEfff1d-exmwDjhCDTuC143FUANODhLF8lDYtxOCpNxL8dyYS8HJdmc6ywYlw`,
-          },
-        }
-      )
-      .then(res => {
+      .get(`/user/profile/${userRowId}`, {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjUxOSwidXNlcm5hbWUiOiJkdWxhbl9TIiwiZ2VuZGVyIjoibWFsZSIsImJpcnRoZGF5IjoiMTk5OS0wNS0yNSIsImVtYWlsX2FkZHJlc3MiOiJkdWxhbi5TQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIrOTQ3MTIzNDU2Nzg5IiwiaXNfYWN0aXZlIjp0cnVlfSwiaWF0IjoxNjQ3MDA5ODQwNDMzLCJleHAiOjE2NDcwMTEwNTAwMzN9.IIXXf1jWlIqfZryI1HskYtCgIZm0aQ4wAfSWvvyfzbYnUo5v-h2OaUvrvtHGjEDE4DpwJiSrxanwO7lE__WdZsO-bL6huoRlFOZ2rqMcrItGRiVVmcW3R9CUeSyzGvbJiSR7X2tACEriEly3vltcLEQniShTMMjz9OYc7JMZhWnX3fXZaEO3OuMwmdHJSrtjzjvKOPQX0xY1IgOFDn2-DIeYUdWYUbH-Nf9h1wzas5BrXg3TkGd_AMcNhDhD0xlK9xckAKd2VDFS3ObE9CSzSXpTQ4Ie5H91v6p7y_ChDkaLG3SiImuc026bCHMm0jIJQWkp_l4QPByPcur0NwBhFai3bT-UpI5Qbb7QNAX2bUIhunK5rhQX0HQx-r8FzQ7c1FuUGk4z2kmvb4gom3f_ZrAQoR5YtCznTn0olUJ7YjqtdC1JJUkH-sl7hcE7GbBRrm-8BjkjeaN1iKaMXNAqnjHRse7THgII5kOun6le2uo5QzreWUUXAp1fKL-aakbKZA7txReJ__i2YRuo_1zknMZ6fXR0sm31dG7N3SPzXeJJ4mmReiykbA5-xDxRs0t5qsAU9L-arv94bLDaHe-wbpFqA_R7zqL6j2yQzyEql3iL2FEEfff1d-exmwDjhCDTuC143FUANODhLF8lDYtxOCpNxL8dyYS8HJdmc6ywYlw`,
+        },
+      })
+      .then((res) => {
         if (
           res.data.code === 200 &&
           res.data.message === "profile exists" &&
@@ -100,22 +94,19 @@ const Datatable = () => {
           console.error("internal database Error");
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
 
-  const deleteItems = rowId => {
+  const deleteItems = (rowId) => {
     axios
-      .delete(
-        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/adminnew/deleteUser/${rowId}`,
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsImFkbWluX25hbWUiOiJBbnVyYSBBbWFyYWJhbmR1IiwiZW1haWxfYWRkcmVzcyI6ImFudXJhQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ2ODA1OTcyNTYyLCJleHAiOjE2NDY4MDcxODIxNjJ9.ovNWylxyptm9pXJ4dxYR8robCKekTFjjaZjrLOaup3zhg3RK8o6elT8E4iwN6251RMvEux25SzQUBbo3EXDxAvuv1dPLEk1jL04P_rRejurY1W6C_b8LceqWpcJbuVKKJHigik4v8GxBguAsnUEeKsB_tNypKaSWv6K0pgt6ajuaEZktSKeHwuGVGmv8Zhpccbkh7R_gW1KkJs-iBRqn27aTBDX2XUSt94_J1pu0dTI6-Au4zHKwp-H8-PkFK1yq8e0cUZUzbvYOAy9QeUIinVQk0Nx0rRtp4fE1GVkQe_s5Zq819ZT_5HdjXkHE3XIBpkUcCR7Mgf68VfrdVE0awaXFiOzob3uQu7Wq86B0HYQmndFMEQeMOHCu6xbnbY-QT8IqwUSPBJeLunfkksMc6hHjI5kpCPieJ_HWIqsa-h-gG9F0T2g0eMkxWUV2jHsXwgKltcz0lI5Nh7L6OgCllZrEhTFt3K81qhaYKgIztZOEK4XLtAgj0ClK0U-DLSev1y7a4iZXx3PgyT14hCx9ljfvLXjDhCmKKSRko_1lYMVSuwl2a1e_WVfTbk46gKEXyDn_8V3lEeqCrlfu-UI2aCwcZB36t2tRQBqT2z7qYjVvnfNXMu3pPF5aq-qme7mhn-kT4QskKXvWXFft-4D6wqEnGxx91ksc1GEQ8wnQ3NA`,
-          },
-        }
-      )
-      .then(res => {
+      .delete(`/adminnew/deleteUser/${rowId}`, {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOjgsImFkbWluX25hbWUiOiJBbnVyYSBBbWFyYWJhbmR1IiwiZW1haWxfYWRkcmVzcyI6ImFudXJhQGdtYWlsLmNvbSIsIm1vYmlsZV9udW1iZXIiOiIwNzc4OTg5NTk4Iiwic3RhdHVzIjoiQURNSU4ifSwiaWF0IjoxNjQ2ODA1OTcyNTYyLCJleHAiOjE2NDY4MDcxODIxNjJ9.ovNWylxyptm9pXJ4dxYR8robCKekTFjjaZjrLOaup3zhg3RK8o6elT8E4iwN6251RMvEux25SzQUBbo3EXDxAvuv1dPLEk1jL04P_rRejurY1W6C_b8LceqWpcJbuVKKJHigik4v8GxBguAsnUEeKsB_tNypKaSWv6K0pgt6ajuaEZktSKeHwuGVGmv8Zhpccbkh7R_gW1KkJs-iBRqn27aTBDX2XUSt94_J1pu0dTI6-Au4zHKwp-H8-PkFK1yq8e0cUZUzbvYOAy9QeUIinVQk0Nx0rRtp4fE1GVkQe_s5Zq819ZT_5HdjXkHE3XIBpkUcCR7Mgf68VfrdVE0awaXFiOzob3uQu7Wq86B0HYQmndFMEQeMOHCu6xbnbY-QT8IqwUSPBJeLunfkksMc6hHjI5kpCPieJ_HWIqsa-h-gG9F0T2g0eMkxWUV2jHsXwgKltcz0lI5Nh7L6OgCllZrEhTFt3K81qhaYKgIztZOEK4XLtAgj0ClK0U-DLSev1y7a4iZXx3PgyT14hCx9ljfvLXjDhCmKKSRko_1lYMVSuwl2a1e_WVfTbk46gKEXyDn_8V3lEeqCrlfu-UI2aCwcZB36t2tRQBqT2z7qYjVvnfNXMu3pPF5aq-qme7mhn-kT4QskKXvWXFft-4D6wqEnGxx91ksc1GEQ8wnQ3NA`,
+        },
+      })
+      .then((res) => {
         if (
           res.data.code === 200 &&
           res.data.message === "succesfully deleted" &&
@@ -132,10 +123,10 @@ const Datatable = () => {
         // const users = res.data.data;
         // setuserDetail(users);
       })
-      .then(res => {
+      .then((res) => {
         window.location.reload(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("delete fail! server error", error);
       });
   };
@@ -144,13 +135,14 @@ const Datatable = () => {
       field: "action",
       headerName: "View profile",
       width: 100,
-      renderCell: params => {
+      renderCell: (params) => {
         return (
           <div className="cellAction">
             <Button
               variant="success"
               size="sm"
-              onClick={() => handleShow(params.row.id)}>
+              onClick={() => handleShow(params.row.id)}
+            >
               View
             </Button>
             {/* <Link to="/users/test" style={{ textDecoration: "none" }}>
@@ -168,7 +160,7 @@ const Datatable = () => {
       field: "action2",
       headerName: "Delete user",
       width: 100,
-      renderCell: params => {
+      renderCell: (params) => {
         return (
           <div className="cellAction">
             {/* <Link to="/users/test" style={{ textDecoration: "none" }}>
@@ -177,7 +169,8 @@ const Datatable = () => {
             <Button
               variant="outline-danger"
               size="sm"
-              onClick={() => deleteItems(params.row.id)}>
+              onClick={() => deleteItems(params.row.id)}
+            >
               Delete
             </Button>
           </div>
@@ -186,8 +179,8 @@ const Datatable = () => {
     },
   ];
 
-  const handleCommit = e => {
-    const body = r => {
+  const handleCommit = (e) => {
+    const body = (r) => {
       if ((r.field = "username")) {
         return {
           username: r.value,
@@ -263,7 +256,8 @@ const Datatable = () => {
             <ul
               className="nav nav-tabs border-top"
               id="setting-panel"
-              role="tablist">
+              role="tablist"
+            >
               <li className="nav-item">
                 <a
                   className="nav-link active"
@@ -272,7 +266,8 @@ const Datatable = () => {
                   href="#todo-section"
                   role="tab"
                   aria-controls="todo-section"
-                  aria-expanded="true">
+                  aria-expanded="true"
+                >
                   TO DO LIST
                 </a>
               </li>
@@ -283,7 +278,8 @@ const Datatable = () => {
                   data-toggle="tab"
                   href="#chats-section"
                   role="tab"
-                  aria-controls="chats-section">
+                  aria-controls="chats-section"
+                >
                   CHATS
                 </a>
               </li>
@@ -293,7 +289,8 @@ const Datatable = () => {
                 className="tab-pane fade show active scroll-wrapper"
                 id="todo-section"
                 role="tabpanel"
-                aria-labelledby="todo-section">
+                aria-labelledby="todo-section"
+              >
                 <div className="add-items d-flex px-3 mb-0">
                   <form className="form w-100">
                     <div className="form-group d-flex">
@@ -305,7 +302,8 @@ const Datatable = () => {
                       <button
                         type="submit"
                         className="add btn btn-primary todo-list-add-btn"
-                        id="add-task">
+                        id="add-task"
+                      >
                         Add
                       </button>
                     </div>
@@ -397,7 +395,8 @@ const Datatable = () => {
                 className="tab-pane fade"
                 id="chats-section"
                 role="tabpanel"
-                aria-labelledby="chats-section">
+                aria-labelledby="chats-section"
+              >
                 <div className="d-flex align-items-center justify-content-between border-bottom">
                   <p className="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">
                     Friends
@@ -556,7 +555,8 @@ const Datatable = () => {
                               <Button
                                 variant="outline-primary"
                                 size="sm"
-                                onClick={handleClose}>
+                                onClick={handleClose}
+                              >
                                 Close
                               </Button>
                             </div>
