@@ -4,17 +4,28 @@ import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
 import Back from "../assets/images/add_image1.png";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import DefaultImage from "../assets/images/add_image1.png";
+import { WindowSharp } from "@mui/icons-material";
 
 const EditSubCategory = () => {
+  const navigate = useNavigate();
+  const [previewImage, setPreviewImage] = useState(DefaultImage);
   const { id } = useParams();
   console.log("id is " + id);
   const [categories, setcategories] = useState([]);
   const [categoryId, setCategoryId] = useState("");
   const [subcategoryImageFile, setsubcategoryImageFile] = useState("");
   const [subcategoryName, setsubcategoryName] = useState("");
+  const [equipment, setEquipment] = useState("");
   const [error, setError] = useState("");
+  const [message, setMessage] = useState({
+    status: false,
+    success: "",
+    message: "",
+  });
+
 
   useEffect(() => {
     axios
@@ -27,14 +38,17 @@ const EditSubCategory = () => {
         setcategories(res.data.data);
         setsubcategoryName(res.data.data[0].subcategoryName);
         setCategoryId(res.data.data[0].categoryId);
+        setEquipment(res.data.data[0].equipment);
+        setPreviewImage(res.data.data[0].subcategoryImageFile)
       })
 
       .catch((err) => console.log(err));
   }, []);
-  console.log(categoryId);
+  console.log(categories);
 
   const onChangeFile = (e) => {
     setsubcategoryImageFile(e.target.files[0]);
+    setPreviewImage(URL.createObjectURL(e.target.files[0]));
     console.log(categoryId);
   };
 
@@ -46,27 +60,39 @@ const EditSubCategory = () => {
     formData.append("categoryId", categoryId);
     formData.append("subcategoryImageFile", subcategoryImageFile);
     formData.append("subcategoryName", subcategoryName);
+    formData.append("equipment", equipment);
 
     setCategoryId("");
     setsubcategoryImageFile("");
     setsubcategoryName("");
+    setEquipment("");
 
     axios
-      .post(
-        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/addSubCategoryToAdminPanel",
+      .put(
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/editSubCategory/${id}`,
         formData
       )
-      .then((res) => res.data.success)
-      .catch((error) => {
-        if (
-          error.response &&
-          error.response.status >= 400 &&
-          error.response.status <= 500
-        ) {
-          setError(error.response.data.message);
+      .then((res) => {
+        if (res.data.success) {
+          setMessage({
+            status: true,
+            success: true,
+            message: "Successfully updated",
+          });
+          alert("Successfully updated");
+          navigate("/all__sub_category");
+          //window.location.reload(false);
         } else {
-          console.log(error);
+          setMessage({
+            status: true,
+            success: false,
+            message: res.data.message,
+          });
         }
+      })
+      .catch((error) => {
+        console.log("error = " + error);
+        navigate("/all__sub_category");
       });
   };
 
@@ -101,10 +127,6 @@ const EditSubCategory = () => {
                           />
                         </div>
                         <div className="form-group">
-                          <img src={subcategoryImageFile} alt="" />
-                        </div>
-
-                        <div className="form-group">
                           <label>Select Category Image</label>
                           <input
                             type="file"
@@ -114,6 +136,11 @@ const EditSubCategory = () => {
                             required
                             className="form-control form-control-user"
                           />
+                        </div>
+                        <div className="form-group">
+                          <img src={previewImage} 
+                          style={{ height: "50%", width: "50%" }} 
+                          alt="subCategoryImage" />
                         </div>
                         <br />
 
@@ -129,6 +156,20 @@ const EditSubCategory = () => {
                             value={subcategoryName}
                             onChange={(e) => setsubcategoryName(e.target.value)}
                             placeholder="subcategoryName"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="equipment">
+                            Equipment
+                          </label>
+                          <input
+                            type="text"
+                            name="equipment"
+                            className="form-control"
+                            id="equipment"
+                            value={equipment}
+                            onChange={(e) => setEquipment(e.target.value)}
+                            placeholder="equipment"
                           />
                         </div>
 
