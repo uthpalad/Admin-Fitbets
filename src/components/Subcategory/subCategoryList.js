@@ -30,7 +30,7 @@ function SubCategoryList() {
 
     axios
       .get(
-        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories/${id}`
+        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategoriesByCategoryId/${id}`
       )
       .then((res) => {
         console.log(res.data.data);

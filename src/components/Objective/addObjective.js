@@ -14,7 +14,7 @@ const NewObjective = () => {
     rules: "",
   });
   const [categories, setcategories] = useState([]);
-  const [categoryId, setCategoryId] = useState("");
+  const [categoryId, setCategoryId] = useState([]);
   const [SubCategories, setSubCategories] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
 
@@ -42,7 +42,7 @@ const NewObjective = () => {
     if (objectiveData.category_id !== "") {
       axios
         .get(
-          `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories/${objectiveData.category_id}`
+          `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategoriesByCategoryId/${objectiveData.category_id}`
         )
 
         .then((res) => {
@@ -233,7 +233,6 @@ const NewObjective = () => {
                         <button type="submit" className="btn btn-primary mr-2">
                           Submit
                         </button>
-                        <button className="btn btn-light">Cancel</button>
                       </form>
                     </div>
                   </div>
