@@ -14,6 +14,11 @@ const NewSubCategory = () => {
   const [equipment, setequipment] = useState("");
   const [error, setError] = useState("");
   const [previewImage, setPreviewImage] = useState(DefaultImage);
+  const [message, setMessage] = useState({
+    status: false,
+    success: "",
+    message: "",
+  });
 
   useEffect(() => {
     axios
@@ -49,7 +54,25 @@ const NewSubCategory = () => {
 
     axios
       .post("/admin/addSubCategoryToAdminPanel", formData)
-      .then((res) => res.data.success)
+      .then((res) => {
+        if (res.data.success) {
+          setMessage({
+            status: true,
+            success: true,
+            message: "Successfully updated",
+          });
+          // alert("Successfully updated");
+          setPreviewImage(DefaultImage);
+          // navigate("/all__sub_category");
+          //window.location.reload(false);
+        } else {
+          setMessage({
+            status: true,
+            success: false,
+            message: res.data.message,
+          });
+        }
+      })
       .catch((error) => {
         if (
           error.response &&
@@ -78,6 +101,17 @@ const NewSubCategory = () => {
                   <div className="card">
                     <div className="card-body">
                       <h1 className="card-title">New Sub Category Details</h1>
+                      {message.status && message.success ? (
+                        <div class="alert alert-success" role="alert">
+                          {message.message}
+                        </div>
+                      ) : null}
+
+                      {message.status && !message.success ? (
+                        <div class="alert alert-danger" role="alert">
+                          {message.message}
+                        </div>
+                      ) : null}
                       <p className="card-description">
                         Now You can add new Sub Category Details
                       </p>

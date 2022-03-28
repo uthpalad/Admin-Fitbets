@@ -116,6 +116,7 @@ function SubCategoryList() {
                             <th>Subcategory Id</th>
                             <th>categoryId</th>
                             <th>subcategoryName</th>
+                            <th>Equipment</th>
                             <th>Image</th>
                           </tr>
                         </thead>
@@ -127,6 +128,7 @@ function SubCategoryList() {
                                 <td>{subCategory.id}</td>
                                 <td>{subCategory.categoryId}</td>
                                 <td>{subCategory.subcategoryName}</td>
+                                <td>{subCategory.equipment}</td>
                                 <td>
                                   <img
                                     src={subCategory.subcategoryImageFile}
