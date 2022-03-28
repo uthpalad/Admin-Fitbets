@@ -11,7 +11,7 @@ const NewSubCategory = () => {
   const [categoryId, setCategoryId] = useState("");
   const [subcategoryImageFile, setsubcategoryImageFile] = useState("");
   const [subcategoryName, setsubcategoryName] = useState("");
-  const [challenges, setchallenges] = useState("");
+  const [equipment, setequipment] = useState("");
   const [error, setError] = useState("");
   const [previewImage, setPreviewImage] = useState(DefaultImage);
 
@@ -42,12 +42,12 @@ const NewSubCategory = () => {
     formData.append("categoryId", categoryId);
     formData.append("subcategoryImageFile", subcategoryImageFile);
     formData.append("subcategoryName", subcategoryName);
-    formData.append("challenges", challenges);
+    formData.append("equipment", equipment);
 
     setCategoryId("");
     setsubcategoryImageFile("");
     setsubcategoryName("");
-    setchallenges("");
+    setequipment("");
 
     axios
       .post(
@@ -146,15 +146,15 @@ const NewSubCategory = () => {
                         </div>
 
                         <div className="form-group">
-                          <label htmlFor="challenges">Challenges</label>
+                          <label htmlFor="equipment">Equipment</label>
                           <input
                             type="text"
-                            name="challenges"
+                            name="equipment"
                             className="form-control"
-                            id="challenges"
-                            value={challenges}
-                            onChange={(e) => setchallenges(e.target.value)}
-                            placeholder="Challenges"
+                            id="equipment"
+                            value={equipment}
+                            onChange={(e) => setequipment(e.target.value)}
+                            placeholder="Euipment"
                           />
                         </div>
 

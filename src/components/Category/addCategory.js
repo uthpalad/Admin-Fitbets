@@ -8,9 +8,7 @@ import DefaultImage from "../assets/images/add_image1.png";
 
 const NewCategory = () => {
   const [categoryName, setcategoryName] = useState("");
-  const [equipment, setequipment] = useState("");
   const [categoryImageFile, setcategoryImageFile] = useState("");
-  const [rules, setrules] = useState("");
   const [error, setError] = useState("");
   const [previewImage, setPreviewImage] = useState(DefaultImage);
 
@@ -25,14 +23,10 @@ const NewCategory = () => {
     const formData = new FormData();
 
     formData.append("categoryName", categoryName);
-    formData.append("equipment", equipment);
     formData.append("categoryImageFile", categoryImageFile);
-    formData.append("rules", rules);
 
     setcategoryName("");
-    setequipment("");
     setcategoryImageFile("");
-    setrules("");
 
     axios
       .post(
@@ -107,32 +101,6 @@ const NewCategory = () => {
                           />
                         </div>
                         <br />
-
-                        <div className="form-group">
-                          <label htmlFor="exampleInputEmail3">Equipment</label>
-                          <input
-                            type="text"
-                            name="equipment"
-                            className="form-control"
-                            id="equipment"
-                            value={equipment}
-                            onChange={(e) => setequipment(e.target.value)}
-                            placeholder="Equipment"
-                          />
-                        </div>
-
-                        <div className="form-group">
-                          <label htmlFor="exampleInputEmail4">Rules</label>
-                          <input
-                            type="text"
-                            name="rules"
-                            className="form-control"
-                            id="rules"
-                            value={rules}
-                            onChange={(e) => setrules(e.target.value)}
-                            placeholder="rules"
-                          />
-                        </div>
 
                         <button type="submit" className="btn btn-primary mr-2">
                           Submit

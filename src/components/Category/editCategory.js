@@ -13,7 +13,6 @@ const EditCategory = () => {
   const categoryId = id;
   const [category, setCategory] = useState({
     categoryName: "",
-    equipment: "",
     categoryImageFile: "",
   });
 
@@ -40,7 +39,6 @@ const EditCategory = () => {
     const formData = new FormData();
     console.log(category.equipment);
     formData.append("categoryName", category.categoryName);
-    formData.append("equipment", category.equipment);
     formData.append("categoryImageFile", category.categoryImageFile);
     axios
       .put(
@@ -80,7 +78,6 @@ const EditCategory = () => {
           setCategory({
             ...category,
             categoryName: categoryDetails.categoryName,
-            equipment: categoryDetails.equipment,
             categoryImageFile: categoryDetails.categoryImageFile,
           });
           setPreviewImage(categoryDetails.categoryImageFile);
@@ -88,7 +85,6 @@ const EditCategory = () => {
           setCategory({
             ...category,
             categoryName: "",
-            equipment: "",
             categoryImageFile: "",
           });
           setPreviewImage(DefaultImage);
@@ -175,19 +171,6 @@ const EditCategory = () => {
                           />
                         </div>
                         <br />
-
-                        <div className="form-group">
-                          <label htmlFor="exampleInputEmail3">Equipment</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="equipment"
-                            name="equipment"
-                            value={category.equipment}
-                            onChange={handleChange}
-                            placeholder="Equipment"
-                          />
-                        </div>
 
                         <button
                           type="submit"
