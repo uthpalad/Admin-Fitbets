@@ -5,7 +5,7 @@ import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
 import Back from "../assets/images/add_image1.png";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../axios";
 import DefaultImage from "../assets/images/add_image1.png";
 import { WindowSharp } from "@mui/icons-material";
 
@@ -26,12 +26,9 @@ const EditSubCategory = () => {
     message: "",
   });
 
-
   useEffect(() => {
     axios
-      .get(
-        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories/${id}`
-      )
+      .get(`/admin/getAllSubCategories/${id}`)
 
       .then((res) => {
         // console.log("Getting from:", res.data.data[0].id);
@@ -39,7 +36,7 @@ const EditSubCategory = () => {
         setsubcategoryName(res.data.data[0].subcategoryName);
         setCategoryId(res.data.data[0].categoryId);
         setEquipment(res.data.data[0].equipment);
-        setPreviewImage(res.data.data[0].subcategoryImageFile)
+        setPreviewImage(res.data.data[0].subcategoryImageFile);
       })
 
       .catch((err) => console.log(err));
@@ -68,10 +65,7 @@ const EditSubCategory = () => {
     setEquipment("");
 
     axios
-      .put(
-        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/editSubCategory/${id}`,
-        formData
-      )
+      .put(`/admin/editSubCategory/${id}`, formData)
       .then((res) => {
         if (res.data.success) {
           setMessage({
@@ -138,9 +132,11 @@ const EditSubCategory = () => {
                           />
                         </div>
                         <div className="form-group">
-                          <img src={previewImage} 
-                          style={{ height: "50%", width: "50%" }} 
-                          alt="subCategoryImage" />
+                          <img
+                            src={previewImage}
+                            style={{ height: "50%", width: "50%" }}
+                            alt="subCategoryImage"
+                          />
                         </div>
                         <br />
 
@@ -159,9 +155,7 @@ const EditSubCategory = () => {
                           />
                         </div>
                         <div className="form-group">
-                          <label htmlFor="equipment">
-                            Equipment
-                          </label>
+                          <label htmlFor="equipment">Equipment</label>
                           <input
                             type="text"
                             name="equipment"

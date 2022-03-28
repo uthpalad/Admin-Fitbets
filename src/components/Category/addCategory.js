@@ -3,7 +3,7 @@ import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
-import axios from "axios";
+import axios from "../axios";
 import DefaultImage from "../assets/images/add_image1.png";
 
 const NewCategory = () => {
@@ -29,10 +29,7 @@ const NewCategory = () => {
     setcategoryImageFile("");
 
     axios
-      .post(
-        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/addCategoryToAdminPanel",
-        formData
-      )
+      .post("/admin/addCategoryToAdminPanel", formData)
       .then((res) => res.data.success)
       .catch((error) => {
         if (

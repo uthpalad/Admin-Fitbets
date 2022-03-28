@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../axios";
 import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
@@ -41,10 +41,7 @@ const EditCategory = () => {
     formData.append("categoryName", category.categoryName);
     formData.append("categoryImageFile", category.categoryImageFile);
     axios
-      .put(
-        `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/editCategory/${categoryId}`,
-        formData
-      )
+      .put(`/admin/editCategory/${categoryId}`, formData)
       .then((res) => {
         if (res.data.success) {
           setMessage({
@@ -68,10 +65,7 @@ const EditCategory = () => {
 
   const getCategoryData = (categoryId) => {
     axios
-      .get(
-        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getCategoryById/" +
-          categoryId
-      )
+      .get("/admin/getCategoryById/" + categoryId)
       .then((res) => {
         if (res.data.data) {
           const categoryDetails = res.data.data[0];

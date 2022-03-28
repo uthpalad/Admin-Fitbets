@@ -3,7 +3,7 @@ import Dashboard from "../DashBoard/dashboard";
 import DashboardFooter from "../DashBoard/dashboard_footer";
 import DashboardMenu from "../DashBoard/dashboard_menu";
 import "../assets/category.scss";
-import axios from "axios";
+import axios from "../axios";
 import DefaultImage from "../assets/images/add_image1.png";
 
 const NewSubCategory = () => {
@@ -17,9 +17,7 @@ const NewSubCategory = () => {
 
   useEffect(() => {
     axios
-      .get(
-        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllCategories"
-      )
+      .get("/admin/getAllCategories")
 
       .then((res) => {
         // console.log("Getting from:", res.data.data[0].id);
@@ -50,10 +48,7 @@ const NewSubCategory = () => {
     setequipment("");
 
     axios
-      .post(
-        "http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/addSubCategoryToAdminPanel",
-        formData
-      )
+      .post("/admin/addSubCategoryToAdminPanel", formData)
       .then((res) => res.data.success)
       .catch((error) => {
         if (
