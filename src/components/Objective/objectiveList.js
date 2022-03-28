@@ -18,7 +18,7 @@ function ObjectiveList() {
     sub_category_id: "",
     objective_name: "",
     time: "",
-    rules:"",
+    rules: "",
   });
   const [message, setMessage] = useState({
     status: false,
@@ -92,7 +92,7 @@ function ObjectiveList() {
     if (categories.length !== 0) {
       axios
         .get(
-          `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategories/${objective.category_id}`
+          `http://ec2-35-83-63-15.us-west-2.compute.amazonaws.com:8000/admin/getAllSubCategoriesByCategoryId/${objective.category_id}`
         )
         .then((res) => {
           if (res.data.data) {

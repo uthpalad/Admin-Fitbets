@@ -38,7 +38,7 @@ const NewObjective = () => {
   }, []);
 
   useEffect(() => {
-    // console.log(objectiveData.category_id + "aa")
+    console.log(objectiveData.category_id + "aa");
     if (objectiveData.category_id !== "") {
       axios
         .get(
@@ -47,7 +47,7 @@ const NewObjective = () => {
 
         .then((res) => {
           // console.log("Getting from:", res.data.data[0].id);
-          //console.log(res.data.data)
+          console.log(res.data.data);
           if (res.data.data) {
             setSubCategories(res.data.data);
           } else {
